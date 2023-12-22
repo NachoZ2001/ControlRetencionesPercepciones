@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.6.33723.286
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControlRetenciones", "ControlRetenciones\ControlRetenciones.csproj", "{64EC2186-96C5-4E26-AE89-E0699F217A13}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{64EC2186-96C5-4E26-AE89-E0699F217A13}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64EC2186-96C5-4E26-AE89-E0699F217A13}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64EC2186-96C5-4E26-AE89-E0699F217A13}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64EC2186-96C5-4E26-AE89-E0699F217A13}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D5FDC63A-35FC-4FAB-95AC-3ED78DB3674C}
+	EndGlobalSection
+EndGlobal
