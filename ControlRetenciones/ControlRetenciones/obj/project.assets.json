@@ -4909,23 +4909,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\soyre\\.nuget\\packages\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Users\\w1zar\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\BOTS TRABAJO\\ControlRetenciones\\ControlRetenciones\\ControlRetenciones\\ControlRetenciones.csproj",
+      "projectUniqueName": "C:\\Program Files\\Sublime Merge\\ControlRetenciones\\ControlRetenciones\\ControlRetenciones\\ControlRetenciones.csproj",
       "projectName": "ControlRetenciones",
-      "projectPath": "E:\\BOTS TRABAJO\\ControlRetenciones\\ControlRetenciones\\ControlRetenciones\\ControlRetenciones.csproj",
-      "packagesPath": "C:\\Users\\soyre\\.nuget\\packages\\",
-      "outputPath": "E:\\BOTS TRABAJO\\ControlRetenciones\\ControlRetenciones\\ControlRetenciones\\obj\\",
+      "projectPath": "C:\\Program Files\\Sublime Merge\\ControlRetenciones\\ControlRetenciones\\ControlRetenciones\\ControlRetenciones.csproj",
+      "packagesPath": "C:\\Users\\w1zar\\.nuget\\packages\\",
+      "outputPath": "C:\\Program Files\\Sublime Merge\\ControlRetenciones\\ControlRetenciones\\ControlRetenciones\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\soyre\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\w1zar\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -4979,7 +4980,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.402\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.302\\RuntimeIdentifierGraph.json"
       }
     }
   }
