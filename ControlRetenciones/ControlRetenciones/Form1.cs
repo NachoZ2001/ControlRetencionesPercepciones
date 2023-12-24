@@ -1,5 +1,6 @@
 using ClosedXML.Excel;
 using SpreadsheetLight;
+using System.Globalization;
 
 namespace ControlRetenciones
 {
@@ -78,8 +79,8 @@ namespace ControlRetenciones
                     int indiceColor = 0;
 
                     // Diccionarios para almacenar filas por Nro. Doc. / CUIT
-                    Dictionary<long, List<int>> diccionarioArchivo1 = new Dictionary<long, List<int>>();
-                    Dictionary<long, List<int>> diccionarioArchivo2 = new Dictionary<long, List<int>>();
+                    Dictionary<long, List<(int, bool)>> diccionarioArchivo1 = new Dictionary<long, List<(int, bool)>>();
+                    Dictionary<long, List<(int, bool)>> diccionarioArchivo2 = new Dictionary<long, List<(int, bool)>>();
 
                     // Llenar diccionario para el archivo 1
                     for (int filaArchivo1 = 2; filaArchivo1 <= worksheetArchivo1.RowsUsed().Count(); filaArchivo1++)
@@ -89,11 +90,11 @@ namespace ControlRetenciones
 
                         if (diccionarioArchivo1.ContainsKey(nroDoc))
                         {
-                            diccionarioArchivo1[nroDoc].Add(filaArchivo1);
+                            diccionarioArchivo1[nroDoc].Add((filaArchivo1, false));
                         }
                         else
                         {
-                            diccionarioArchivo1[nroDoc] = new List<int> { filaArchivo1 };
+                            diccionarioArchivo1[nroDoc] = new List<(int, bool)> { (filaArchivo1, false) };
                         }
                     }
 
@@ -105,89 +106,60 @@ namespace ControlRetenciones
 
                         if (diccionarioArchivo2.ContainsKey(cuitAgente))
                         {
-                            diccionarioArchivo2[cuitAgente].Add(filaArchivo2);
+                            diccionarioArchivo2[cuitAgente].Add((filaArchivo2, false));
                         }
                         else
                         {
-                            diccionarioArchivo2[cuitAgente] = new List<int> { filaArchivo2 };
+                            diccionarioArchivo2[cuitAgente] = new List<(int, bool)> { (filaArchivo2, false) };
                         }
                     }
 
                     // Bucle principal para comparar y marcar en verde
-                    foreach (var claveArchivo1 in diccionarioArchivo1.Keys)
+                    foreach (var claveArchivo1 in diccionarioArchivo1.Keys.ToList())
                     {
-                        if (diccionarioArchivo2.TryGetValue(claveArchivo1, out List<int> filasArchivo2))
+                        if (diccionarioArchivo2.TryGetValue(claveArchivo1, out List<(int, bool)> filasArchivo2))
                         {
-                            foreach (int filaArchivo1 in diccionarioArchivo1[claveArchivo1])
+                            foreach ((int filaArchivo1, bool comparado) in diccionarioArchivo1[claveArchivo1].ToList())
                             {
-                                decimal importeArchivo1 = worksheetArchivo1.Cell(filaArchivo1, colImporteArchivo1).GetValue<decimal>();
-
-                                foreach (int filaArchivo2 in filasArchivo2)
+                                if (comparado == false) // Solo si aún no se ha comparado esta fila
                                 {
-                                    decimal importeArchivo2 = worksheetArchivo2.Cell(filaArchivo2, colImporteArchivo2).GetValue<decimal>();
+                                    decimal importeArchivo1 = worksheetArchivo1.Cell(filaArchivo1, colImporteArchivo1).GetValue<decimal>();
 
-                                    // Comparar con una tolerancia de ±10
-                                    if (Math.Abs(importeArchivo1 - importeArchivo2) <= 10)
+                                    foreach ((int filaArchivo2, bool comparadoArchivo2) in filasArchivo2.ToList())
                                     {
-                                        // Obtén el siguiente color de la lista
-                                        XLColor color = coloresCoincide[indiceColor % coloresCoincide.Count];
+                                        if (comparadoArchivo2 == false) //Solo si aún no se ha comparado esta fila
+                                        {
+                                            string valorCeldaImporterArchivo2 = worksheetArchivo2.Cell(filaArchivo2, colImporteArchivo2).GetString();
+                                            string valorCeldaImporterArchivo2SinComa = valorCeldaImporterArchivo2.Replace(",", ".");
+                                            decimal importeArchivo2 = decimal.Parse(valorCeldaImporterArchivo2SinComa, CultureInfo.InvariantCulture);
 
-                                        worksheetArchivo1.Cell(filaArchivo1, colImporteArchivo1).Style.Fill.BackgroundColor = color;
-                                        worksheetArchivo2.Cell(filaArchivo2, colImporteArchivo2).Style.Fill.BackgroundColor = color;
+                                            // Comparar con una tolerancia de ±10
+                                            if (Math.Abs(importeArchivo1 - importeArchivo2) <= 10)
+                                            {
+                                                // Obtén el siguiente color de la lista
+                                                XLColor color = coloresCoincide[indiceColor % coloresCoincide.Count];
+
+                                                worksheetArchivo1.Cell(filaArchivo1, colImporteArchivo1).Style.Fill.BackgroundColor = color;
+                                                worksheetArchivo2.Cell(filaArchivo2, colImporteArchivo2).Style.Fill.BackgroundColor = color;
+
+                                                // Marcar como comparado
+                                                var indiceArchivo1 = diccionarioArchivo1[claveArchivo1].FindIndex(f => f.Item1 == filaArchivo1);
+                                                var indiceArchivo2 = diccionarioArchivo2[claveArchivo1].FindIndex(f => f.Item1 == filaArchivo2);
+
+                                                diccionarioArchivo1[claveArchivo1][indiceArchivo1] = (filaArchivo1, true);
+                                                diccionarioArchivo2[claveArchivo1][indiceArchivo2] = (filaArchivo2, true);
+
+                                                indiceColor++; // Incrementar el índice de color
+                                                break; // Salir del bucle interno después de encontrar una coincidencia
+                                            }
+                                        }
                                     }
                                 }
                             }
                         }
                     }
 
-                    // Bucle adicional para comparar los que no están marcados en verde
-                    for (int filaArchivo1 = 2; filaArchivo1 <= worksheetArchivo1.RowsUsed().Count(); filaArchivo1++)
-                    {
-                        if (!EsFilaMarcadaEnVerde(worksheetArchivo1, filaArchivo1, colImporteArchivo1))
-                        {
-                            decimal importeArchivo1 = worksheetArchivo1.Cell(filaArchivo1, colImporteArchivo1).GetValue<decimal>();
-
-                            // Verificar solo las filas no marcadas en verde en el archivo 2
-                            for (int filaArchivo2 = 2; filaArchivo2 <= worksheetArchivo2.RowsUsed().Count(); filaArchivo2++)
-                            {
-                                if (!EsFilaMarcadaEnVerde(worksheetArchivo2, filaArchivo2, colImporteArchivo2))
-                                {
-                                    decimal importeArchivo2 = worksheetArchivo2.Cell(filaArchivo2, colImporteArchivo2).GetValue<decimal>();
-
-                                    // Comparar con una tolerancia de ±10
-                                    if (Math.Abs(importeArchivo1 - importeArchivo2) <= 10)
-                                    {
-                                        // Obtén el siguiente color de la lista
-                                        XLColor color = coloresCoincide[indiceColor % coloresCoincide.Count];
-
-                                        worksheetArchivo1.Cell(filaArchivo1, colImporteArchivo1).Style.Fill.BackgroundColor = color;
-                                        worksheetArchivo2.Cell(filaArchivo2, colImporteArchivo2).Style.Fill.BackgroundColor = color;
-                                    }
-                                }
-                            }
-                        }
-                    }
-
-
-                    // Bucle para marcar en rojo los que no están marcados en verde en el archivo 1
-                    for (int filaArchivo1 = 2; filaArchivo1 <= worksheetArchivo1.RowsUsed().Count(); filaArchivo1++)
-                    {
-                        if (!EsFilaMarcadaEnVerde(worksheetArchivo1, filaArchivo1, colImporteArchivo1))
-                        {
-                            worksheetArchivo1.Cell(filaArchivo1, colImporteArchivo1).Style.Fill.BackgroundColor = coloresNoCoincide[0];
-                        }
-                    }
-
-                    // Bucle para marcar en rojo los que no están marcados en verde en el archivo 2
-                    for (int filaArchivo2 = 2; filaArchivo2 <= worksheetArchivo2.RowsUsed().Count(); filaArchivo2++)
-                    {
-                        if (!EsFilaMarcadaEnVerde(worksheetArchivo2, filaArchivo2, colImporteArchivo2))
-                        {
-                            worksheetArchivo2.Cell(filaArchivo2, colImporteArchivo2).Style.Fill.BackgroundColor = coloresNoCoincide[0];
-                        }
-                    }
-
-                    // Guardar el archivo "agrupado" después de marcar en verde y en rojo
+                    //guardar ambos archivos
                     workbookArchivo1.SaveAs(pathfileArchivo1);
                     workbookArchivo2.SaveAs(pathfileArchivo2);
                 }
@@ -241,21 +213,6 @@ namespace ControlRetenciones
             }
 
             return indiceColumna;
-        }
-
-        private void txtRutaArchivo1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnSeleccionarArchivo2_Click_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
         }
     }
 }

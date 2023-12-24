@@ -56,7 +56,6 @@
             this.txtRutaArchivo1.TabIndex = 1;
             this.txtRutaArchivo1.Text = "Archivo Holistor";
             this.txtRutaArchivo1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtRutaArchivo1.TextChanged += new System.EventHandler(this.txtRutaArchivo1_TextChanged);
             // 
             // btnSeleccionarArchivo1
             // 
@@ -68,6 +67,7 @@
             this.btnSeleccionarArchivo1.TabIndex = 2;
             this.btnSeleccionarArchivo1.Text = "Seleccionar archivo";
             this.btnSeleccionarArchivo1.UseVisualStyleBackColor = false;
+            this.btnSeleccionarArchivo1.Click += new System.EventHandler(this.btnSeleccionarArchivo1_Click);
             // 
             // btnSeleccionarArchivo2
             // 
@@ -79,7 +79,7 @@
             this.btnSeleccionarArchivo2.TabIndex = 3;
             this.btnSeleccionarArchivo2.Text = "Seleccionar archivo";
             this.btnSeleccionarArchivo2.UseVisualStyleBackColor = false;
-            this.btnSeleccionarArchivo2.Click += new System.EventHandler(this.btnSeleccionarArchivo2_Click_1);
+            this.btnSeleccionarArchivo2.Click += new System.EventHandler(this.btnSeleccionarArchivo2_Click);
             // 
             // btnProcesar
             // 
@@ -91,6 +91,7 @@
             this.btnProcesar.TabIndex = 4;
             this.btnProcesar.Text = "Procesar";
             this.btnProcesar.UseVisualStyleBackColor = false;
+            this.btnProcesar.Click += new System.EventHandler(this.btnProcesar_Click);
             // 
             // Form1
             // 
@@ -105,7 +106,6 @@
             this.Controls.Add(this.txtRutaArchivo2);
             this.Name = "Form1";
             this.Text = "Form1";
-            this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
