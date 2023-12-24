@@ -28,73 +28,87 @@
         /// </summary>
         private void InitializeComponent()
         {
-            txtRutaArchivo2 = new TextBox();
-            txtRutaArchivo1 = new TextBox();
-            btnSeleccionarArchivo1 = new Button();
-            btnSeleccionarArchivo2 = new Button();
-            btnProcesar = new Button();
-            SuspendLayout();
+            this.txtRutaArchivo2 = new System.Windows.Forms.TextBox();
+            this.txtRutaArchivo1 = new System.Windows.Forms.TextBox();
+            this.btnSeleccionarArchivo1 = new System.Windows.Forms.Button();
+            this.btnSeleccionarArchivo2 = new System.Windows.Forms.Button();
+            this.btnProcesar = new System.Windows.Forms.Button();
+            this.SuspendLayout();
             // 
             // txtRutaArchivo2
             // 
-            txtRutaArchivo2.Location = new Point(438, 32);
-            txtRutaArchivo2.Name = "txtRutaArchivo2";
-            txtRutaArchivo2.Size = new Size(100, 23);
-            txtRutaArchivo2.TabIndex = 0;
-            txtRutaArchivo2.Text = "txtRutaArchivo2";
+            this.txtRutaArchivo2.BackColor = System.Drawing.Color.MediumPurple;
+            this.txtRutaArchivo2.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.txtRutaArchivo2.Location = new System.Drawing.Point(257, 32);
+            this.txtRutaArchivo2.Name = "txtRutaArchivo2";
+            this.txtRutaArchivo2.Size = new System.Drawing.Size(190, 23);
+            this.txtRutaArchivo2.TabIndex = 0;
+            this.txtRutaArchivo2.Text = "Archivo AFIP";
+            this.txtRutaArchivo2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // txtRutaArchivo1
             // 
-            txtRutaArchivo1.Location = new Point(12, 32);
-            txtRutaArchivo1.Name = "txtRutaArchivo1";
-            txtRutaArchivo1.Size = new Size(100, 23);
-            txtRutaArchivo1.TabIndex = 1;
-            txtRutaArchivo1.Text = "txtRutaArchivo1 ";
+            this.txtRutaArchivo1.BackColor = System.Drawing.Color.MediumPurple;
+            this.txtRutaArchivo1.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.txtRutaArchivo1.Location = new System.Drawing.Point(12, 32);
+            this.txtRutaArchivo1.Name = "txtRutaArchivo1";
+            this.txtRutaArchivo1.Size = new System.Drawing.Size(190, 23);
+            this.txtRutaArchivo1.TabIndex = 1;
+            this.txtRutaArchivo1.Text = "Archivo Holistor";
+            this.txtRutaArchivo1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtRutaArchivo1.TextChanged += new System.EventHandler(this.txtRutaArchivo1_TextChanged);
             // 
             // btnSeleccionarArchivo1
             // 
-            btnSeleccionarArchivo1.Location = new Point(116, 75);
-            btnSeleccionarArchivo1.Name = "btnSeleccionarArchivo1";
-            btnSeleccionarArchivo1.Size = new Size(75, 23);
-            btnSeleccionarArchivo1.TabIndex = 2;
-            btnSeleccionarArchivo1.Text = "button1";
-            btnSeleccionarArchivo1.UseVisualStyleBackColor = true;
-            btnSeleccionarArchivo1.Click += btnSeleccionarArchivo1_Click;
+            this.btnSeleccionarArchivo1.BackColor = System.Drawing.Color.SlateBlue;
+            this.btnSeleccionarArchivo1.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.btnSeleccionarArchivo1.Location = new System.Drawing.Point(12, 75);
+            this.btnSeleccionarArchivo1.Name = "btnSeleccionarArchivo1";
+            this.btnSeleccionarArchivo1.Size = new System.Drawing.Size(124, 23);
+            this.btnSeleccionarArchivo1.TabIndex = 2;
+            this.btnSeleccionarArchivo1.Text = "Seleccionar archivo";
+            this.btnSeleccionarArchivo1.UseVisualStyleBackColor = false;
             // 
             // btnSeleccionarArchivo2
             // 
-            btnSeleccionarArchivo2.Location = new Point(361, 75);
-            btnSeleccionarArchivo2.Name = "btnSeleccionarArchivo2";
-            btnSeleccionarArchivo2.Size = new Size(75, 23);
-            btnSeleccionarArchivo2.TabIndex = 3;
-            btnSeleccionarArchivo2.Text = "button2";
-            btnSeleccionarArchivo2.UseVisualStyleBackColor = true;
-            btnSeleccionarArchivo2.Click += btnSeleccionarArchivo2_Click;
+            this.btnSeleccionarArchivo2.BackColor = System.Drawing.Color.SlateBlue;
+            this.btnSeleccionarArchivo2.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.btnSeleccionarArchivo2.Location = new System.Drawing.Point(257, 75);
+            this.btnSeleccionarArchivo2.Name = "btnSeleccionarArchivo2";
+            this.btnSeleccionarArchivo2.Size = new System.Drawing.Size(124, 23);
+            this.btnSeleccionarArchivo2.TabIndex = 3;
+            this.btnSeleccionarArchivo2.Text = "Seleccionar archivo";
+            this.btnSeleccionarArchivo2.UseVisualStyleBackColor = false;
+            this.btnSeleccionarArchivo2.Click += new System.EventHandler(this.btnSeleccionarArchivo2_Click_1);
             // 
             // btnProcesar
             // 
-            btnProcesar.Location = new Point(232, 75);
-            btnProcesar.Name = "btnProcesar";
-            btnProcesar.Size = new Size(97, 23);
-            btnProcesar.TabIndex = 4;
-            btnProcesar.Text = "buttonProcesar";
-            btnProcesar.UseVisualStyleBackColor = true;
-            btnProcesar.Click += btnProcesar_Click;
+            this.btnProcesar.BackColor = System.Drawing.Color.DarkSlateBlue;
+            this.btnProcesar.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.btnProcesar.Location = new System.Drawing.Point(547, 32);
+            this.btnProcesar.Name = "btnProcesar";
+            this.btnProcesar.Size = new System.Drawing.Size(150, 66);
+            this.btnProcesar.TabIndex = 4;
+            this.btnProcesar.Text = "Procesar";
+            this.btnProcesar.UseVisualStyleBackColor = false;
             // 
             // Form1
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
-            AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
-            Controls.Add(btnProcesar);
-            Controls.Add(btnSeleccionarArchivo2);
-            Controls.Add(btnSeleccionarArchivo1);
-            Controls.Add(txtRutaArchivo1);
-            Controls.Add(txtRutaArchivo2);
-            Name = "Form1";
-            Text = "Form1";
-            ResumeLayout(false);
-            PerformLayout();
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.BlueViolet;
+            this.ClientSize = new System.Drawing.Size(735, 152);
+            this.Controls.Add(this.btnProcesar);
+            this.Controls.Add(this.btnSeleccionarArchivo2);
+            this.Controls.Add(this.btnSeleccionarArchivo1);
+            this.Controls.Add(this.txtRutaArchivo1);
+            this.Controls.Add(this.txtRutaArchivo2);
+            this.Name = "Form1";
+            this.Text = "Form1";
+            this.Load += new System.EventHandler(this.Form1_Load);
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
         }
 
         #endregion
