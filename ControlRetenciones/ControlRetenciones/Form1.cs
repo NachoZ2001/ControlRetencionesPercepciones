@@ -65,16 +65,21 @@ namespace ControlRetenciones
                     int colImporteArchivo2 = ObtenerIndiceColumna(worksheetArchivo2, "Importe Ret./Perc.");
                     int colNroDocArchivo1 = ObtenerIndiceColumna(worksheetArchivo1, "Nro. Doc.");
                     int colCuitAgenteArchivo2 = ObtenerIndiceColumna(worksheetArchivo2, "CUIT Agente Ret./Perc.");
+                    int colNroCertificadoArchivo1 = ObtenerIndiceColumna(worksheetArchivo1, "Nro. Certif.");
+                    int colNroCertificadoArchivo2 = ObtenerIndiceColumna(worksheetArchivo2, "Número Certificado");
+                    int colFechaArchivo1 = ObtenerIndiceColumna(worksheetArchivo1, "Fecha");
+                    int colFechaArchivo2 = ObtenerIndiceColumna(worksheetArchivo2, "Fecha Ret./Perc.");
+
 
                     List<XLColor> coloresCoincide = new List<XLColor>
-            {
-                XLColor.FromArgb(255, 204, 255, 204), // Tono de verde claro
-            };
+                    {
+                        XLColor.FromArgb(255, 204, 255, 204), // Tono de verde claro
+                    };
 
-                    List<XLColor> coloresNoCoincide = new List<XLColor>
-            {
-                XLColor.FromArgb(255, 255, 204, 204), // Tono de rojo claro
-            };
+                            List<XLColor> coloresNoCoincide = new List<XLColor>
+                    {
+                        XLColor.FromArgb(255, 255, 204, 204), // Tono de rojo claro
+                    };
 
                     int indiceColor = 0;
 
@@ -125,6 +130,8 @@ namespace ControlRetenciones
                                 {
                                     decimal importeArchivo1 = worksheetArchivo1.Cell(filaArchivo1, colImporteArchivo1).GetValue<decimal>();
 
+                                    int ban = 0;
+
                                     foreach ((int filaArchivo2, bool comparadoArchivo2) in filasArchivo2.ToList())
                                     {
                                         if (comparadoArchivo2 == false) //Solo si aún no se ha comparado esta fila
@@ -150,52 +157,224 @@ namespace ControlRetenciones
                                                 diccionarioArchivo2[claveArchivo1][indiceArchivo2] = (filaArchivo2, true);
 
                                                 indiceColor++; // Incrementar el índice de color
+
+                                                ban = 1;
+
                                                 break; // Salir del bucle interno después de encontrar una coincidencia
                                             }
                                         }
+                                    }
+                                    if (ban == 0)
+                                    {
+                                        // Obtén el siguiente color de la lista
+                                        XLColor color = coloresNoCoincide[indiceColor % coloresCoincide.Count];
+
+                                        worksheetArchivo1.Cell(filaArchivo1, colImporteArchivo1).Style.Fill.BackgroundColor = color;
                                     }
                                 }
                             }
                         }
                     }
 
-                    //guardar ambos archivos
+                    // Nuevo diccionario para almacenar filas no marcadas en verde por número de certificado
+                    Dictionary<string, List<int>> diccionarioCertificadoNoMarcadoArchivo1 = new Dictionary<string, List<int>>();
+                    Dictionary<string, List<int>> diccionarioCertificadoNoMarcadoArchivo2 = new Dictionary<string, List<int>>();
+
+                    // Llenar diccionario para el archivo 1
+                    for (int filaArchivo1 = 2; filaArchivo1 <= worksheetArchivo1.RowsUsed().Count(); filaArchivo1++)
+                    {
+                        string certificadoArchivo1 = worksheetArchivo1.Cell(filaArchivo1, colNroCertificadoArchivo1).GetString();
+                        XLColor colorArchivo1 = worksheetArchivo1.Cell(filaArchivo1, colImporteArchivo1).Style.Fill.BackgroundColor;
+
+                        if (colorArchivo1 == XLColor.FromArgb(255, 204, 255, 204)) // Verde claro
+                        {
+                            continue; // Saltar filas ya marcadas en verde
+                        }
+
+                        // Manipulación del número de certificado para que coincida con el formato del archivo 2
+                        string certificadoArchivo1Formateado = certificadoArchivo1.Replace("-", "").Substring(4);
+
+                        if (diccionarioCertificadoNoMarcadoArchivo1.ContainsKey(certificadoArchivo1Formateado))
+                        {
+                            diccionarioCertificadoNoMarcadoArchivo1[certificadoArchivo1Formateado].Add(filaArchivo1);
+                        }
+                        else
+                        {
+                            diccionarioCertificadoNoMarcadoArchivo1[certificadoArchivo1Formateado] = new List<int> { filaArchivo1 };
+                        }
+                    }
+
+                    // Llenar diccionario para el archivo 2
+                    for (int filaArchivo2 = 2; filaArchivo2 <= worksheetArchivo2.RowsUsed().Count(); filaArchivo2++)
+                    {
+                        string certificadoArchivo2 = worksheetArchivo2.Cell(filaArchivo2, colNroCertificadoArchivo2).GetString();
+                        XLColor colorArchivo2 = worksheetArchivo2.Cell(filaArchivo2, colImporteArchivo2).Style.Fill.BackgroundColor;
+
+                        if (colorArchivo2 == XLColor.FromArgb(255, 204, 255, 204)) // Verde claro
+                        {
+                            continue; // Saltar filas ya marcadas en verde
+                        }
+
+                        if (diccionarioCertificadoNoMarcadoArchivo2.ContainsKey(certificadoArchivo2))
+                        {
+                            diccionarioCertificadoNoMarcadoArchivo2[certificadoArchivo2].Add(filaArchivo2);
+                        }
+                        else
+                        {
+                            diccionarioCertificadoNoMarcadoArchivo2[certificadoArchivo2] = new List<int> { filaArchivo2 };
+                        }
+                    }
+
+                    // Bucle adicional para comparar por número de certificado
+                    foreach (var certificadoArchivo1 in diccionarioCertificadoNoMarcadoArchivo1.Keys.ToList())
+                    {
+                        foreach (int filaArchivo1 in diccionarioCertificadoNoMarcadoArchivo1[certificadoArchivo1].ToList())
+                        {
+                            decimal importeArchivo1 = worksheetArchivo1.Cell(filaArchivo1, colImporteArchivo1).GetValue<decimal>();
+
+                            int ban = 0;
+
+                            if (diccionarioCertificadoNoMarcadoArchivo2.TryGetValue(certificadoArchivo1, out List<int> filasCertificadoArchivo2))
+                            {
+                                foreach (int filaArchivo2 in filasCertificadoArchivo2.ToList())
+                                {
+                                    string valorCeldaImporterArchivo2 = worksheetArchivo2.Cell(filaArchivo2, colImporteArchivo2).GetString();
+                                    string valorCeldaImporterArchivo2SinComa = valorCeldaImporterArchivo2.Replace(",", ".");
+                                    decimal importeArchivo2 = decimal.Parse(valorCeldaImporterArchivo2SinComa, CultureInfo.InvariantCulture);
+
+                                    // Comparar con una tolerancia de ±10
+                                    if (Math.Abs(importeArchivo1 - importeArchivo2) <= 10)
+                                    {
+                                        // Obtén el siguiente color de la lista
+                                        XLColor color = coloresCoincide[indiceColor % coloresCoincide.Count];
+
+                                        worksheetArchivo1.Cell(filaArchivo1, colImporteArchivo1).Style.Fill.BackgroundColor = color;
+                                        worksheetArchivo2.Cell(filaArchivo2, colImporteArchivo2).Style.Fill.BackgroundColor = color;
+
+                                        // Marcar como comparado
+                                        diccionarioCertificadoNoMarcadoArchivo1[certificadoArchivo1].Remove(filaArchivo1);
+                                        diccionarioCertificadoNoMarcadoArchivo2[certificadoArchivo1].Remove(filaArchivo2);
+
+                                        indiceColor++; // Incrementar el índice de color
+
+                                        ban = 1;
+                                        break; // Salir del bucle interno después de encontrar una coincidencia
+                                    }
+                                }
+                            }
+
+                            if (ban == 0)
+                            {
+                                // Obtén el siguiente color de la lista
+                                XLColor color = coloresNoCoincide[indiceColor % coloresNoCoincide.Count];
+
+                                worksheetArchivo1.Cell(filaArchivo1, colImporteArchivo1).Style.Fill.BackgroundColor = color;
+                            }
+                        }
+                    }
+
+                    // Bucle adicional para marcar en rojo los registros en el archivo 2 que no están marcados en verde en el archivo 1
+                    foreach (var certificadoArchivo2 in diccionarioCertificadoNoMarcadoArchivo2.Keys)
+                    {
+                        foreach (int filaArchivo2 in diccionarioCertificadoNoMarcadoArchivo2[certificadoArchivo2])
+                        {
+                            // Obtén el siguiente color de la lista para marcar en rojo
+                            XLColor colorRojo = coloresNoCoincide[indiceColor % coloresNoCoincide.Count];
+
+                            worksheetArchivo2.Cell(filaArchivo2, colImporteArchivo2).Style.Fill.BackgroundColor = colorRojo;
+                        }
+                    }
+
+                    // Diccionarios para almacenar filas marcadas en rojo por fecha
+                    Dictionary<DateTime, List<int>> diccionarioFechaArchivo1 = new Dictionary<DateTime, List<int>>();
+                    Dictionary<DateTime, List<int>> diccionarioFechaArchivo2 = new Dictionary<DateTime, List<int>>();
+
+                    // Llenar diccionario para el archivo 1
+                    for (int filaArchivo1 = 2; filaArchivo1 <= worksheetArchivo1.RowsUsed().Count(); filaArchivo1++)
+                    {
+                        string stringFechaArchivo1 = worksheetArchivo1.Cell(filaArchivo1, colFechaArchivo1).GetString();
+                        DateTime fechaArchivo1 = DateTime.Parse(stringFechaArchivo1);
+
+                        XLColor colorArchivo1 = worksheetArchivo1.Cell(filaArchivo1, colImporteArchivo1).Style.Fill.BackgroundColor;
+
+                        if (colorArchivo1 == XLColor.FromArgb(255, 204, 255, 204)) // Verde claro
+                        {
+                            continue; // Saltar filas ya marcadas en verde
+                        }
+
+                        if (diccionarioFechaArchivo1.ContainsKey(fechaArchivo1))
+                        {
+                            diccionarioFechaArchivo1[fechaArchivo1].Add(filaArchivo1);
+                        }
+                        else
+                        {
+                            diccionarioFechaArchivo1[fechaArchivo1] = new List<int> { filaArchivo1 };
+                        }
+                    }
+
+                    // Llenar diccionario para el archivo 2
+                    for (int filaArchivo2 = 2; filaArchivo2 <= worksheetArchivo2.RowsUsed().Count(); filaArchivo2++)
+                    {
+                        string stringFechaArchivo2 = worksheetArchivo2.Cell(filaArchivo2, colFechaArchivo2).GetString();
+                        DateTime fechaArchivo2 = DateTime.Parse(stringFechaArchivo2);
+
+                        XLColor colorArchivo2 = worksheetArchivo2.Cell(filaArchivo2, colImporteArchivo2).Style.Fill.BackgroundColor;
+
+                        if (colorArchivo2 == XLColor.FromArgb(255, 204, 255, 204)) // Verde claro
+                        {
+                            continue; // Saltar filas ya marcadas en verde
+                        }
+
+                        if (diccionarioFechaArchivo2.ContainsKey(fechaArchivo2))
+                        {
+                            diccionarioFechaArchivo2[fechaArchivo2].Add(filaArchivo2);
+                        }
+                        else
+                        {
+                            diccionarioFechaArchivo2[fechaArchivo2] = new List<int> { filaArchivo2 };
+                        }
+                    }
+
+                    // Bucle adicional para comparar por fecha e importe y marcar en verde si coinciden
+                    foreach (var fechaArchivo1 in diccionarioFechaArchivo1.Keys)
+                    {
+                        foreach (int filaArchivo1 in diccionarioFechaArchivo1[fechaArchivo1])
+                        {
+                            decimal importeArchivo1 = worksheetArchivo1.Cell(filaArchivo1, colImporteArchivo1).GetValue<decimal>();
+
+                            if (diccionarioFechaArchivo2.TryGetValue(fechaArchivo1, out List<int> filasFechaArchivo2))
+                            {
+                                foreach (int filaArchivo2 in filasFechaArchivo2.ToList())
+                                {
+
+                                    decimal importeArchivo2 = worksheetArchivo2.Cell(filaArchivo2, colImporteArchivo2).GetValue<decimal>();
+
+                                    // Comparar por importe
+                                    if (Math.Abs(importeArchivo1 - importeArchivo2) <= 10)
+                                    {
+                                        // Obtén el siguiente color de la lista para marcar en verde
+                                        XLColor colorVerde = coloresCoincide[indiceColor % coloresCoincide.Count];
+
+                                        worksheetArchivo1.Cell(filaArchivo1, colImporteArchivo1).Style.Fill.BackgroundColor = colorVerde;
+                                        worksheetArchivo2.Cell(filaArchivo2, colImporteArchivo2).Style.Fill.BackgroundColor = colorVerde;
+
+                                        indiceColor++; // Incrementar el índice de color
+
+                                        break; // Salir del bucle interno después de encontrar una coincidencia
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    // Guardar ambos archivos
                     workbookArchivo1.SaveAs(pathfileArchivo1);
                     workbookArchivo2.SaveAs(pathfileArchivo2);
                 }
             }
         }
 
-        static bool EsFilaMarcadaEnVerde(IXLWorksheet worksheet, int fila, int columna)
-        {
-            return worksheet.Cell(fila, columna).Style.Fill.BackgroundColor.Equals(XLColor.FromArgb(255, 204, 255, 204));
-        }
-
-
-
-        // Función auxiliar para obtener el índice de la columna por su nombre
-        static int ObtenerIndiceColumna(SLDocument workbook, string nombreColumna)
-        {
-            int indiceColumna = -1;
-            SLWorksheetStatistics statistics = workbook.GetWorksheetStatistics();
-
-            string[] palabras = nombreColumna.Split(' ', StringSplitOptions.RemoveEmptyEntries);
-
-            for (int col = 1; col <= statistics.EndColumnIndex; col++)
-            {
-                string valor = workbook.GetCellValueAsString(1, col);
-
-                if (palabras.Any(palabra => valor.Contains(palabra, StringComparison.OrdinalIgnoreCase)))
-                {
-                    // Entra aquí si alguna palabra coincide con el valor
-                    indiceColumna = col;
-                    break;
-                }
-            }
-
-            return indiceColumna;
-        }
-
+        
         // Función auxiliar para obtener el índice de la columna por su nombre
         static int ObtenerIndiceColumna(IXLWorksheet worksheet, string nombreColumna)
         {

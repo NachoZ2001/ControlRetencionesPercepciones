@@ -23,3 +23,28 @@ E:\BOTS TRABAJO\ControlRetenciones\ControlRetenciones\ControlRetenciones\obj\Rel
 E:\BOTS TRABAJO\ControlRetenciones\ControlRetenciones\ControlRetenciones\obj\Release\net6.0-windows\ControlRetenciones.pdb
 E:\BOTS TRABAJO\ControlRetenciones\ControlRetenciones\ControlRetenciones\obj\Release\net6.0-windows\ControlRetenciones.genruntimeconfig.cache
 E:\BOTS TRABAJO\ControlRetenciones\ControlRetenciones\ControlRetenciones\obj\Release\net6.0-windows\ref\ControlRetenciones.dll
+C:\Program Files\Sublime Merge\ControlRetenciones\ControlRetenciones\ControlRetenciones\bin\Release\net6.0-windows\ControlRetenciones.exe
+C:\Program Files\Sublime Merge\ControlRetenciones\ControlRetenciones\ControlRetenciones\bin\Release\net6.0-windows\ControlRetenciones.deps.json
+C:\Program Files\Sublime Merge\ControlRetenciones\ControlRetenciones\ControlRetenciones\bin\Release\net6.0-windows\ControlRetenciones.runtimeconfig.json
+C:\Program Files\Sublime Merge\ControlRetenciones\ControlRetenciones\ControlRetenciones\bin\Release\net6.0-windows\ControlRetenciones.dll
+C:\Program Files\Sublime Merge\ControlRetenciones\ControlRetenciones\ControlRetenciones\bin\Release\net6.0-windows\ControlRetenciones.pdb
+C:\Program Files\Sublime Merge\ControlRetenciones\ControlRetenciones\ControlRetenciones\bin\Release\net6.0-windows\ClosedXML.dll
+C:\Program Files\Sublime Merge\ControlRetenciones\ControlRetenciones\ControlRetenciones\bin\Release\net6.0-windows\DocumentFormat.OpenXml.dll
+C:\Program Files\Sublime Merge\ControlRetenciones\ControlRetenciones\ControlRetenciones\bin\Release\net6.0-windows\ExcelNumberFormat.dll
+C:\Program Files\Sublime Merge\ControlRetenciones\ControlRetenciones\ControlRetenciones\bin\Release\net6.0-windows\Irony.dll
+C:\Program Files\Sublime Merge\ControlRetenciones\ControlRetenciones\ControlRetenciones\bin\Release\net6.0-windows\SixLabors.Fonts.dll
+C:\Program Files\Sublime Merge\ControlRetenciones\ControlRetenciones\ControlRetenciones\bin\Release\net6.0-windows\SpreadsheetLight.dll
+C:\Program Files\Sublime Merge\ControlRetenciones\ControlRetenciones\ControlRetenciones\bin\Release\net6.0-windows\XLParser.dll
+C:\Program Files\Sublime Merge\ControlRetenciones\ControlRetenciones\ControlRetenciones\obj\Release\net6.0-windows\ControlRetenciones.csproj.AssemblyReference.cache
+C:\Program Files\Sublime Merge\ControlRetenciones\ControlRetenciones\ControlRetenciones\obj\Release\net6.0-windows\ControlRetenciones.Form1.resources
+C:\Program Files\Sublime Merge\ControlRetenciones\ControlRetenciones\ControlRetenciones\obj\Release\net6.0-windows\ControlRetenciones.csproj.GenerateResource.cache
+C:\Program Files\Sublime Merge\ControlRetenciones\ControlRetenciones\ControlRetenciones\obj\Release\net6.0-windows\ControlRetenciones.GeneratedMSBuildEditorConfig.editorconfig
+C:\Program Files\Sublime Merge\ControlRetenciones\ControlRetenciones\ControlRetenciones\obj\Release\net6.0-windows\ControlRetenciones.AssemblyInfoInputs.cache
+C:\Program Files\Sublime Merge\ControlRetenciones\ControlRetenciones\ControlRetenciones\obj\Release\net6.0-windows\ControlRetenciones.AssemblyInfo.cs
+C:\Program Files\Sublime Merge\ControlRetenciones\ControlRetenciones\ControlRetenciones\obj\Release\net6.0-windows\ControlRetenciones.csproj.CoreCompileInputs.cache
+C:\Program Files\Sublime Merge\ControlRetenciones\ControlRetenciones\ControlRetenciones\obj\Release\net6.0-windows\ControlRetenciones.csproj.CopyComplete
+C:\Program Files\Sublime Merge\ControlRetenciones\ControlRetenciones\ControlRetenciones\obj\Release\net6.0-windows\ControlRetenciones.dll
+C:\Program Files\Sublime Merge\ControlRetenciones\ControlRetenciones\ControlRetenciones\obj\Release\net6.0-windows\refint\ControlRetenciones.dll
+C:\Program Files\Sublime Merge\ControlRetenciones\ControlRetenciones\ControlRetenciones\obj\Release\net6.0-windows\ControlRetenciones.pdb
+C:\Program Files\Sublime Merge\ControlRetenciones\ControlRetenciones\ControlRetenciones\obj\Release\net6.0-windows\ControlRetenciones.genruntimeconfig.cache
+C:\Program Files\Sublime Merge\ControlRetenciones\ControlRetenciones\ControlRetenciones\obj\Release\net6.0-windows\ref\ControlRetenciones.dll
