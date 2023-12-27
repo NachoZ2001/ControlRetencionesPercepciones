@@ -48,3 +48,16 @@ E:\BOTS TRABAJO\ControlRetenciones\ControlRetenciones\ControlRetenciones\bin\Deb
 E:\BOTS TRABAJO\ControlRetenciones\ControlRetenciones\ControlRetenciones\obj\Debug\net6.0-windows\ControlRetenciones.csproj.CopyComplete
 E:\BOTS TRABAJO\ControlRetenciones\ControlRetenciones\ControlRetenciones\obj\Debug\net6.0-windows\ControlRetenciones.genruntimeconfig.cache
 E:\BOTS TRABAJO\ControlRetenciones\ControlRetenciones\ControlRetenciones\obj\Debug\net6.0-windows\ref\ControlRetenciones.dll
+E:\BOTS TRABAJO\ControlRetenciones\ControlRetenciones\ControlRetenciones\bin\Debug\net6.0-windows\BouncyCastle.Cryptography.dll
+E:\BOTS TRABAJO\ControlRetenciones\ControlRetenciones\ControlRetenciones\bin\Debug\net6.0-windows\Enums.NET.dll
+E:\BOTS TRABAJO\ControlRetenciones\ControlRetenciones\ControlRetenciones\bin\Debug\net6.0-windows\MathNet.Numerics.dll
+E:\BOTS TRABAJO\ControlRetenciones\ControlRetenciones\ControlRetenciones\bin\Debug\net6.0-windows\Microsoft.IO.RecyclableMemoryStream.dll
+E:\BOTS TRABAJO\ControlRetenciones\ControlRetenciones\ControlRetenciones\bin\Debug\net6.0-windows\NPOI.Core.dll
+E:\BOTS TRABAJO\ControlRetenciones\ControlRetenciones\ControlRetenciones\bin\Debug\net6.0-windows\NPOI.OOXML.dll
+E:\BOTS TRABAJO\ControlRetenciones\ControlRetenciones\ControlRetenciones\bin\Debug\net6.0-windows\NPOI.OpenXml4Net.dll
+E:\BOTS TRABAJO\ControlRetenciones\ControlRetenciones\ControlRetenciones\bin\Debug\net6.0-windows\NPOI.OpenXmlFormats.dll
+E:\BOTS TRABAJO\ControlRetenciones\ControlRetenciones\ControlRetenciones\bin\Debug\net6.0-windows\ICSharpCode.SharpZipLib.dll
+E:\BOTS TRABAJO\ControlRetenciones\ControlRetenciones\ControlRetenciones\bin\Debug\net6.0-windows\SixLabors.ImageSharp.dll
+E:\BOTS TRABAJO\ControlRetenciones\ControlRetenciones\ControlRetenciones\bin\Debug\net6.0-windows\System.Security.Cryptography.Pkcs.dll
+E:\BOTS TRABAJO\ControlRetenciones\ControlRetenciones\ControlRetenciones\bin\Debug\net6.0-windows\System.Security.Cryptography.Xml.dll
+E:\BOTS TRABAJO\ControlRetenciones\ControlRetenciones\ControlRetenciones\bin\Debug\net6.0-windows\runtimes\win\lib\net6.0\System.Security.Cryptography.Pkcs.dll

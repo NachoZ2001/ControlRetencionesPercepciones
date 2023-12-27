@@ -1,6 +1,9 @@
 using ClosedXML.Excel;
-using SpreadsheetLight;
+using DocumentFormat.OpenXml.Spreadsheet;
 using System.Globalization;
+using NPOI.HSSF.UserModel;
+using NPOI.SS.UserModel;
+using NPOI.XSSF.UserModel;
 
 namespace ControlRetenciones
 {
@@ -46,10 +49,81 @@ namespace ControlRetenciones
             string pathfileArchivo1 = txtRutaArchivo1.Text;
             string pathfileArchivo2 = txtRutaArchivo2.Text;
 
+            // Convertir archivos XLS a XLSX si es necesario
+            if (Path.GetExtension(pathfileArchivo1).ToLower() == ".xls")
+            {
+                pathfileArchivo1 = ConvertXlsToXlsx(pathfileArchivo1);
+            }
+
+            if (Path.GetExtension(pathfileArchivo2).ToLower() == ".xls")
+            {
+                pathfileArchivo2 = ConvertXlsToXlsx(pathfileArchivo2);
+            }
+
             CompararArchivos(pathfileArchivo1, pathfileArchivo2);
 
             // Muestra un mensaje de éxito
             MessageBox.Show("Proceso completado", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private string ConvertXlsToXlsx(string xlsFilePath)
+        {
+            // Ruta para guardar el archivo XLSX
+            string xlsxFilePath = Path.ChangeExtension(xlsFilePath, ".xlsx");
+
+            // Crear un nuevo libro de trabajo XLSX
+            using (var workbookXlsx = new XSSFWorkbook())
+            {
+                // Abrir el archivo XLS
+                using (var fs = new FileStream(xlsFilePath, FileMode.Open, FileAccess.Read))
+                {
+                    var workbookXls = new HSSFWorkbook(fs);
+
+                    // Copiar todas las hojas de trabajo de XLS a XLSX
+                    for (int i = 0; i < workbookXls.NumberOfSheets; i++)
+                    {
+                        var sheetXls = workbookXls.GetSheetAt(i);
+                        var sheetXlsx = workbookXlsx.CreateSheet(sheetXls.SheetName);
+
+                        for (int row = 0; row <= sheetXls.LastRowNum; row++)
+                        {
+                            var rowXls = sheetXls.GetRow(row);
+                            var rowXlsx = sheetXlsx.CreateRow(row);
+
+                            if (rowXls != null)
+                            {
+                                for (int col = 0; col <= rowXls.LastCellNum; col++)
+                                {
+                                    var cellXls = rowXls.GetCell(col);
+                                    var cellXlsx = rowXlsx.CreateCell(col);
+
+                                    if (cellXls != null)
+                                    {
+                                        switch (cellXls.CellType)
+                                        {
+                                            case NPOI.SS.UserModel.CellType.Numeric:
+                                                cellXlsx.SetCellValue(cellXls.NumericCellValue);
+                                                break;
+                                            case NPOI.SS.UserModel.CellType.String:
+                                                cellXlsx.SetCellValue(cellXls.StringCellValue);
+                                                break;
+                                                // Agregar otros casos según sea necesario
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                // Guardar el archivo XLSX
+                using (var fs = new FileStream(xlsxFilePath, FileMode.Create, FileAccess.Write))
+                {
+                    workbookXlsx.Write(fs);
+                }
+            }
+
+            return xlsxFilePath;
         }
 
         static void CompararArchivos(string pathfileArchivo1, string pathfileArchivo2)
