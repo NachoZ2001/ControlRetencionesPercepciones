@@ -61,3 +61,17 @@ E:\BOTS TRABAJO\ControlRetenciones\ControlRetenciones\ControlRetenciones\bin\Deb
 E:\BOTS TRABAJO\ControlRetenciones\ControlRetenciones\ControlRetenciones\bin\Debug\net6.0-windows\System.Security.Cryptography.Pkcs.dll
 E:\BOTS TRABAJO\ControlRetenciones\ControlRetenciones\ControlRetenciones\bin\Debug\net6.0-windows\System.Security.Cryptography.Xml.dll
 E:\BOTS TRABAJO\ControlRetenciones\ControlRetenciones\ControlRetenciones\bin\Debug\net6.0-windows\runtimes\win\lib\net6.0\System.Security.Cryptography.Pkcs.dll
+C:\Program Files\Sublime Merge\ControlRetenciones\ControlRetenciones\ControlRetenciones\bin\Debug\net6.0-windows\BouncyCastle.Cryptography.dll
+C:\Program Files\Sublime Merge\ControlRetenciones\ControlRetenciones\ControlRetenciones\bin\Debug\net6.0-windows\Enums.NET.dll
+C:\Program Files\Sublime Merge\ControlRetenciones\ControlRetenciones\ControlRetenciones\bin\Debug\net6.0-windows\MathNet.Numerics.dll
+C:\Program Files\Sublime Merge\ControlRetenciones\ControlRetenciones\ControlRetenciones\bin\Debug\net6.0-windows\Microsoft.IO.RecyclableMemoryStream.dll
+C:\Program Files\Sublime Merge\ControlRetenciones\ControlRetenciones\ControlRetenciones\bin\Debug\net6.0-windows\NPOI.Core.dll
+C:\Program Files\Sublime Merge\ControlRetenciones\ControlRetenciones\ControlRetenciones\bin\Debug\net6.0-windows\NPOI.OOXML.dll
+C:\Program Files\Sublime Merge\ControlRetenciones\ControlRetenciones\ControlRetenciones\bin\Debug\net6.0-windows\NPOI.OpenXml4Net.dll
+C:\Program Files\Sublime Merge\ControlRetenciones\ControlRetenciones\ControlRetenciones\bin\Debug\net6.0-windows\NPOI.OpenXmlFormats.dll
+C:\Program Files\Sublime Merge\ControlRetenciones\ControlRetenciones\ControlRetenciones\bin\Debug\net6.0-windows\ICSharpCode.SharpZipLib.dll
+C:\Program Files\Sublime Merge\ControlRetenciones\ControlRetenciones\ControlRetenciones\bin\Debug\net6.0-windows\SixLabors.ImageSharp.dll
+C:\Program Files\Sublime Merge\ControlRetenciones\ControlRetenciones\ControlRetenciones\bin\Debug\net6.0-windows\System.Security.Cryptography.Pkcs.dll
+C:\Program Files\Sublime Merge\ControlRetenciones\ControlRetenciones\ControlRetenciones\bin\Debug\net6.0-windows\System.Security.Cryptography.Xml.dll
+C:\Program Files\Sublime Merge\ControlRetenciones\ControlRetenciones\ControlRetenciones\bin\Debug\net6.0-windows\runtimes\win\lib\net6.0\System.Security.Cryptography.Pkcs.dll
+C:\Program Files\Sublime Merge\ControlRetenciones\ControlRetenciones\ControlRetenciones\obj\Debug\net6.0-windows\ControlRetenciones.Properties.Resources.resources

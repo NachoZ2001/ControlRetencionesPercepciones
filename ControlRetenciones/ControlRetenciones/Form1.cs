@@ -12,6 +12,12 @@ namespace ControlRetenciones
         public Form1()
         {
             InitializeComponent();
+
+            // Establecer el estilo del borde y deshabilitar el cambio de tamaño
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
+
+            // Establecer el tamaño mínimo y máximo para evitar el cambio de tamaño
+            this.MinimumSize = this.MaximumSize = this.Size;
         }
 
         private void btnSeleccionarArchivo1_Click(object sender, EventArgs e)
@@ -66,6 +72,7 @@ namespace ControlRetenciones
             MessageBox.Show("Proceso completado", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
+        //codigo para convertir en XLSX los archivos XLS (el que se baja desde AFIP)
         private string ConvertXlsToXlsx(string xlsFilePath)
         {
             // Ruta para guardar el archivo XLSX
@@ -126,6 +133,7 @@ namespace ControlRetenciones
             return xlsxFilePath;
         }
 
+        //codigo para realizar la comparacion 
         static void CompararArchivos(string pathfileArchivo1, string pathfileArchivo2)
         {
             using (var workbookArchivo1 = new XLWorkbook(pathfileArchivo1))
@@ -150,7 +158,7 @@ namespace ControlRetenciones
                         XLColor.FromArgb(255, 204, 255, 204), // Tono de verde claro
                     };
 
-                            List<XLColor> coloresNoCoincide = new List<XLColor>
+                    List<XLColor> coloresNoCoincide = new List<XLColor>
                     {
                         XLColor.FromArgb(255, 255, 204, 204), // Tono de rojo claro
                     };
@@ -448,7 +456,6 @@ namespace ControlRetenciones
             }
         }
 
-        
         // Función auxiliar para obtener el índice de la columna por su nombre
         static int ObtenerIndiceColumna(IXLWorksheet worksheet, string nombreColumna)
         {
@@ -466,6 +473,11 @@ namespace ControlRetenciones
             }
 
             return indiceColumna;
+        }
+
+        private void txtRutaArchivo1_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
