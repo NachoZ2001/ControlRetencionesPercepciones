@@ -40,7 +40,7 @@
             // 
             // txtRutaArchivo2
             // 
-            txtRutaArchivo2.BackColor = Color.MediumPurple;
+            txtRutaArchivo2.BackColor = Color.BlueViolet;
             txtRutaArchivo2.ForeColor = SystemColors.ButtonFace;
             txtRutaArchivo2.Location = new Point(257, 12);
             txtRutaArchivo2.Name = "txtRutaArchivo2";
@@ -52,7 +52,7 @@
             // 
             // txtRutaArchivo1
             // 
-            txtRutaArchivo1.BackColor = Color.MediumPurple;
+            txtRutaArchivo1.BackColor = Color.BlueViolet;
             txtRutaArchivo1.ForeColor = SystemColors.ButtonFace;
             txtRutaArchivo1.Location = new Point(12, 12);
             txtRutaArchivo1.Name = "txtRutaArchivo1";
@@ -65,7 +65,7 @@
             // 
             // btnSeleccionarArchivo1
             // 
-            btnSeleccionarArchivo1.BackColor = Color.SlateBlue;
+            btnSeleccionarArchivo1.BackColor = Color.BlueViolet;
             btnSeleccionarArchivo1.ForeColor = SystemColors.ButtonFace;
             btnSeleccionarArchivo1.Location = new Point(12, 54);
             btnSeleccionarArchivo1.Name = "btnSeleccionarArchivo1";
@@ -77,7 +77,7 @@
             // 
             // btnSeleccionarArchivo2
             // 
-            btnSeleccionarArchivo2.BackColor = Color.SlateBlue;
+            btnSeleccionarArchivo2.BackColor = Color.BlueViolet;
             btnSeleccionarArchivo2.ForeColor = SystemColors.ButtonFace;
             btnSeleccionarArchivo2.Location = new Point(257, 54);
             btnSeleccionarArchivo2.Name = "btnSeleccionarArchivo2";
@@ -89,7 +89,7 @@
             // 
             // btnProcesar
             // 
-            btnProcesar.BackColor = Color.DarkSlateBlue;
+            btnProcesar.BackColor = Color.BlueViolet;
             btnProcesar.ForeColor = SystemColors.ButtonFace;
             btnProcesar.Location = new Point(542, 11);
             btnProcesar.Name = "btnProcesar";
@@ -101,12 +101,12 @@
             // 
             // pictureBox1
             // 
-            pictureBox1.BackColor = Color.BlueViolet;
+            pictureBox1.BackColor = Color.Purple;
             pictureBox1.BackgroundImageLayout = ImageLayout.None;
             pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(38, 41);
+            pictureBox1.Location = new Point(125, 93);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(733, 270);
+            pictureBox1.Size = new Size(567, 173);
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox1.TabIndex = 6;
             pictureBox1.TabStop = false;
@@ -115,7 +115,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.BlueViolet;
+            BackColor = Color.Purple;
             ClientSize = new Size(795, 278);
             Controls.Add(btnProcesar);
             Controls.Add(btnSeleccionarArchivo2);
