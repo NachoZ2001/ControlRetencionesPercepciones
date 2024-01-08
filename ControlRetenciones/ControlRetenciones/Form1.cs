@@ -18,6 +18,9 @@ namespace ControlRetenciones
 
             // Establecer el tamaño mínimo y máximo para evitar el cambio de tamaño
             this.MinimumSize = this.MaximumSize = this.Size;
+
+            // Ocultar el PictureBox al iniciar
+            pictureBoxRuedaCargando.Visible = false;
         }
 
         private void btnSeleccionarArchivo1_Click(object sender, EventArgs e)
@@ -50,8 +53,11 @@ namespace ControlRetenciones
             }
         }
 
-        private void btnProcesar_Click(object sender, EventArgs e)
+        private async void btnProcesar_Click(object sender, EventArgs e)
         {
+            // Mostrar el PictureBox antes de comenzar el proceso
+            pictureBoxRuedaCargando.Visible = true;
+
             string pathfileArchivo1 = txtRutaArchivo1.Text;
             string pathfileArchivo2 = txtRutaArchivo2.Text;
 
@@ -66,7 +72,11 @@ namespace ControlRetenciones
                 pathfileArchivo2 = ConvertXlsToXlsx(pathfileArchivo2);
             }
 
-            CompararArchivos(pathfileArchivo1, pathfileArchivo2);
+            // Realizar el proceso de manera asíncrona
+            await Task.Run(() => CompararArchivos(pathfileArchivo1, pathfileArchivo2));
+
+            // Ocultar el PictureBox al finalizar el proceso
+            pictureBoxRuedaCargando.Visible = false;
 
             // Muestra un mensaje de éxito
             MessageBox.Show("Proceso completado", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -146,8 +156,16 @@ namespace ControlRetenciones
                     int colImporteArchivo1 = ObtenerIndiceColumna(worksheetArchivo1, "Importe");
                     int colImporteArchivo2 = ObtenerIndiceColumna(worksheetArchivo2, "Importe Ret./Perc.");
                     int colNroDocArchivo1 = ObtenerIndiceColumna(worksheetArchivo1, "Nro. Doc.");
+                    if (colNroDocArchivo1 == -1)
+                    {
+                        colNroDocArchivo1 = ObtenerIndiceColumna(worksheetArchivo1, "Cuit");
+                    }
                     int colCuitAgenteArchivo2 = ObtenerIndiceColumna(worksheetArchivo2, "CUIT Agente Ret./Perc.");
                     int colNroCertificadoArchivo1 = ObtenerIndiceColumna(worksheetArchivo1, "Nro. Certif.");
+                    if (colNroCertificadoArchivo1 == -1)
+                    {
+                        colNroCertificadoArchivo1 = ObtenerIndiceColumna(worksheetArchivo1, "Certificado");
+                    }
                     int colNroCertificadoArchivo2 = ObtenerIndiceColumna(worksheetArchivo2, "Número Certificado");
                     int colFechaArchivo1 = ObtenerIndiceColumna(worksheetArchivo1, "Fecha");
                     int colFechaArchivo2 = ObtenerIndiceColumna(worksheetArchivo2, "Fecha Ret./Perc.");

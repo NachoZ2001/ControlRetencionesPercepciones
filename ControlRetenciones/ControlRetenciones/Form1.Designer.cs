@@ -34,8 +34,10 @@
             btnSeleccionarArchivo1 = new Button();
             btnSeleccionarArchivo2 = new Button();
             btnProcesar = new Button();
-            pictureBox1 = new PictureBox();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            pictureBoxLogoEstudio = new PictureBox();
+            pictureBoxRuedaCargando = new PictureBox();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxLogoEstudio).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxRuedaCargando).BeginInit();
             SuspendLayout();
             // 
             // txtRutaArchivo2
@@ -99,17 +101,28 @@
             btnProcesar.UseVisualStyleBackColor = false;
             btnProcesar.Click += btnProcesar_Click;
             // 
-            // pictureBox1
+            // pictureBoxLogoEstudio
             // 
-            pictureBox1.BackColor = Color.Purple;
-            pictureBox1.BackgroundImageLayout = ImageLayout.None;
-            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(125, 93);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(567, 173);
-            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox1.TabIndex = 6;
-            pictureBox1.TabStop = false;
+            pictureBoxLogoEstudio.BackColor = Color.Purple;
+            pictureBoxLogoEstudio.BackgroundImageLayout = ImageLayout.None;
+            pictureBoxLogoEstudio.Image = (Image)resources.GetObject("pictureBoxLogoEstudio.Image");
+            pictureBoxLogoEstudio.Location = new Point(125, 93);
+            pictureBoxLogoEstudio.Name = "pictureBoxLogoEstudio";
+            pictureBoxLogoEstudio.Size = new Size(567, 173);
+            pictureBoxLogoEstudio.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBoxLogoEstudio.TabIndex = 6;
+            pictureBoxLogoEstudio.TabStop = false;
+            // 
+            // pictureBoxRuedaCargando
+            // 
+            pictureBoxRuedaCargando.BackColor = Color.Transparent;
+            pictureBoxRuedaCargando.Image = (Image)resources.GetObject("pictureBoxRuedaCargando.Image");
+            pictureBoxRuedaCargando.Location = new Point(698, 12);
+            pictureBoxRuedaCargando.Name = "pictureBoxRuedaCargando";
+            pictureBoxRuedaCargando.Size = new Size(85, 65);
+            pictureBoxRuedaCargando.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBoxRuedaCargando.TabIndex = 7;
+            pictureBoxRuedaCargando.TabStop = false;
             // 
             // Form1
             // 
@@ -117,15 +130,17 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Purple;
             ClientSize = new Size(795, 278);
+            Controls.Add(pictureBoxRuedaCargando);
             Controls.Add(btnProcesar);
             Controls.Add(btnSeleccionarArchivo2);
             Controls.Add(btnSeleccionarArchivo1);
             Controls.Add(txtRutaArchivo1);
             Controls.Add(txtRutaArchivo2);
-            Controls.Add(pictureBox1);
+            Controls.Add(pictureBoxLogoEstudio);
             Name = "Form1";
             Text = "Form1";
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxLogoEstudio).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxRuedaCargando).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -137,6 +152,7 @@
         private Button btnSeleccionarArchivo1;
         private Button btnSeleccionarArchivo2;
         private Button btnProcesar;
-        private PictureBox pictureBox1;
+        private PictureBox pictureBoxLogoEstudio;
+        private PictureBox pictureBoxRuedaCargando;
     }
 }
