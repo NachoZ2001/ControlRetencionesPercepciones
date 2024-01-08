@@ -393,7 +393,7 @@ namespace ControlRetenciones
                     for (int filaArchivo1 = 2; filaArchivo1 <= worksheetArchivo1.RowsUsed().Count(); filaArchivo1++)
                     {
                         string stringFechaArchivo1 = worksheetArchivo1.Cell(filaArchivo1, colFechaArchivo1).GetString();
-                        DateTime fechaArchivo1 = DateTime.Parse(stringFechaArchivo1);
+                        DateTime fechaArchivo1 = ObtenerFechaConFormatoCorrecto(stringFechaArchivo1);
 
                         XLColor colorArchivo1 = worksheetArchivo1.Cell(filaArchivo1, colImporteArchivo1).Style.Fill.BackgroundColor;
 
@@ -493,6 +493,17 @@ namespace ControlRetenciones
             return indiceColumna;
         }
 
+        // Función para obtener la fecha con el formato correcto
+        static DateTime ObtenerFechaConFormatoCorrecto(string fecha)
+        {
+            if (fecha.Length == 8 && fecha.All(char.IsDigit))
+            {
+                // Utilizar la fórmula de Excel para transformar la fecha en el formato deseado
+                fecha = $"{fecha.Substring(6, 2)}/{fecha.Substring(4, 2)}/{fecha.Substring(0, 4)}";
+            }
+
+            return DateTime.Parse(fecha);
+        }
         private void txtRutaArchivo1_TextChanged(object sender, EventArgs e)
         {
 
