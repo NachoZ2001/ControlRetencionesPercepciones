@@ -5,6 +5,7 @@ using NPOI.HSSF.UserModel;
 using NPOI.SS.UserModel;
 using NPOI.XSSF.UserModel;
 using DocumentFormat.OpenXml.Presentation;
+using NPOI.POIFS.FileSystem;
 
 namespace ControlRetenciones
 {
@@ -40,26 +41,36 @@ namespace ControlRetenciones
             {
                 IWorkbook workbook = null;
 
-                using (var fs = new FileStream(filePath, FileMode.Open, FileAccess.Read))
+                try
                 {
-                    if (Path.GetExtension(filePath).ToLower() == ".xlsx")
+                    using (var fs = new FileStream(filePath, FileMode.Open, FileAccess.Read))
                     {
-                        workbook = new XSSFWorkbook(fs);
+                        if (Path.GetExtension(filePath).ToLower() == ".xlsx")
+                        {
+                            workbook = new XSSFWorkbook(fs);
+                        }
+                        else if (Path.GetExtension(filePath).ToLower() == ".xls")
+                        {
+                            workbook = new HSSFWorkbook(fs);
+                        }
+                        else
+                        {
+                            throw new Exception("El archivo no tiene una extensión de Excel válida.");
+                        }
                     }
-                    else if (Path.GetExtension(filePath).ToLower() == ".xls")
-                    {
-                        workbook = new HSSFWorkbook(fs);
-                    }
-                    else
-                    {
-                        throw new Exception("El archivo no tiene una extensión de Excel válida.");
-                    }
+                }
+                catch (OfficeXmlFileException ex)
+                {
+                    // Muestra una notificación o cartel de información
+                    MessageBox.Show("Hay un archivo en formato XLS. Abrir el Excel, guardarlo como nuevo y volver a ejecuar", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    
+                    // Cierra el programa
+                    Environment.Exit(1);
                 }
 
                 return workbook;
             }
         }
-
         private void btnSeleccionarArchivo1_Click(object sender, EventArgs e)
         {
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
@@ -179,6 +190,7 @@ namespace ControlRetenciones
 
             return xlsxFilePath;
         }
+
 
         private void CompararArchivos(string pathfileArchivo1, string pathfileArchivo2)
         {
@@ -319,8 +331,8 @@ namespace ControlRetenciones
                                                 // Obtén el siguiente color de la lista
                                                 XLColor color = coloresCoincide[indiceColor % coloresCoincide.Count];
 
-                                                worksheetArchivo1.Cell(filaArchivo1, colImporteArchivo1).Style.Fill.BackgroundColor = color;
-                                                worksheetArchivo2.Cell(filaArchivo2, colImporteArchivo2).Style.Fill.BackgroundColor = color;
+                                                worksheetArchivo1.Row(filaArchivo1).Style.Fill.BackgroundColor = color;
+                                                worksheetArchivo2.Row(filaArchivo2).Style.Fill.BackgroundColor = color;
 
                                                 // Marcar como comparado
                                                 var indiceArchivo1 = diccionarioArchivo1[claveArchivo1].FindIndex(f => f.Item1 == filaArchivo1);
@@ -342,7 +354,7 @@ namespace ControlRetenciones
                                         // Obtén el siguiente color de la lista
                                         XLColor color = coloresNoCoincide[indiceColor % coloresCoincide.Count];
 
-                                        worksheetArchivo1.Cell(filaArchivo1, colImporteArchivo1).Style.Fill.BackgroundColor = color;
+                                        worksheetArchivo1.Row(filaArchivo1).Style.Fill.BackgroundColor = color;
                                     }
                                 }
                             }
@@ -489,8 +501,8 @@ namespace ControlRetenciones
                                         // Obtén el siguiente color de la lista
                                         XLColor color = coloresCoincide[indiceColor % coloresCoincide.Count];
 
-                                        worksheetArchivo1.Cell(filaArchivo1, colImporteArchivo1).Style.Fill.BackgroundColor = color;
-                                        worksheetArchivo2.Cell(filaArchivo2, colImporteArchivo2).Style.Fill.BackgroundColor = color;
+                                        worksheetArchivo1.Row(filaArchivo1).Style.Fill.BackgroundColor = color;
+                                        worksheetArchivo2.Row(filaArchivo2).Style.Fill.BackgroundColor = color;
 
                                         // Marcar como comparado
                                         diccionarioCertificadoNoMarcadoArchivo1[certificadoArchivo1].Remove(filaArchivo1);
@@ -509,7 +521,7 @@ namespace ControlRetenciones
                                 // Obtén el siguiente color de la lista
                                 XLColor color = coloresNoCoincide[indiceColor % coloresNoCoincide.Count];
 
-                                worksheetArchivo1.Cell(filaArchivo1, colImporteArchivo1).Style.Fill.BackgroundColor = color;
+                                worksheetArchivo1.Row(filaArchivo1).Style.Fill.BackgroundColor = color;
                             }
                         }
                     }
@@ -647,8 +659,8 @@ namespace ControlRetenciones
                                         // Obtén el siguiente color de la lista para marcar en verde
                                         XLColor colorVerde = coloresCoincide[indiceColor % coloresCoincide.Count];
 
-                                        worksheetArchivo1.Cell(filaArchivo1, colImporteArchivo1).Style.Fill.BackgroundColor = colorVerde;
-                                        worksheetArchivo2.Cell(filaArchivo2, colImporteArchivo2).Style.Fill.BackgroundColor = colorVerde;
+                                        worksheetArchivo1.Row(filaArchivo1).Style.Fill.BackgroundColor = colorVerde;
+                                        worksheetArchivo2.Row(filaArchivo2).Style.Fill.BackgroundColor = colorVerde;
 
                                         indiceColor++; // Incrementar el índice de color
 
@@ -693,7 +705,7 @@ namespace ControlRetenciones
                         XLColor colorRojo = coloresNoCoincide[indiceColor % coloresCoincide.Count];
 
                         // Marcar en rojo en el archivo
-                        worksheetArchivo.Cell(fila, colImporte).Style.Fill.BackgroundColor = colorRojo;
+                        worksheetArchivo.Row(fila).Style.Fill.BackgroundColor = colorRojo;
 
                         indiceColor++; // Incrementar el índice de color
                     }
