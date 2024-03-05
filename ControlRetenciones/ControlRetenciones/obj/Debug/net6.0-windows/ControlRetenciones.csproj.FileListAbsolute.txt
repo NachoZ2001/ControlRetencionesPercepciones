@@ -75,3 +75,4 @@ C:\Program Files\Sublime Merge\ControlRetenciones\ControlRetenciones\ControlRete
 C:\Program Files\Sublime Merge\ControlRetenciones\ControlRetenciones\ControlRetenciones\obj\Debug\net6.0-windows\ControlRetenciones.pdb
 C:\Program Files\Sublime Merge\ControlRetenciones\ControlRetenciones\ControlRetenciones\obj\Debug\net6.0-windows\ControlRetenciones.genruntimeconfig.cache
 C:\Program Files\Sublime Merge\ControlRetenciones\ControlRetenciones\ControlRetenciones\obj\Debug\net6.0-windows\ref\ControlRetenciones.dll
+E:\BOTS TRABAJO\ControlRetenciones\ControlRetenciones\ControlRetenciones\obj\Debug\net6.0-windows\ControlRetenciones.Properties.Resources.resources
