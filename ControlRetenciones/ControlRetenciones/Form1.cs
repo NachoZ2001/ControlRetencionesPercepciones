@@ -20,6 +20,12 @@ namespace ControlRetenciones
         {
             XLColor.FromArgb(255, 255, 204, 204), // Tono de rojo claro
         };
+
+        double totalAFIP = 0;
+        double totalContabilidad = 0;
+        double totalRojoAfip = 0;
+        double totalRojoContabilidad = 0;
+
         public Form1()
         {
             InitializeComponent();
@@ -101,6 +107,20 @@ namespace ControlRetenciones
             }
         }
 
+        private void btnCarpeta_Click(object sender, EventArgs e)
+        {
+            using (FolderBrowserDialog openFileDialog = new FolderBrowserDialog())
+            {
+                openFileDialog.Description = "Seleccionar una carpeta";
+
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    // Muestra la ruta seleccionada en el TextBox correspondiente
+                    textBoxReporte.Text = openFileDialog.SelectedPath;
+                }
+            }
+        }
+
         private async void btnProcesar_Click(object sender, EventArgs e)
         {
             // Mostrar el PictureBox antes de comenzar el proceso
@@ -108,6 +128,7 @@ namespace ControlRetenciones
 
             string pathfileArchivo1 = txtRutaArchivo1.Text;
             string pathfileArchivo2 = txtRutaArchivo2.Text;
+            string pathfileReporte = textBoxReporte.Text;
 
             // Convertir archivos XLS a XLSX si es necesario
             if (Path.GetExtension(pathfileArchivo1).ToLower() == ".xls")
@@ -120,8 +141,12 @@ namespace ControlRetenciones
                 pathfileArchivo2 = ConvertXlsToXlsx(pathfileArchivo2);
             }
 
+            string tipo = opcionesTipo.Text;
+
             // Realizar el proceso de manera asíncrona
-            await Task.Run(() => CompararArchivos(pathfileArchivo1, pathfileArchivo2));
+            await Task.Run(() => CompararArchivos(pathfileArchivo1, pathfileArchivo2, tipo));
+
+            CrearReporteExcel(pathfileReporte);
 
             // Ocultar el PictureBox al finalizar el proceso
             pictureBoxRuedaCargando.Visible = false;
@@ -191,21 +216,33 @@ namespace ControlRetenciones
             return xlsxFilePath;
         }
 
+<<<<<<< HEAD
 
         private void CompararArchivos(string pathfileArchivo1, string pathfileArchivo2)
+=======
+        private void CompararArchivos(string pathfileArchivo1, string pathfileArchivo2, string tipo)
+>>>>>>> 7703b02 (Modificaciones realizadas por el tema de la tolerancia y nuevas columnas a considerar)
         {
             // Llamadas a funciones específicas
-            CompararArchivosPorCuit(pathfileArchivo1, pathfileArchivo2);
-            CompararArchivosPorCertificado(pathfileArchivo1, pathfileArchivo2);
-            CompararArchivosPorFechaEImporte(pathfileArchivo1, pathfileArchivo2);
+            CompararArchivosPorCuit(pathfileArchivo1, pathfileArchivo2, tipo);
+            //CompararArchivosPorCertificado(pathfileArchivo1, pathfileArchivo2);
+            //CompararArchivosPorFechaEImporte(pathfileArchivo1, pathfileArchivo2);
 
             //Marcar en rojo los que no coinciden
-            MarcarNoCoincidentesEnRojo(pathfileArchivo1);
-            MarcarNoCoincidentesEnRojo(pathfileArchivo2);
+            MarcarNoCoincidentesEnRojo(pathfileArchivo1, 1);
+            MarcarNoCoincidentesEnRojo(pathfileArchivo2, 2);
         }
 
-        private void CompararArchivosPorCuit(string pathfileArchivo1, string pathfileArchivo2)
-        {             
+        private void CompararArchivosPorCuit(string pathfileArchivo1, string pathfileArchivo2, string tipo)
+        {
+
+            double tolerancia = 0.1;
+
+            if (tipo == "Percepción")
+            {
+                tolerancia = 2;
+            }
+
             using (var workbookArchivo1 = new XLWorkbook(pathfileArchivo1))
             {
                 using (var workbookArchivo2 = new XLWorkbook(pathfileArchivo2))
@@ -216,6 +253,10 @@ namespace ControlRetenciones
                     int colImporteArchivo1 = ObtenerIndiceColumna(worksheetArchivo1, "Importe");
                     if (colImporteArchivo1 == -1)
                     {
+                        colImporteArchivo1 = ObtenerIndiceColumna(worksheetArchivo1, "IMP_RET");
+                    }
+                    if (colImporteArchivo1 == -1)
+                    {
                         colImporteArchivo1 = ObtenerIndiceColumna(worksheetArchivo1, "ImporteRet");
                     }
                     if (colImporteArchivo1 == -1)
@@ -224,10 +265,13 @@ namespace ControlRetenciones
                     }
                     if (colImporteArchivo1 == -1)
                     {
+<<<<<<< HEAD
                         colImporteArchivo1 = ObtenerIndiceColumna(worksheetArchivo1, "IMP_RET");
                     }
                     if (colImporteArchivo1 == -1)
                     {
+=======
+>>>>>>> 7703b02 (Modificaciones realizadas por el tema de la tolerancia y nuevas columnas a considerar)
                         colImporteArchivo1 = ObtenerIndiceColumna(worksheetArchivo1, "Importe Ret,/Perc,");
                     }
                     if (colImporteArchivo1 == -1)
@@ -235,6 +279,10 @@ namespace ControlRetenciones
                         MessageBox.Show("No se encontro la columna importe en el archivo 1", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                     int colImporteArchivo2 = ObtenerIndiceColumna(worksheetArchivo2, "Importe Ret./Perc.");
+                    if (colImporteArchivo2 == -1)
+                    {
+                        colImporteArchivo2 = ObtenerIndiceColumna(worksheetArchivo2, "Importe Ret,/Perc,");
+                    }
                     if (colImporteArchivo2 == -1)
                     {
                         colImporteArchivo2 = ObtenerIndiceColumna(worksheetArchivo2, "ImporteRet");
@@ -249,13 +297,20 @@ namespace ControlRetenciones
                     }
                     if (colImporteArchivo2 == -1)
                     {
+<<<<<<< HEAD
                         colImporteArchivo2 = ObtenerIndiceColumna(worksheetArchivo2, "Importe Ret,/Perc,");
                     }
                     if (colImporteArchivo2 == -1)
                     {
+=======
+>>>>>>> 7703b02 (Modificaciones realizadas por el tema de la tolerancia y nuevas columnas a considerar)
                         MessageBox.Show("No se encontro la columna importe en el archivo 2", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                     int colNroDocArchivo1 = ObtenerIndiceColumna(worksheetArchivo1, "Nro. Doc.");
+                    if (colNroDocArchivo1 == -1)
+                    {
+                        colNroDocArchivo1 = ObtenerIndiceColumna(worksheetArchivo1, "IDENTIFTRI");
+                    }
                     if (colNroDocArchivo1 == -1)
                     {
                         colNroDocArchivo1 = ObtenerIndiceColumna(worksheetArchivo1, "Cuit");
@@ -270,7 +325,11 @@ namespace ControlRetenciones
                     }
                     if (colNroDocArchivo1 == -1)
                     {
+<<<<<<< HEAD
                         colNroDocArchivo1 = ObtenerIndiceColumna(worksheetArchivo1, "IDENTIFTRI");
+=======
+                        colNroDocArchivo1 = ObtenerIndiceColumna(worksheetArchivo1, "Cuit Agente");
+>>>>>>> 7703b02 (Modificaciones realizadas por el tema de la tolerancia y nuevas columnas a considerar)
                     }
                     if (colNroDocArchivo1 == -1)
                     {
@@ -291,6 +350,13 @@ namespace ControlRetenciones
                     }
                     if (colCuitAgenteArchivo2 == -1)
                     {
+<<<<<<< HEAD
+=======
+                        colCuitAgenteArchivo2 = ObtenerIndiceColumna(worksheetArchivo2, "Cuit Agente");
+                    }
+                    if (colCuitAgenteArchivo2 == -1)
+                    {
+>>>>>>> 7703b02 (Modificaciones realizadas por el tema de la tolerancia y nuevas columnas a considerar)
                         colCuitAgenteArchivo2 = ObtenerIndiceColumna(worksheetArchivo2, "IDENTIFTRI");
                     }
                     if (colCuitAgenteArchivo2 == -1)
@@ -336,6 +402,7 @@ namespace ControlRetenciones
                         }
                     }
 
+
                     // Bucle principal para comparar y marcar en verde
                     foreach (var claveArchivo1 in diccionarioArchivo1.Keys.ToList())
                     {
@@ -345,7 +412,9 @@ namespace ControlRetenciones
                             {
                                 if (comparado == false) // Solo si aún no se ha comparado esta fila
                                 {
-                                    decimal importeArchivo1 = worksheetArchivo1.Cell(filaArchivo1, colImporteArchivo1).GetValue<decimal>();
+                                    double importeArchivo1 = worksheetArchivo1.Cell(filaArchivo1, colImporteArchivo1).GetValue<double>();
+
+                                    totalContabilidad += importeArchivo1;
 
                                     int ban = 0;
 
@@ -355,10 +424,14 @@ namespace ControlRetenciones
                                         {
                                             string valorCeldaImporterArchivo2 = worksheetArchivo2.Cell(filaArchivo2, colImporteArchivo2).GetString();
                                             string valorCeldaImporterArchivo2SinComa = valorCeldaImporterArchivo2.Replace(",", ".");
-                                            decimal importeArchivo2 = decimal.Parse(valorCeldaImporterArchivo2SinComa, CultureInfo.InvariantCulture);
+                                            double importeArchivo2 = double.Parse(valorCeldaImporterArchivo2SinComa, CultureInfo.InvariantCulture);
+
+                                            totalAFIP += importeArchivo2;
+
+                                            double resultado = Math.Abs(importeArchivo1 - importeArchivo2);
 
                                             // Comparar con una tolerancia de ±10
-                                            if (Math.Abs(importeArchivo1 - importeArchivo2) <= 10)
+                                            if (Math.Abs(importeArchivo1 - importeArchivo2) <= tolerancia)
                                             {
                                                 // Obtén el siguiente color de la lista
                                                 XLColor color = coloresCoincide[indiceColor % coloresCoincide.Count];
@@ -386,7 +459,15 @@ namespace ControlRetenciones
                                         // Obtén el siguiente color de la lista
                                         XLColor color = coloresNoCoincide[indiceColor % coloresCoincide.Count];
 
+<<<<<<< HEAD
                                         worksheetArchivo1.Row(filaArchivo1).Style.Fill.BackgroundColor = color;
+=======
+                                        worksheetArchivo1.Cell(filaArchivo1, colImporteArchivo1).Style.Fill.BackgroundColor = color;
+
+                                        importeArchivo1 = worksheetArchivo1.Cell(filaArchivo1, colImporteArchivo1).GetValue<double>();
+
+                                        totalRojoAfip += importeArchivo1;
+>>>>>>> 7703b02 (Modificaciones realizadas por el tema de la tolerancia y nuevas columnas a considerar)
                                     }
                                 }
                             }
@@ -400,7 +481,7 @@ namespace ControlRetenciones
             }
         }
 
-        private void CompararArchivosPorCertificado(string pathfileArchivo1,string pathfileArchivo2)
+        private void CompararArchivosPorCertificado(string pathfileArchivo1, string pathfileArchivo2)
         {
             using (var workbookArchivo1 = new XLWorkbook(pathfileArchivo1))
             {
@@ -422,17 +503,31 @@ namespace ControlRetenciones
                     }
                     if (colImporteArchivo1 == -1)
                     {
+<<<<<<< HEAD
                         colImporteArchivo1 = ObtenerIndiceColumna(worksheetArchivo1, "IMP_RET");
                     }
                     if (colImporteArchivo1 == -1)
                     {
+=======
+>>>>>>> 7703b02 (Modificaciones realizadas por el tema de la tolerancia y nuevas columnas a considerar)
                         colImporteArchivo1 = ObtenerIndiceColumna(worksheetArchivo1, "Importe Ret,/Perc,");
                     }
                     if (colImporteArchivo1 == -1)
                     {
+<<<<<<< HEAD
+=======
+                        colImporteArchivo1 = ObtenerIndiceColumna(worksheetArchivo1, "IMP_RET");
+                    }
+                    if (colImporteArchivo1 == -1)
+                    {
+>>>>>>> 7703b02 (Modificaciones realizadas por el tema de la tolerancia y nuevas columnas a considerar)
                         MessageBox.Show("No se encontro la columna importe en el archivo 1", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                     int colImporteArchivo2 = ObtenerIndiceColumna(worksheetArchivo2, "Importe Ret./Perc.");
+                    if (colImporteArchivo2 == -1)
+                    {
+                        colImporteArchivo2 = ObtenerIndiceColumna(worksheetArchivo2, "Importe Ret,/Perc,");
+                    }
                     if (colImporteArchivo2 == -1)
                     {
                         colImporteArchivo2 = ObtenerIndiceColumna(worksheetArchivo2, "ImporteRet");
@@ -447,10 +542,13 @@ namespace ControlRetenciones
                     }
                     if (colImporteArchivo2 == -1)
                     {
+<<<<<<< HEAD
                         colImporteArchivo2 = ObtenerIndiceColumna(worksheetArchivo2, "Importe Ret,/Perc,");
                     }
                     if (colImporteArchivo2 == -1)
                     {
+=======
+>>>>>>> 7703b02 (Modificaciones realizadas por el tema de la tolerancia y nuevas columnas a considerar)
                         MessageBox.Show("No se encontro la columna importe en el archivo 2", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                     int colNroCertificadoArchivo1 = ObtenerIndiceColumna(worksheetArchivo1, "Nro. Certif.");
@@ -479,7 +577,10 @@ namespace ControlRetenciones
                     {
                         colNroCertificadoArchivo2 = ObtenerIndiceColumna(worksheetArchivo2, "N_CERTIF");
                     }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 7703b02 (Modificaciones realizadas por el tema de la tolerancia y nuevas columnas a considerar)
 
                     if (colNroCertificadoArchivo1 == -1 || colNroCertificadoArchivo2 == -1)
                     {
@@ -540,7 +641,7 @@ namespace ControlRetenciones
                     {
                         foreach (int filaArchivo1 in diccionarioCertificadoNoMarcadoArchivo1[certificadoArchivo1].ToList())
                         {
-                            decimal importeArchivo1 = worksheetArchivo1.Cell(filaArchivo1, colImporteArchivo1).GetValue<decimal>();
+                            double importeArchivo1 = worksheetArchivo1.Cell(filaArchivo1, colImporteArchivo1).GetValue<double>();
 
                             int ban = 0;
 
@@ -550,7 +651,7 @@ namespace ControlRetenciones
                                 {
                                     string valorCeldaImporterArchivo2 = worksheetArchivo2.Cell(filaArchivo2, colImporteArchivo2).GetString();
                                     string valorCeldaImporterArchivo2SinComa = valorCeldaImporterArchivo2.Replace(",", ".");
-                                    decimal importeArchivo2 = decimal.Parse(valorCeldaImporterArchivo2SinComa, CultureInfo.InvariantCulture);
+                                    double importeArchivo2 = double.Parse(valorCeldaImporterArchivo2SinComa, CultureInfo.InvariantCulture);
 
                                     // Comparar con una tolerancia de ±10
                                     if (Math.Abs(importeArchivo1 - importeArchivo2) <= 10)
@@ -612,6 +713,14 @@ namespace ControlRetenciones
                     }
                     if (colFechaArchivo1 == -1)
                     {
+                        colFechaArchivo1 = ObtenerIndiceColumna(worksheetArchivo1, "FECHA_RET");
+                    }
+                    if (colFechaArchivo1 == -1)
+                    {
+                        colFechaArchivo1 = ObtenerIndiceColumna(worksheetArchivo1, "FECH_COMP");
+                    }
+                    if (colFechaArchivo1 == -1)
+                    {
                         MessageBox.Show("No se encontro la columna fecha en el archivo 1", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                     int colFechaArchivo2 = ObtenerIndiceColumna(worksheetArchivo2, "FECHA_RET");
@@ -622,6 +731,14 @@ namespace ControlRetenciones
                     if (colFechaArchivo2 == -1)
                     {
                         colFechaArchivo2 = ObtenerIndiceColumna(worksheetArchivo2, "Fecha");
+                    }
+                    if (colFechaArchivo2 == -1)
+                    {
+                        colFechaArchivo2 = ObtenerIndiceColumna(worksheetArchivo2, "FECHA_RET");
+                    }
+                    if (colFechaArchivo2 == -1)
+                    {
+                        colFechaArchivo2 = ObtenerIndiceColumna(worksheetArchivo2, "FECH_COMP");
                     }
                     if (colFechaArchivo2 == -1)
                     {
@@ -638,17 +755,31 @@ namespace ControlRetenciones
                     }
                     if (colImporteArchivo1 == -1)
                     {
+<<<<<<< HEAD
                         colImporteArchivo1 = ObtenerIndiceColumna(worksheetArchivo1, "IMP_RET");
                     }
                     if (colImporteArchivo1 == -1)
                     {
+=======
+>>>>>>> 7703b02 (Modificaciones realizadas por el tema de la tolerancia y nuevas columnas a considerar)
                         colImporteArchivo1 = ObtenerIndiceColumna(worksheetArchivo1, "Importe Ret,/Perc,");
                     }
                     if (colImporteArchivo1 == -1)
                     {
+<<<<<<< HEAD
+=======
+                        colImporteArchivo1 = ObtenerIndiceColumna(worksheetArchivo1, "IMP_RET");
+                    }
+                    if (colImporteArchivo1 == -1)
+                    {
+>>>>>>> 7703b02 (Modificaciones realizadas por el tema de la tolerancia y nuevas columnas a considerar)
                         MessageBox.Show("No se encontro la columna importe en el archivo 1", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                     int colImporteArchivo2 = ObtenerIndiceColumna(worksheetArchivo2, "Importe Ret./Perc.");
+                    if (colImporteArchivo2 == -1)
+                    {
+                        colImporteArchivo2 = ObtenerIndiceColumna(worksheetArchivo2, "Importe Ret,/Perc,");
+                    }
                     if (colImporteArchivo2 == -1)
                     {
                         colImporteArchivo2 = ObtenerIndiceColumna(worksheetArchivo2, "Importe");
@@ -663,10 +794,13 @@ namespace ControlRetenciones
                     }
                     if (colImporteArchivo2 == -1)
                     {
+<<<<<<< HEAD
                         colImporteArchivo2 = ObtenerIndiceColumna(worksheetArchivo2, "Importe Ret,/Perc,");
                     }
                     if (colImporteArchivo2 == -1)
                     {
+=======
+>>>>>>> 7703b02 (Modificaciones realizadas por el tema de la tolerancia y nuevas columnas a considerar)
                         MessageBox.Show("No se encontro la columna importe en el archivo 2", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
 
@@ -728,14 +862,14 @@ namespace ControlRetenciones
                     {
                         foreach (int filaArchivo1 in diccionarioFechaArchivo1[fechaArchivo1])
                         {
-                            decimal importeArchivo1 = worksheetArchivo1.Cell(filaArchivo1, colImporteArchivo1).GetValue<decimal>();
+                            double importeArchivo1 = worksheetArchivo1.Cell(filaArchivo1, colImporteArchivo1).GetValue<double>();
 
                             if (diccionarioFechaArchivo2.TryGetValue(fechaArchivo1, out List<int> filasFechaArchivo2))
                             {
                                 foreach (int filaArchivo2 in filasFechaArchivo2.ToList())
                                 {
 
-                                    decimal importeArchivo2 = worksheetArchivo2.Cell(filaArchivo2, colImporteArchivo2).GetValue<decimal>();
+                                    double importeArchivo2 = worksheetArchivo2.Cell(filaArchivo2, colImporteArchivo2).GetValue<double>();
 
                                     // Comparar por importe
                                     if (Math.Abs(importeArchivo1 - importeArchivo2) <= 10)
@@ -761,7 +895,7 @@ namespace ControlRetenciones
             }
         }
 
-        private void MarcarNoCoincidentesEnRojo(string pathArchivo)
+        private void MarcarNoCoincidentesEnRojo(string pathArchivo, int archivo)
         {
             using (var workbookArchivo = new XLWorkbook(pathArchivo))
             {
@@ -779,12 +913,21 @@ namespace ControlRetenciones
                 }
                 if (colImporte == -1)
                 {
+<<<<<<< HEAD
                     colImporte = ObtenerIndiceColumna(worksheetArchivo, "IMP_RET");
                 }
                 if (colImporte == -1)
                 {
                     colImporte = ObtenerIndiceColumna(worksheetArchivo, "Importe Ret,/Perc,");
                 }
+=======
+                    colImporte = ObtenerIndiceColumna(worksheetArchivo, "Importe Ret,/Perc,");
+                }
+                if (colImporte == -1)
+                {
+                    colImporte = ObtenerIndiceColumna(worksheetArchivo, "IMP_RET");
+                }
+>>>>>>> 7703b02 (Modificaciones realizadas por el tema de la tolerancia y nuevas columnas a considerar)
 
                 for (int fila = 2; fila <= worksheetArchivo.RowsUsed().Count(); fila++)
                 {
@@ -799,6 +942,17 @@ namespace ControlRetenciones
                         // Marcar en rojo en el archivo
                         worksheetArchivo.Row(fila).Style.Fill.BackgroundColor = colorRojo;
 
+                        double importeArchivo = worksheetArchivo.Cell(fila, colImporte).GetValue<double>();
+
+                        if (archivo == 1)
+                        {
+                            totalRojoContabilidad += importeArchivo;
+                        }
+                        else
+                        {
+                            totalRojoAfip += importeArchivo;
+                        }
+
                         indiceColor++; // Incrementar el índice de color
                     }
                 }
@@ -808,6 +962,80 @@ namespace ControlRetenciones
             }
         }
 
+        private void CrearReporteExcel(string rutaArchivo)
+        {
+            // Verificar si la ruta del archivo es válida
+            if (string.IsNullOrWhiteSpace(rutaArchivo))
+            {
+                MessageBox.Show("La ruta del archivo no puede estar vacía", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            // Agregar la extensión .xlsx si no se proporciona
+            if (Path.GetExtension(rutaArchivo) != ".xlsx")
+            {
+                rutaArchivo += ".xlsx";
+            }
+
+            // Crear un nuevo archivo de Excel
+            using (var workbook = new XLWorkbook())
+            {
+                var worksheet = workbook.Worksheets.Add("Reporte");
+
+                // Configurar títulos y estilos
+                var tituloStyle = worksheet.Style;
+                tituloStyle.Font.Bold = true;               
+
+                // Retenciones AFIP
+                worksheet.Cell("A1").Value = "Retenciones AFIP";
+                worksheet.Cell("B1").Value = totalAFIP;
+                worksheet.Cell("A2").Value = "Retenciones que no están en AFIP pero sí registradas";
+                worksheet.Cell("B2").Value = totalRojoContabilidad;
+                worksheet.Cell("A3").Value = "Total";
+                worksheet.Cell("B3").Value = totalAFIP + totalRojoContabilidad;
+
+                // Aplicar estilo al fondo de las celdas de total y diferencia
+                var fondoTotalDiferenciaStyle = worksheet.Cell("B1").Style;
+                fondoTotalDiferenciaStyle.Fill.BackgroundColor = XLColor.FromHtml("#BFBFBF");
+                fondoTotalDiferenciaStyle = worksheet.Cell("B2").Style;
+                fondoTotalDiferenciaStyle.Fill.BackgroundColor = XLColor.FromHtml("#BFBFBF");
+                fondoTotalDiferenciaStyle = worksheet.Cell("B3").Style;
+                fondoTotalDiferenciaStyle.Fill.BackgroundColor = XLColor.FromHtml("#BFBFBF");
+
+                worksheet.Cell("A5").Value = "Retenciones Contabilidad";
+                worksheet.Cell("B5").Value = totalContabilidad;
+                worksheet.Cell("A6").Value = "Retenciones que no están en Contabilidad pero sí en AFIP";
+                worksheet.Cell("B6").Value = totalRojoAfip;
+                worksheet.Cell("A7").Value = "Total";
+                worksheet.Cell("B7").Value = totalContabilidad + totalRojoAfip;
+
+                // Aplicar estilo al fondo de las celdas de total y diferencia
+                fondoTotalDiferenciaStyle = worksheet.Cell("B5").Style;
+                fondoTotalDiferenciaStyle.Fill.BackgroundColor = XLColor.FromHtml("#BFBFBF");
+                fondoTotalDiferenciaStyle = worksheet.Cell("B6").Style;
+                fondoTotalDiferenciaStyle.Fill.BackgroundColor = XLColor.FromHtml("#BFBFBF");
+                fondoTotalDiferenciaStyle = worksheet.Cell("B7").Style;
+                fondoTotalDiferenciaStyle.Fill.BackgroundColor = XLColor.FromHtml("#BFBFBF");             
+
+                // Diferencia
+                worksheet.Cell("A9").Value = "Diferencia";
+                worksheet.Cell("B9").FormulaA1 = "B3 - B7";
+
+                // Aplicar estilo al fondo de las celdas de total y diferencia
+                fondoTotalDiferenciaStyle = worksheet.Cell("B9").Style;
+                fondoTotalDiferenciaStyle.Fill.BackgroundColor = XLColor.FromHtml("#BFBFBF");
+
+                // Resaltar todos los bordes
+                var bordesStyle = worksheet.RangeUsed().Style.Border;
+                bordesStyle.BottomBorder = XLBorderStyleValues.Thin;
+                bordesStyle.TopBorder = XLBorderStyleValues.Thin;
+                bordesStyle.LeftBorder = XLBorderStyleValues.Thin;
+                bordesStyle.RightBorder = XLBorderStyleValues.Thin;
+
+                // Guardar el archivo
+                workbook.SaveAs(rutaArchivo);
+            }
+        }
 
         // Función auxiliar para obtener el índice de la columna por su nombre
         static int ObtenerIndiceColumna(IXLWorksheet worksheet, string nombreColumna)
