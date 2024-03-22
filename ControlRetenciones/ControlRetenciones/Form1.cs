@@ -69,7 +69,7 @@ namespace ControlRetenciones
                 {
                     // Muestra una notificación o cartel de información
                     MessageBox.Show("Hay un archivo en formato XLS. Abrir el Excel, guardarlo como nuevo y volver a ejecuar", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    
+
                     // Cierra el programa
                     Environment.Exit(1);
                 }
@@ -141,10 +141,8 @@ namespace ControlRetenciones
                 pathfileArchivo2 = ConvertXlsToXlsx(pathfileArchivo2);
             }
 
-            string tipo = opcionesTipo.Text;
-
             // Realizar el proceso de manera asíncrona
-            await Task.Run(() => CompararArchivos(pathfileArchivo1, pathfileArchivo2, tipo));
+            await Task.Run(() => CompararArchivos(pathfileArchivo1, pathfileArchivo2));
 
             CrearReporteExcel(pathfileReporte);
 
@@ -215,10 +213,20 @@ namespace ControlRetenciones
 
             return xlsxFilePath;
         }
-        private void CompararArchivos(string pathfileArchivo1, string pathfileArchivo2, string tipo)
+
+        private void CompararArchivos(string pathfileArchivo1, string pathfileArchivo2)
         {
             // Llamadas a funciones específicas
-            CompararArchivosPorCuit(pathfileArchivo1, pathfileArchivo2, tipo);
+
+            // Primera llamada para que compare de manera exacta
+            CompararArchivosPorCuit(pathfileArchivo1, pathfileArchivo2, 0.1);
+
+            // Segunda llamada para que compare con una tolerancia de 1 
+            CompararArchivosPorCuit(pathfileArchivo1, pathfileArchivo2, 1);
+
+            // Tercera y ultima llamada para que compare con una tolerancia de 2
+            CompararArchivosPorCuit(pathfileArchivo1, pathfileArchivo2, 2);
+
             //CompararArchivosPorCertificado(pathfileArchivo1, pathfileArchivo2);
             //CompararArchivosPorFechaEImporte(pathfileArchivo1, pathfileArchivo2);
 
@@ -227,16 +235,8 @@ namespace ControlRetenciones
             MarcarNoCoincidentesEnRojo(pathfileArchivo2, 2);
         }
 
-        private void CompararArchivosPorCuit(string pathfileArchivo1, string pathfileArchivo2, string tipo)
+        private void CompararArchivosPorCuit(string pathfileArchivo1, string pathfileArchivo2, double tolerancia)
         {
-
-            double tolerancia = 0.1;
-
-            if (tipo == "Percepción")
-            {
-                tolerancia = 2;
-            }
-
             using (var workbookArchivo1 = new XLWorkbook(pathfileArchivo1))
             {
                 using (var workbookArchivo2 = new XLWorkbook(pathfileArchivo2))
@@ -256,10 +256,6 @@ namespace ControlRetenciones
                     if (colImporteArchivo1 == -1)
                     {
                         colImporteArchivo1 = ObtenerIndiceColumna(worksheetArchivo1, "Importe Ret./Perc.");
-                    }
-                    if (colImporteArchivo1 == -1)
-                    {
-                        colImporteArchivo1 = ObtenerIndiceColumna(worksheetArchivo1, "IMP_RET");
                     }
                     if (colImporteArchivo1 == -1)
                     {
@@ -289,10 +285,6 @@ namespace ControlRetenciones
                     }
                     if (colImporteArchivo2 == -1)
                     {
-                        colImporteArchivo2 = ObtenerIndiceColumna(worksheetArchivo2, "Importe Ret,/Perc,");
-                    }
-                    if (colImporteArchivo2 == -1)
-                    {
                         MessageBox.Show("No se encontro la columna importe en el archivo 2", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                     int colNroDocArchivo1 = ObtenerIndiceColumna(worksheetArchivo1, "Nro. Doc.");
@@ -310,12 +302,11 @@ namespace ControlRetenciones
                     }
                     if (colNroDocArchivo1 == -1)
                     {
-                        colNroDocArchivo1 = ObtenerIndiceColumna(worksheetArchivo1, "CUIT Agente Ret./Perc.");
+                        colNroDocArchivo1 = ObtenerIndiceColumna(worksheetArchivo1, "Cuit Agente");
                     }
                     if (colNroDocArchivo1 == -1)
                     {
-                        colNroDocArchivo1 = ObtenerIndiceColumna(worksheetArchivo1, "IDENTIFTRI");
-                        colNroDocArchivo1 = ObtenerIndiceColumna(worksheetArchivo1, "Cuit Agente");
+                        colNroDocArchivo1 = ObtenerIndiceColumna(worksheetArchivo1, "CUIT Agente Ret./Perc.");
                     }
                     if (colNroDocArchivo1 == -1)
                     {
@@ -359,6 +350,12 @@ namespace ControlRetenciones
                         string valorCeldaNroDoc = worksheetArchivo1.Cell(filaArchivo1, colNroDocArchivo1).GetString();
                         string nroDoc = valorCeldaNroDoc;
 
+                        XLColor colorArchivo1 = worksheetArchivo1.Cell(filaArchivo1, colImporteArchivo1).Style.Fill.BackgroundColor;
+                        if (colorArchivo1 == XLColor.FromArgb(255, 204, 255, 204)) // Verde claro
+                        {
+                            continue; // Saltar filas ya marcadas en verde
+                        }
+
                         if (diccionarioArchivo1.ContainsKey(nroDoc))
                         {
                             diccionarioArchivo1[nroDoc].Add((filaArchivo1, false));
@@ -374,6 +371,12 @@ namespace ControlRetenciones
                     {
                         string valorCeldaCuitAgente = worksheetArchivo2.Cell(filaArchivo2, colCuitAgenteArchivo2).GetString();
                         string cuitAgente = valorCeldaCuitAgente;
+
+                        XLColor colorArchivo2 = worksheetArchivo2.Cell(filaArchivo2, colImporteArchivo2).Style.Fill.BackgroundColor;
+                        if (colorArchivo2 == XLColor.FromArgb(255, 204, 255, 204)) // Verde claro
+                        {
+                            continue; // Saltar filas ya marcadas en verde
+                        }
 
                         if (diccionarioArchivo2.ContainsKey(cuitAgente))
                         {
@@ -397,8 +400,6 @@ namespace ControlRetenciones
                                 {
                                     double importeArchivo1 = worksheetArchivo1.Cell(filaArchivo1, colImporteArchivo1).GetValue<double>();
 
-                                    totalContabilidad += importeArchivo1;
-
                                     int ban = 0;
 
                                     foreach ((int filaArchivo2, bool comparadoArchivo2) in filasArchivo2.ToList())
@@ -409,8 +410,6 @@ namespace ControlRetenciones
                                             string valorCeldaImporterArchivo2SinComa = valorCeldaImporterArchivo2.Replace(",", ".");
                                             double importeArchivo2 = double.Parse(valorCeldaImporterArchivo2SinComa, CultureInfo.InvariantCulture);
 
-                                            totalAFIP += importeArchivo2;
-
                                             double resultado = Math.Abs(importeArchivo1 - importeArchivo2);
 
                                             // Comparar con una tolerancia de ±10
@@ -419,8 +418,8 @@ namespace ControlRetenciones
                                                 // Obtén el siguiente color de la lista
                                                 XLColor color = coloresCoincide[indiceColor % coloresCoincide.Count];
 
-                                                worksheetArchivo1.Row(filaArchivo1).Style.Fill.BackgroundColor = color;
-                                                worksheetArchivo2.Row(filaArchivo2).Style.Fill.BackgroundColor = color;
+                                                worksheetArchivo1.Cell(filaArchivo1, colImporteArchivo1).Style.Fill.BackgroundColor = color;
+                                                worksheetArchivo2.Cell(filaArchivo2, colImporteArchivo2).Style.Fill.BackgroundColor = color;
 
                                                 // Marcar como comparado
                                                 var indiceArchivo1 = diccionarioArchivo1[claveArchivo1].FindIndex(f => f.Item1 == filaArchivo1);
@@ -441,13 +440,9 @@ namespace ControlRetenciones
                                     {
                                         // Obtén el siguiente color de la lista
                                         XLColor color = coloresNoCoincide[indiceColor % coloresCoincide.Count];
-
-                                        worksheetArchivo1.Row(filaArchivo1).Style.Fill.BackgroundColor = color;
                                         worksheetArchivo1.Cell(filaArchivo1, colImporteArchivo1).Style.Fill.BackgroundColor = color;
 
                                         importeArchivo1 = worksheetArchivo1.Cell(filaArchivo1, colImporteArchivo1).GetValue<double>();
-
-                                        totalRojoAfip += importeArchivo1;
                                     }
                                 }
                             }
@@ -886,27 +881,45 @@ namespace ControlRetenciones
                 {
                     var colorArchivo = worksheetArchivo.Cell(fila, colImporte).Style.Fill.BackgroundColor;
 
-                    if (colorArchivo != XLColor.FromArgb(255, 204, 255, 204))
+                    if (colorArchivo != XLColor.FromArgb(255, 204, 255, 204) && colorArchivo != XLColor.FromArgb(255, 255, 204, 204))
                     {
 
                         // Obtén el siguiente color de la lista para marcar en rojo
                         XLColor colorRojo = coloresNoCoincide[indiceColor % coloresCoincide.Count];
 
                         // Marcar en rojo en el archivo
-                        worksheetArchivo.Row(fila).Style.Fill.BackgroundColor = colorRojo;
+                        worksheetArchivo.Cell(fila, colImporte).Style.Fill.BackgroundColor = colorRojo;
 
-                        double importeArchivo = worksheetArchivo.Cell(fila, colImporte).GetValue<double>();
+                        indiceColor++; // Incrementar el índice de color
+                    }
 
-                        if (archivo == 1)
+                    string valorCeldaImporterArchivo = worksheetArchivo.Cell(fila, colImporte).GetString();
+                    string valorCeldaImporterArchivoConComa = valorCeldaImporterArchivo.Replace(",", ".");
+                    double importeArchivo = double.Parse(valorCeldaImporterArchivoConComa, CultureInfo.InvariantCulture);
+
+                    if (archivo == 1)
+                    {
+                        if (colorArchivo == XLColor.FromArgb(255, 204, 255, 204))
                         {
-                            totalRojoContabilidad += importeArchivo;
+                            totalContabilidad += importeArchivo;
                         }
                         else
                         {
+                            totalContabilidad += importeArchivo;
+                            totalRojoContabilidad += importeArchivo;
+                        }
+                    }
+                    else
+                    {
+                        if (colorArchivo == XLColor.FromArgb(255, 204, 255, 204))
+                        {
+                            totalAFIP += importeArchivo;
+                        }
+                        else
+                        {
+                            totalAFIP += importeArchivo;
                             totalRojoAfip += importeArchivo;
                         }
-
-                        indiceColor++; // Incrementar el índice de color
                     }
                 }
 
@@ -937,7 +950,7 @@ namespace ControlRetenciones
 
                 // Configurar títulos y estilos
                 var tituloStyle = worksheet.Style;
-                tituloStyle.Font.Bold = true;               
+                tituloStyle.Font.Bold = true;
 
                 // Retenciones AFIP
                 worksheet.Cell("A1").Value = "Retenciones AFIP";
@@ -945,7 +958,7 @@ namespace ControlRetenciones
                 worksheet.Cell("A2").Value = "Retenciones que no están en AFIP pero sí registradas";
                 worksheet.Cell("B2").Value = totalRojoContabilidad;
                 worksheet.Cell("A3").Value = "Total";
-                worksheet.Cell("B3").Value = totalAFIP + totalRojoContabilidad;
+                worksheet.Cell("B3").FormulaA1 = "B1 + B2";
 
                 // Aplicar estilo al fondo de las celdas de total y diferencia
                 var fondoTotalDiferenciaStyle = worksheet.Cell("B1").Style;
@@ -960,7 +973,7 @@ namespace ControlRetenciones
                 worksheet.Cell("A6").Value = "Retenciones que no están en Contabilidad pero sí en AFIP";
                 worksheet.Cell("B6").Value = totalRojoAfip;
                 worksheet.Cell("A7").Value = "Total";
-                worksheet.Cell("B7").Value = totalContabilidad + totalRojoAfip;
+                worksheet.Cell("B7").FormulaA1 = "B5 + B6";
 
                 // Aplicar estilo al fondo de las celdas de total y diferencia
                 fondoTotalDiferenciaStyle = worksheet.Cell("B5").Style;
@@ -968,7 +981,7 @@ namespace ControlRetenciones
                 fondoTotalDiferenciaStyle = worksheet.Cell("B6").Style;
                 fondoTotalDiferenciaStyle.Fill.BackgroundColor = XLColor.FromHtml("#BFBFBF");
                 fondoTotalDiferenciaStyle = worksheet.Cell("B7").Style;
-                fondoTotalDiferenciaStyle.Fill.BackgroundColor = XLColor.FromHtml("#BFBFBF");             
+                fondoTotalDiferenciaStyle.Fill.BackgroundColor = XLColor.FromHtml("#BFBFBF");
 
                 // Diferencia
                 worksheet.Cell("A9").Value = "Diferencia";
@@ -978,12 +991,24 @@ namespace ControlRetenciones
                 fondoTotalDiferenciaStyle = worksheet.Cell("B9").Style;
                 fondoTotalDiferenciaStyle.Fill.BackgroundColor = XLColor.FromHtml("#BFBFBF");
 
+                fondoTotalDiferenciaStyle = worksheet.Cell("A4").Style;
+                fondoTotalDiferenciaStyle.Fill.BackgroundColor = XLColor.FromHtml("#BFBFBF");
+                fondoTotalDiferenciaStyle = worksheet.Cell("B4").Style;
+                fondoTotalDiferenciaStyle.Fill.BackgroundColor = XLColor.FromHtml("#BFBFBF");
+                fondoTotalDiferenciaStyle = worksheet.Cell("A8").Style;
+                fondoTotalDiferenciaStyle.Fill.BackgroundColor = XLColor.FromHtml("#BFBFBF");
+                fondoTotalDiferenciaStyle = worksheet.Cell("B8").Style;
+                fondoTotalDiferenciaStyle.Fill.BackgroundColor = XLColor.FromHtml("#BFBFBF");
+
                 // Resaltar todos los bordes
                 var bordesStyle = worksheet.RangeUsed().Style.Border;
                 bordesStyle.BottomBorder = XLBorderStyleValues.Thin;
                 bordesStyle.TopBorder = XLBorderStyleValues.Thin;
                 bordesStyle.LeftBorder = XLBorderStyleValues.Thin;
                 bordesStyle.RightBorder = XLBorderStyleValues.Thin;
+
+                // Ajustar automáticamente el ancho de las columnas
+                worksheet.Columns().AdjustToContents();
 
                 // Guardar el archivo
                 workbook.SaveAs(rutaArchivo);
@@ -1008,7 +1033,8 @@ namespace ControlRetenciones
 
             return indiceColumna;
         }
-        private void txtRutaArchivo1_TextChanged(object sender, EventArgs e)
+
+        private void textBoxReporte_TextChanged(object sender, EventArgs e)
         {
 
         }

@@ -36,7 +36,6 @@
             btnProcesar = new Button();
             pictureBoxLogoEstudio = new PictureBox();
             pictureBoxRuedaCargando = new PictureBox();
-            opcionesTipo = new CheckedListBox();
             textBoxReporte = new TextBox();
             buttonCarpeta = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBoxLogoEstudio).BeginInit();
@@ -68,7 +67,6 @@
             txtRutaArchivo1.TabIndex = 1;
             txtRutaArchivo1.Text = "Archivo Contabilidad";
             txtRutaArchivo1.TextAlign = HorizontalAlignment.Center;
-            txtRutaArchivo1.TextChanged += txtRutaArchivo1_TextChanged;
             // 
             // btnSeleccionarArchivo1
             // 
@@ -100,7 +98,7 @@
             // 
             btnProcesar.BackColor = Color.BlueViolet;
             btnProcesar.ForeColor = SystemColors.ButtonFace;
-            btnProcesar.Location = new Point(850, 11);
+            btnProcesar.Location = new Point(740, 11);
             btnProcesar.Name = "btnProcesar";
             btnProcesar.Size = new Size(150, 66);
             btnProcesar.TabIndex = 4;
@@ -113,7 +111,7 @@
             pictureBoxLogoEstudio.BackColor = Color.Purple;
             pictureBoxLogoEstudio.BackgroundImageLayout = ImageLayout.None;
             pictureBoxLogoEstudio.Image = (Image)resources.GetObject("pictureBoxLogoEstudio.Image");
-            pictureBoxLogoEstudio.Location = new Point(12, 117);
+            pictureBoxLogoEstudio.Location = new Point(92, 98);
             pictureBoxLogoEstudio.Name = "pictureBoxLogoEstudio";
             pictureBoxLogoEstudio.Size = new Size(807, 247);
             pictureBoxLogoEstudio.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -124,24 +122,12 @@
             // 
             pictureBoxRuedaCargando.BackColor = Color.Transparent;
             pictureBoxRuedaCargando.Image = (Image)resources.GetObject("pictureBoxRuedaCargando.Image");
-            pictureBoxRuedaCargando.Location = new Point(850, 83);
+            pictureBoxRuedaCargando.Location = new Point(926, 12);
             pictureBoxRuedaCargando.Name = "pictureBoxRuedaCargando";
             pictureBoxRuedaCargando.Size = new Size(85, 65);
             pictureBoxRuedaCargando.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBoxRuedaCargando.TabIndex = 7;
             pictureBoxRuedaCargando.TabStop = false;
-            // 
-            // opcionesTipo
-            // 
-            opcionesTipo.BackColor = Color.BlueViolet;
-            opcionesTipo.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            opcionesTipo.ForeColor = SystemColors.Window;
-            opcionesTipo.FormattingEnabled = true;
-            opcionesTipo.Items.AddRange(new object[] { "Percepción", "Retención" });
-            opcionesTipo.Location = new Point(709, 11);
-            opcionesTipo.Name = "opcionesTipo";
-            opcionesTipo.Size = new Size(126, 40);
-            opcionesTipo.TabIndex = 8;
             // 
             // textBoxReporte
             // 
@@ -150,10 +136,12 @@
             textBoxReporte.ForeColor = SystemColors.Window;
             textBoxReporte.Location = new Point(503, 12);
             textBoxReporte.Name = "textBoxReporte";
+            textBoxReporte.ReadOnly = true;
             textBoxReporte.Size = new Size(190, 23);
             textBoxReporte.TabIndex = 9;
             textBoxReporte.Text = "Carpeta Reporte";
             textBoxReporte.TextAlign = HorizontalAlignment.Center;
+            textBoxReporte.TextChanged += textBoxReporte_TextChanged;
             // 
             // buttonCarpeta
             // 
@@ -176,7 +164,6 @@
             ClientSize = new Size(1033, 382);
             Controls.Add(buttonCarpeta);
             Controls.Add(textBoxReporte);
-            Controls.Add(opcionesTipo);
             Controls.Add(pictureBoxRuedaCargando);
             Controls.Add(btnProcesar);
             Controls.Add(btnSeleccionarArchivo2);
@@ -201,7 +188,6 @@
         private Button btnProcesar;
         private PictureBox pictureBoxLogoEstudio;
         private PictureBox pictureBoxRuedaCargando;
-        private CheckedListBox opcionesTipo;
         private TextBox textBoxReporte;
         private Button buttonCarpeta;
     }
