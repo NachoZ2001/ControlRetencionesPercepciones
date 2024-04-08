@@ -151,6 +151,9 @@ namespace ControlRetenciones
 
             // Muestra un mensaje de éxito
             MessageBox.Show("Proceso completado", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            // Muestra un mensaje de éxito
+            MessageBox.Show($"Se creo el reporte en {pathfileReporte}", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         //codigo para convertir en XLSX los archivos XLS (el que se baja desde AFIP)
@@ -227,8 +230,8 @@ namespace ControlRetenciones
             // Tercera y ultima llamada para que compare con una tolerancia de 2
             CompararArchivosPorCuit(pathfileArchivo1, pathfileArchivo2, 2);
 
-            //CompararArchivosPorCertificado(pathfileArchivo1, pathfileArchivo2);
-            //CompararArchivosPorFechaEImporte(pathfileArchivo1, pathfileArchivo2);
+            // Cuarta comparacion para comparar por fecha e importe exactos
+            CompararArchivosPorFechaEImporte(pathfileArchivo1, pathfileArchivo2);
 
             //Marcar en rojo los que no coinciden
             MarcarNoCoincidentesEnRojo(pathfileArchivo1, 1);
@@ -456,203 +459,203 @@ namespace ControlRetenciones
             }
         }
 
-        private void CompararArchivosPorCertificado(string pathfileArchivo1, string pathfileArchivo2)
-        {
-            using (var workbookArchivo1 = new XLWorkbook(pathfileArchivo1))
-            {
-                using (var workbookArchivo2 = new XLWorkbook(pathfileArchivo2))
-                {
-                    var worksheetArchivo1 = workbookArchivo1.Worksheets.First();
-                    var worksheetArchivo2 = workbookArchivo2.Worksheets.First();
+        //private void CompararArchivosPorCertificado(string pathfileArchivo1, string pathfileArchivo2)
+        //{
+        //    using (var workbookArchivo1 = new XLWorkbook(pathfileArchivo1))
+        //    {
+        //        using (var workbookArchivo2 = new XLWorkbook(pathfileArchivo2))
+        //        {
+        //            var worksheetArchivo1 = workbookArchivo1.Worksheets.First();
+        //            var worksheetArchivo2 = workbookArchivo2.Worksheets.First();
 
-                    int indiceColor = 0;
+        //            int indiceColor = 0;
 
-                    int colImporteArchivo1 = ObtenerIndiceColumna(worksheetArchivo1, "Importe");
-                    if (colImporteArchivo1 == -1)
-                    {
-                        colImporteArchivo1 = ObtenerIndiceColumna(worksheetArchivo1, "ImporteRet");
-                    }
-                    if (colImporteArchivo1 == -1)
-                    {
-                        colImporteArchivo1 = ObtenerIndiceColumna(worksheetArchivo1, "Importe Ret./Perc.");
-                    }
-                    if (colImporteArchivo1 == -1)
-                    {
-                        colImporteArchivo1 = ObtenerIndiceColumna(worksheetArchivo1, "IMP_RET");
-                    }
-                    if (colImporteArchivo1 == -1)
-                    {
-                        colImporteArchivo1 = ObtenerIndiceColumna(worksheetArchivo1, "Importe Ret,/Perc,");
-                    }
-                    if (colImporteArchivo1 == -1)
-                    {
+        //            int colImporteArchivo1 = ObtenerIndiceColumna(worksheetArchivo1, "Importe");
+        //            if (colImporteArchivo1 == -1)
+        //            {
+        //                colImporteArchivo1 = ObtenerIndiceColumna(worksheetArchivo1, "ImporteRet");
+        //            }
+        //            if (colImporteArchivo1 == -1)
+        //            {
+        //                colImporteArchivo1 = ObtenerIndiceColumna(worksheetArchivo1, "Importe Ret./Perc.");
+        //            }
+        //            if (colImporteArchivo1 == -1)
+        //            {
+        //                colImporteArchivo1 = ObtenerIndiceColumna(worksheetArchivo1, "IMP_RET");
+        //            }
+        //            if (colImporteArchivo1 == -1)
+        //            {
+        //                colImporteArchivo1 = ObtenerIndiceColumna(worksheetArchivo1, "Importe Ret,/Perc,");
+        //            }
+        //            if (colImporteArchivo1 == -1)
+        //            {
 
-                        colImporteArchivo1 = ObtenerIndiceColumna(worksheetArchivo1, "IMP_RET");
-                    }
-                    if (colImporteArchivo1 == -1)
-                    {
-                        MessageBox.Show("No se encontro la columna importe en el archivo 1", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                    int colImporteArchivo2 = ObtenerIndiceColumna(worksheetArchivo2, "Importe Ret./Perc.");
-                    if (colImporteArchivo2 == -1)
-                    {
-                        colImporteArchivo2 = ObtenerIndiceColumna(worksheetArchivo2, "Importe Ret,/Perc,");
-                    }
-                    if (colImporteArchivo2 == -1)
-                    {
-                        colImporteArchivo2 = ObtenerIndiceColumna(worksheetArchivo2, "ImporteRet");
-                    }
-                    if (colImporteArchivo2 == -1)
-                    {
-                        colImporteArchivo2 = ObtenerIndiceColumna(worksheetArchivo2, "Importe");
-                    }
-                    if (colImporteArchivo2 == -1)
-                    {
-                        colImporteArchivo2 = ObtenerIndiceColumna(worksheetArchivo2, "IMP_RET");
-                    }
-                    if (colImporteArchivo2 == -1)
-                    {
-                        colImporteArchivo2 = ObtenerIndiceColumna(worksheetArchivo2, "Importe Ret,/Perc,");
-                    }
-                    if (colImporteArchivo2 == -1)
-                    {
-                        MessageBox.Show("No se encontro la columna importe en el archivo 2", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                    int colNroCertificadoArchivo1 = ObtenerIndiceColumna(worksheetArchivo1, "Nro. Certif.");
-                    if (colNroCertificadoArchivo1 == -1)
-                    {
-                        colNroCertificadoArchivo1 = ObtenerIndiceColumna(worksheetArchivo1, "Certificado");
-                    }
-                    if (colNroCertificadoArchivo1 == -1)
-                    {
-                        colNroCertificadoArchivo1 = ObtenerIndiceColumna(worksheetArchivo1, "Número Certificado");
-                    }
-                    if (colNroCertificadoArchivo1 == -1)
-                    {
-                        colNroCertificadoArchivo1 = ObtenerIndiceColumna(worksheetArchivo1, "N_CERTIF");
-                    }
-                    int colNroCertificadoArchivo2 = ObtenerIndiceColumna(worksheetArchivo2, "Número Certificado");
-                    if (colNroCertificadoArchivo2 == -1)
-                    {
-                        colNroCertificadoArchivo2 = ObtenerIndiceColumna(worksheetArchivo2, "Nro. Certif.");
-                    }
-                    if (colNroCertificadoArchivo2 == -1)
-                    {
-                        colNroCertificadoArchivo2 = ObtenerIndiceColumna(worksheetArchivo2, "Certificado");
-                    }
-                    if (colNroCertificadoArchivo2 == -1)
-                    {
-                        colNroCertificadoArchivo2 = ObtenerIndiceColumna(worksheetArchivo2, "N_CERTIF");
-                    }
+        //                colImporteArchivo1 = ObtenerIndiceColumna(worksheetArchivo1, "IMP_RET");
+        //            }
+        //            if (colImporteArchivo1 == -1)
+        //            {
+        //                MessageBox.Show("No se encontro la columna importe en el archivo 1", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        //            }
+        //            int colImporteArchivo2 = ObtenerIndiceColumna(worksheetArchivo2, "Importe Ret./Perc.");
+        //            if (colImporteArchivo2 == -1)
+        //            {
+        //                colImporteArchivo2 = ObtenerIndiceColumna(worksheetArchivo2, "Importe Ret,/Perc,");
+        //            }
+        //            if (colImporteArchivo2 == -1)
+        //            {
+        //                colImporteArchivo2 = ObtenerIndiceColumna(worksheetArchivo2, "ImporteRet");
+        //            }
+        //            if (colImporteArchivo2 == -1)
+        //            {
+        //                colImporteArchivo2 = ObtenerIndiceColumna(worksheetArchivo2, "Importe");
+        //            }
+        //            if (colImporteArchivo2 == -1)
+        //            {
+        //                colImporteArchivo2 = ObtenerIndiceColumna(worksheetArchivo2, "IMP_RET");
+        //            }
+        //            if (colImporteArchivo2 == -1)
+        //            {
+        //                colImporteArchivo2 = ObtenerIndiceColumna(worksheetArchivo2, "Importe Ret,/Perc,");
+        //            }
+        //            if (colImporteArchivo2 == -1)
+        //            {
+        //                MessageBox.Show("No se encontro la columna importe en el archivo 2", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        //            }
+        //            int colNroCertificadoArchivo1 = ObtenerIndiceColumna(worksheetArchivo1, "Nro. Certif.");
+        //            if (colNroCertificadoArchivo1 == -1)
+        //            {
+        //                colNroCertificadoArchivo1 = ObtenerIndiceColumna(worksheetArchivo1, "Certificado");
+        //            }
+        //            if (colNroCertificadoArchivo1 == -1)
+        //            {
+        //                colNroCertificadoArchivo1 = ObtenerIndiceColumna(worksheetArchivo1, "Número Certificado");
+        //            }
+        //            if (colNroCertificadoArchivo1 == -1)
+        //            {
+        //                colNroCertificadoArchivo1 = ObtenerIndiceColumna(worksheetArchivo1, "N_CERTIF");
+        //            }
+        //            int colNroCertificadoArchivo2 = ObtenerIndiceColumna(worksheetArchivo2, "Número Certificado");
+        //            if (colNroCertificadoArchivo2 == -1)
+        //            {
+        //                colNroCertificadoArchivo2 = ObtenerIndiceColumna(worksheetArchivo2, "Nro. Certif.");
+        //            }
+        //            if (colNroCertificadoArchivo2 == -1)
+        //            {
+        //                colNroCertificadoArchivo2 = ObtenerIndiceColumna(worksheetArchivo2, "Certificado");
+        //            }
+        //            if (colNroCertificadoArchivo2 == -1)
+        //            {
+        //                colNroCertificadoArchivo2 = ObtenerIndiceColumna(worksheetArchivo2, "N_CERTIF");
+        //            }
 
-                    if (colNroCertificadoArchivo1 == -1 || colNroCertificadoArchivo2 == -1)
-                    {
-                        return;
-                    }
+        //            if (colNroCertificadoArchivo1 == -1 || colNroCertificadoArchivo2 == -1)
+        //            {
+        //                return;
+        //            }
 
-                    // Nuevo diccionario para almacenar filas no marcadas en verde por número de certificado
-                    Dictionary<string, List<int>> diccionarioCertificadoNoMarcadoArchivo1 = new Dictionary<string, List<int>>();
-                    Dictionary<string, List<int>> diccionarioCertificadoNoMarcadoArchivo2 = new Dictionary<string, List<int>>();
+        //            // Nuevo diccionario para almacenar filas no marcadas en verde por número de certificado
+        //            Dictionary<string, List<int>> diccionarioCertificadoNoMarcadoArchivo1 = new Dictionary<string, List<int>>();
+        //            Dictionary<string, List<int>> diccionarioCertificadoNoMarcadoArchivo2 = new Dictionary<string, List<int>>();
 
-                    // Llenar diccionario para el archivo 1
-                    for (int filaArchivo1 = 2; filaArchivo1 <= worksheetArchivo1.RowsUsed().Count(); filaArchivo1++)
-                    {
-                        string certificadoArchivo1 = worksheetArchivo1.Cell(filaArchivo1, colNroCertificadoArchivo1).GetString();
-                        XLColor colorArchivo1 = worksheetArchivo1.Cell(filaArchivo1, colImporteArchivo1).Style.Fill.BackgroundColor;
+        //            // Llenar diccionario para el archivo 1
+        //            for (int filaArchivo1 = 2; filaArchivo1 <= worksheetArchivo1.RowsUsed().Count(); filaArchivo1++)
+        //            {
+        //                string certificadoArchivo1 = worksheetArchivo1.Cell(filaArchivo1, colNroCertificadoArchivo1).GetString();
+        //                XLColor colorArchivo1 = worksheetArchivo1.Cell(filaArchivo1, colImporteArchivo1).Style.Fill.BackgroundColor;
 
-                        if (colorArchivo1 == XLColor.FromArgb(255, 204, 255, 204)) // Verde claro
-                        {
-                            continue; // Saltar filas ya marcadas en verde
-                        }
+        //                if (colorArchivo1 == XLColor.FromArgb(255, 204, 255, 204)) // Verde claro
+        //                {
+        //                    continue; // Saltar filas ya marcadas en verde
+        //                }
 
-                        // Manipulación del número de certificado para que coincida con el formato del archivo 2
-                        string certificadoArchivo1Formateado = certificadoArchivo1.Replace("-", "").Substring(4);
+        //                // Manipulación del número de certificado para que coincida con el formato del archivo 2
+        //                string certificadoArchivo1Formateado = certificadoArchivo1.Replace("-", "").Substring(4);
 
-                        if (diccionarioCertificadoNoMarcadoArchivo1.ContainsKey(certificadoArchivo1Formateado))
-                        {
-                            diccionarioCertificadoNoMarcadoArchivo1[certificadoArchivo1Formateado].Add(filaArchivo1);
-                        }
-                        else
-                        {
-                            diccionarioCertificadoNoMarcadoArchivo1[certificadoArchivo1Formateado] = new List<int> { filaArchivo1 };
-                        }
-                    }
+        //                if (diccionarioCertificadoNoMarcadoArchivo1.ContainsKey(certificadoArchivo1Formateado))
+        //                {
+        //                    diccionarioCertificadoNoMarcadoArchivo1[certificadoArchivo1Formateado].Add(filaArchivo1);
+        //                }
+        //                else
+        //                {
+        //                    diccionarioCertificadoNoMarcadoArchivo1[certificadoArchivo1Formateado] = new List<int> { filaArchivo1 };
+        //                }
+        //            }
 
-                    // Llenar diccionario para el archivo 2
-                    for (int filaArchivo2 = 2; filaArchivo2 <= worksheetArchivo2.RowsUsed().Count(); filaArchivo2++)
-                    {
-                        string certificadoArchivo2 = worksheetArchivo2.Cell(filaArchivo2, colNroCertificadoArchivo2).GetString();
-                        XLColor colorArchivo2 = worksheetArchivo2.Cell(filaArchivo2, colImporteArchivo2).Style.Fill.BackgroundColor;
+        //            // Llenar diccionario para el archivo 2
+        //            for (int filaArchivo2 = 2; filaArchivo2 <= worksheetArchivo2.RowsUsed().Count(); filaArchivo2++)
+        //            {
+        //                string certificadoArchivo2 = worksheetArchivo2.Cell(filaArchivo2, colNroCertificadoArchivo2).GetString();
+        //                XLColor colorArchivo2 = worksheetArchivo2.Cell(filaArchivo2, colImporteArchivo2).Style.Fill.BackgroundColor;
 
-                        if (colorArchivo2 == XLColor.FromArgb(255, 204, 255, 204)) // Verde claro
-                        {
-                            continue; // Saltar filas ya marcadas en verde
-                        }
+        //                if (colorArchivo2 == XLColor.FromArgb(255, 204, 255, 204)) // Verde claro
+        //                {
+        //                    continue; // Saltar filas ya marcadas en verde
+        //                }
 
-                        if (diccionarioCertificadoNoMarcadoArchivo2.ContainsKey(certificadoArchivo2))
-                        {
-                            diccionarioCertificadoNoMarcadoArchivo2[certificadoArchivo2].Add(filaArchivo2);
-                        }
-                        else
-                        {
-                            diccionarioCertificadoNoMarcadoArchivo2[certificadoArchivo2] = new List<int> { filaArchivo2 };
-                        }
-                    }
+        //                if (diccionarioCertificadoNoMarcadoArchivo2.ContainsKey(certificadoArchivo2))
+        //                {
+        //                    diccionarioCertificadoNoMarcadoArchivo2[certificadoArchivo2].Add(filaArchivo2);
+        //                }
+        //                else
+        //                {
+        //                    diccionarioCertificadoNoMarcadoArchivo2[certificadoArchivo2] = new List<int> { filaArchivo2 };
+        //                }
+        //            }
 
-                    // Bucle adicional para comparar por número de certificado
-                    foreach (var certificadoArchivo1 in diccionarioCertificadoNoMarcadoArchivo1.Keys.ToList())
-                    {
-                        foreach (int filaArchivo1 in diccionarioCertificadoNoMarcadoArchivo1[certificadoArchivo1].ToList())
-                        {
-                            double importeArchivo1 = worksheetArchivo1.Cell(filaArchivo1, colImporteArchivo1).GetValue<double>();
+        //            // Bucle adicional para comparar por número de certificado
+        //            foreach (var certificadoArchivo1 in diccionarioCertificadoNoMarcadoArchivo1.Keys.ToList())
+        //            {
+        //                foreach (int filaArchivo1 in diccionarioCertificadoNoMarcadoArchivo1[certificadoArchivo1].ToList())
+        //                {
+        //                    double importeArchivo1 = worksheetArchivo1.Cell(filaArchivo1, colImporteArchivo1).GetValue<double>();
 
-                            int ban = 0;
+        //                    int ban = 0;
 
-                            if (diccionarioCertificadoNoMarcadoArchivo2.TryGetValue(certificadoArchivo1, out List<int> filasCertificadoArchivo2))
-                            {
-                                foreach (int filaArchivo2 in filasCertificadoArchivo2.ToList())
-                                {
-                                    string valorCeldaImporterArchivo2 = worksheetArchivo2.Cell(filaArchivo2, colImporteArchivo2).GetString();
-                                    string valorCeldaImporterArchivo2SinComa = valorCeldaImporterArchivo2.Replace(",", ".");
-                                    double importeArchivo2 = double.Parse(valorCeldaImporterArchivo2SinComa, CultureInfo.InvariantCulture);
+        //                    if (diccionarioCertificadoNoMarcadoArchivo2.TryGetValue(certificadoArchivo1, out List<int> filasCertificadoArchivo2))
+        //                    {
+        //                        foreach (int filaArchivo2 in filasCertificadoArchivo2.ToList())
+        //                        {
+        //                            string valorCeldaImporterArchivo2 = worksheetArchivo2.Cell(filaArchivo2, colImporteArchivo2).GetString();
+        //                            string valorCeldaImporterArchivo2SinComa = valorCeldaImporterArchivo2.Replace(",", ".");
+        //                            double importeArchivo2 = double.Parse(valorCeldaImporterArchivo2SinComa, CultureInfo.InvariantCulture);
 
-                                    // Comparar con una tolerancia de ±10
-                                    if (Math.Abs(importeArchivo1 - importeArchivo2) <= 10)
-                                    {
-                                        // Obtén el siguiente color de la lista
-                                        XLColor color = coloresCoincide[indiceColor % coloresCoincide.Count];
+        //                            // Comparar con una tolerancia de ±10
+        //                            if (Math.Abs(importeArchivo1 - importeArchivo2) <= 10)
+        //                            {
+        //                                // Obtén el siguiente color de la lista
+        //                                XLColor color = coloresCoincide[indiceColor % coloresCoincide.Count];
 
-                                        worksheetArchivo1.Row(filaArchivo1).Style.Fill.BackgroundColor = color;
-                                        worksheetArchivo2.Row(filaArchivo2).Style.Fill.BackgroundColor = color;
+        //                                worksheetArchivo1.Row(filaArchivo1).Style.Fill.BackgroundColor = color;
+        //                                worksheetArchivo2.Row(filaArchivo2).Style.Fill.BackgroundColor = color;
 
-                                        // Marcar como comparado
-                                        diccionarioCertificadoNoMarcadoArchivo1[certificadoArchivo1].Remove(filaArchivo1);
-                                        diccionarioCertificadoNoMarcadoArchivo2[certificadoArchivo1].Remove(filaArchivo2);
+        //                                // Marcar como comparado
+        //                                diccionarioCertificadoNoMarcadoArchivo1[certificadoArchivo1].Remove(filaArchivo1);
+        //                                diccionarioCertificadoNoMarcadoArchivo2[certificadoArchivo1].Remove(filaArchivo2);
 
-                                        indiceColor++; // Incrementar el índice de color
+        //                                indiceColor++; // Incrementar el índice de color
 
-                                        ban = 1;
-                                        break; // Salir del bucle interno después de encontrar una coincidencia
-                                    }
-                                }
-                            }
+        //                                ban = 1;
+        //                                break; // Salir del bucle interno después de encontrar una coincidencia
+        //                            }
+        //                        }
+        //                    }
 
-                            if (ban == 0)
-                            {
-                                // Obtén el siguiente color de la lista
-                                XLColor color = coloresNoCoincide[indiceColor % coloresNoCoincide.Count];
+        //                    if (ban == 0)
+        //                    {
+        //                        // Obtén el siguiente color de la lista
+        //                        XLColor color = coloresNoCoincide[indiceColor % coloresNoCoincide.Count];
 
-                                worksheetArchivo1.Row(filaArchivo1).Style.Fill.BackgroundColor = color;
-                            }
-                        }
-                    }
+        //                        worksheetArchivo1.Row(filaArchivo1).Style.Fill.BackgroundColor = color;
+        //                    }
+        //                }
+        //            }
 
-                    // Guardar el archivo después de la comparación
-                    workbookArchivo1.SaveAs(pathfileArchivo1);
-                    workbookArchivo2.SaveAs(pathfileArchivo2);
-                }
-            }
-        }
+        //            // Guardar el archivo después de la comparación
+        //            workbookArchivo1.SaveAs(pathfileArchivo1);
+        //            workbookArchivo2.SaveAs(pathfileArchivo2);
+        //        }
+        //    }
+        //}
 
         private void CompararArchivosPorFechaEImporte(string pathfileArchivo1, string pathfileArchivo2)
         {
@@ -831,8 +834,8 @@ namespace ControlRetenciones
                                         // Obtén el siguiente color de la lista para marcar en verde
                                         XLColor colorVerde = coloresCoincide[indiceColor % coloresCoincide.Count];
 
-                                        worksheetArchivo1.Row(filaArchivo1).Style.Fill.BackgroundColor = colorVerde;
-                                        worksheetArchivo2.Row(filaArchivo2).Style.Fill.BackgroundColor = colorVerde;
+                                        worksheetArchivo1.Cell(filaArchivo1, colImporteArchivo1).Style.Fill.BackgroundColor = colorVerde;
+                                        worksheetArchivo2.Cell(filaArchivo2, colImporteArchivo2).Style.Fill.BackgroundColor = colorVerde;
 
                                         indiceColor++; // Incrementar el índice de color
 
@@ -940,6 +943,7 @@ namespace ControlRetenciones
             // Agregar la extensión .xlsx si no se proporciona
             if (Path.GetExtension(rutaArchivo) != ".xlsx")
             {
+                rutaArchivo += "/reporte";
                 rutaArchivo += ".xlsx";
             }
 
@@ -962,11 +966,11 @@ namespace ControlRetenciones
 
                 // Aplicar estilo al fondo de las celdas de total y diferencia
                 var fondoTotalDiferenciaStyle = worksheet.Cell("B1").Style;
-                fondoTotalDiferenciaStyle.Fill.BackgroundColor = XLColor.FromHtml("#BFBFBF");
+                fondoTotalDiferenciaStyle.Fill.BackgroundColor = XLColor.FromHtml("#B93D7B");
                 fondoTotalDiferenciaStyle = worksheet.Cell("B2").Style;
-                fondoTotalDiferenciaStyle.Fill.BackgroundColor = XLColor.FromHtml("#BFBFBF");
+                fondoTotalDiferenciaStyle.Fill.BackgroundColor = XLColor.FromHtml("#B93D7B");
                 fondoTotalDiferenciaStyle = worksheet.Cell("B3").Style;
-                fondoTotalDiferenciaStyle.Fill.BackgroundColor = XLColor.FromHtml("#BFBFBF");
+                fondoTotalDiferenciaStyle.Fill.BackgroundColor = XLColor.FromHtml("#B93D7B");
 
                 worksheet.Cell("A5").Value = "Retenciones Contabilidad";
                 worksheet.Cell("B5").Value = totalContabilidad;
@@ -977,11 +981,11 @@ namespace ControlRetenciones
 
                 // Aplicar estilo al fondo de las celdas de total y diferencia
                 fondoTotalDiferenciaStyle = worksheet.Cell("B5").Style;
-                fondoTotalDiferenciaStyle.Fill.BackgroundColor = XLColor.FromHtml("#BFBFBF");
+                fondoTotalDiferenciaStyle.Fill.BackgroundColor = XLColor.FromHtml("#B93D7B");
                 fondoTotalDiferenciaStyle = worksheet.Cell("B6").Style;
-                fondoTotalDiferenciaStyle.Fill.BackgroundColor = XLColor.FromHtml("#BFBFBF");
+                fondoTotalDiferenciaStyle.Fill.BackgroundColor = XLColor.FromHtml("#B93D7B");
                 fondoTotalDiferenciaStyle = worksheet.Cell("B7").Style;
-                fondoTotalDiferenciaStyle.Fill.BackgroundColor = XLColor.FromHtml("#BFBFBF");
+                fondoTotalDiferenciaStyle.Fill.BackgroundColor = XLColor.FromHtml("#B93D7B");
 
                 // Diferencia
                 worksheet.Cell("A9").Value = "Diferencia";
@@ -989,16 +993,16 @@ namespace ControlRetenciones
 
                 // Aplicar estilo al fondo de las celdas de total y diferencia
                 fondoTotalDiferenciaStyle = worksheet.Cell("B9").Style;
-                fondoTotalDiferenciaStyle.Fill.BackgroundColor = XLColor.FromHtml("#BFBFBF");
+                fondoTotalDiferenciaStyle.Fill.BackgroundColor = XLColor.FromHtml("#B93D7B");
 
                 fondoTotalDiferenciaStyle = worksheet.Cell("A4").Style;
-                fondoTotalDiferenciaStyle.Fill.BackgroundColor = XLColor.FromHtml("#BFBFBF");
+                fondoTotalDiferenciaStyle.Fill.BackgroundColor = XLColor.FromHtml("#B93D7B");
                 fondoTotalDiferenciaStyle = worksheet.Cell("B4").Style;
-                fondoTotalDiferenciaStyle.Fill.BackgroundColor = XLColor.FromHtml("#BFBFBF");
+                fondoTotalDiferenciaStyle.Fill.BackgroundColor = XLColor.FromHtml("#B93D7B");
                 fondoTotalDiferenciaStyle = worksheet.Cell("A8").Style;
-                fondoTotalDiferenciaStyle.Fill.BackgroundColor = XLColor.FromHtml("#BFBFBF");
+                fondoTotalDiferenciaStyle.Fill.BackgroundColor = XLColor.FromHtml("#B93D7B");
                 fondoTotalDiferenciaStyle = worksheet.Cell("B8").Style;
-                fondoTotalDiferenciaStyle.Fill.BackgroundColor = XLColor.FromHtml("#BFBFBF");
+                fondoTotalDiferenciaStyle.Fill.BackgroundColor = XLColor.FromHtml("#B93D7B");
 
                 // Resaltar todos los bordes
                 var bordesStyle = worksheet.RangeUsed().Style.Border;
