@@ -412,12 +412,6 @@ namespace ControlRetenciones
                                             string valorCeldaImporterArchivo2 = worksheetArchivo2.Cell(filaArchivo2, colImporteArchivo2).GetString();
                                             string valorCeldaImporterArchivo2SinComa = valorCeldaImporterArchivo2.Replace(",", ".");
                                             double importeArchivo2 = double.Parse(valorCeldaImporterArchivo2SinComa, CultureInfo.InvariantCulture);
-
-                                            if (importeArchivo2 == 19483.92 || importeArchivo2 == 19483.82)
-                                            {
-                                                double pausa = 0;
-                                            }
-
                                             double resultado = Math.Abs(importeArchivo1 - importeArchivo2);
 
                                             // Comparar con una tolerancia recibida por parametro
