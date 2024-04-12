@@ -219,23 +219,298 @@ namespace ControlRetenciones
 
         private void CompararArchivos(string pathfileArchivo1, string pathfileArchivo2)
         {
-            // Llamadas a funciones específicas
 
-            // Primera llamada para que compare de manera exacta
+            // LLamada para comparar por cuit, importe y fecha (mayor exactitud)
+            CompararArchivosPorCuitFechaImporte(pathfileArchivo1, pathfileArchivo2, 0.1);
+
+            // Segunda llamada para que compare de manera exacta sin tener en cuenta la fecha
             CompararArchivosPorCuit(pathfileArchivo1, pathfileArchivo2, 0.1);
 
-            // Segunda llamada para que compare con una tolerancia de 1 
+            // Segunda llamada para que compare con una tolerancia de 1 en el importe
             CompararArchivosPorCuit(pathfileArchivo1, pathfileArchivo2, 1);
 
-            // Tercera y ultima llamada para que compare con una tolerancia de 2
+            // Tercera y ultima llamada para que compare con una tolerancia de 2 en el importe
             CompararArchivosPorCuit(pathfileArchivo1, pathfileArchivo2, 2);
 
-            // Cuarta comparacion para comparar por fecha e importe exactos
+            // Cuarta comparacion para comparar por fecha e importe exactos sin tener en cuenta CUIT        
             CompararArchivosPorFechaEImporte(pathfileArchivo1, pathfileArchivo2);
+
+            // Quinta comparacion para comparar por certificado e importe 
+            CompararArchivosPorCertificado(pathfileArchivo1, pathfileArchivo2);
 
             //Marcar en rojo los que no coinciden
             MarcarNoCoincidentesEnRojo(pathfileArchivo1, 1);
             MarcarNoCoincidentesEnRojo(pathfileArchivo2, 2);
+        }
+
+
+        private void CompararArchivosPorCuitFechaImporte(string pathfileArchivo1, string pathfileArchivo2, double tolerancia)
+        {
+            using (var workbookArchivo1 = new XLWorkbook(pathfileArchivo1))
+            {
+                using (var workbookArchivo2 = new XLWorkbook(pathfileArchivo2))
+                {
+                    var worksheetArchivo1 = workbookArchivo1.Worksheets.First();
+                    var worksheetArchivo2 = workbookArchivo2.Worksheets.First();
+
+                    int colImporteArchivo1 = ObtenerIndiceColumna(worksheetArchivo1, "Importe");
+                    if (colImporteArchivo1 == -1)
+                    {
+                        colImporteArchivo1 = ObtenerIndiceColumna(worksheetArchivo1, "IMP_RET");
+                    }
+                    if (colImporteArchivo1 == -1)
+                    {
+                        colImporteArchivo1 = ObtenerIndiceColumna(worksheetArchivo1, "ImporteRet");
+                    }
+                    if (colImporteArchivo1 == -1)
+                    {
+                        colImporteArchivo1 = ObtenerIndiceColumna(worksheetArchivo1, "Importe Ret./Perc.");
+                    }
+                    if (colImporteArchivo1 == -1)
+                    {
+
+                        colImporteArchivo1 = ObtenerIndiceColumna(worksheetArchivo1, "Importe Ret,/Perc,");
+                    }
+                    if (colImporteArchivo1 == -1)
+                    {
+                        MessageBox.Show("No se encontro la columna importe en el archivo 1", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    int colImporteArchivo2 = ObtenerIndiceColumna(worksheetArchivo2, "Importe Ret./Perc.");
+                    if (colImporteArchivo2 == -1)
+                    {
+                        colImporteArchivo2 = ObtenerIndiceColumna(worksheetArchivo2, "Importe Ret,/Perc,");
+                    }
+                    if (colImporteArchivo2 == -1)
+                    {
+                        colImporteArchivo2 = ObtenerIndiceColumna(worksheetArchivo2, "ImporteRet");
+                    }
+                    if (colImporteArchivo2 == -1)
+                    {
+                        colImporteArchivo2 = ObtenerIndiceColumna(worksheetArchivo2, "Importe");
+                    }
+                    if (colImporteArchivo2 == -1)
+                    {
+                        colImporteArchivo2 = ObtenerIndiceColumna(worksheetArchivo2, "IMP_RET");
+                    }
+                    if (colImporteArchivo2 == -1)
+                    {
+                        MessageBox.Show("No se encontro la columna importe en el archivo 2", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    int colNroDocArchivo1 = ObtenerIndiceColumna(worksheetArchivo1, "Nro. Doc.");
+                    if (colNroDocArchivo1 == -1)
+                    {
+                        colNroDocArchivo1 = ObtenerIndiceColumna(worksheetArchivo1, "IDENTIFTRI");
+                    }
+                    if (colNroDocArchivo1 == -1)
+                    {
+                        colNroDocArchivo1 = ObtenerIndiceColumna(worksheetArchivo1, "Cuit");
+                    }
+                    if (colNroDocArchivo1 == -1)
+                    {
+                        colNroDocArchivo1 = ObtenerIndiceColumna(worksheetArchivo1, "CUIT Agente");
+                    }
+                    if (colNroDocArchivo1 == -1)
+                    {
+                        colNroDocArchivo1 = ObtenerIndiceColumna(worksheetArchivo1, "Cuit Agente");
+                    }
+                    if (colNroDocArchivo1 == -1)
+                    {
+                        colNroDocArchivo1 = ObtenerIndiceColumna(worksheetArchivo1, "CUIT Agente Ret./Perc.");
+                    }
+                    if (colNroDocArchivo1 == -1)
+                    {
+                        MessageBox.Show("No se encontro la columna correspondiente al cuit en el archivo 1", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    int colCuitAgenteArchivo2 = ObtenerIndiceColumna(worksheetArchivo2, "CUIT Agente Ret./Perc.");
+                    if (colCuitAgenteArchivo2 == -1)
+                    {
+                        colCuitAgenteArchivo2 = ObtenerIndiceColumna(worksheetArchivo2, "CUIT Agente");
+                    }
+                    if (colCuitAgenteArchivo2 == -1)
+                    {
+                        colCuitAgenteArchivo2 = ObtenerIndiceColumna(worksheetArchivo2, "Cuit");
+                    }
+                    if (colCuitAgenteArchivo2 == -1)
+                    {
+                        colCuitAgenteArchivo2 = ObtenerIndiceColumna(worksheetArchivo2, "Nro. Doc.");
+                    }
+                    if (colCuitAgenteArchivo2 == -1)
+                    {
+                        colCuitAgenteArchivo2 = ObtenerIndiceColumna(worksheetArchivo2, "Cuit Agente");
+                    }
+                    if (colCuitAgenteArchivo2 == -1)
+                    {
+                        colCuitAgenteArchivo2 = ObtenerIndiceColumna(worksheetArchivo2, "IDENTIFTRI");
+                    }
+                    if (colCuitAgenteArchivo2 == -1)
+                    {
+                        MessageBox.Show("No se encontro la columna correspondiente al cuit en el archivo 2", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    int colFechaArchivo1 = ObtenerIndiceColumna(worksheetArchivo1, "FECHA_RET");
+                    if (colFechaArchivo1 == -1)
+                    {
+                        colFechaArchivo1 = ObtenerIndiceColumna(worksheetArchivo1, "Fecha Cert.");
+                    }
+                    if (colFechaArchivo1 == -1)
+                    {
+                        colFechaArchivo1 = ObtenerIndiceColumna(worksheetArchivo1, "Fecha Ret./Perc.");
+                    }
+                    if (colFechaArchivo1 == -1)
+                    {
+                        colFechaArchivo1 = ObtenerIndiceColumna(worksheetArchivo1, "FECH_COMP");
+                    }
+                    if (colFechaArchivo1 == -1)
+                    {
+                        colFechaArchivo1 = ObtenerIndiceColumna(worksheetArchivo1, "Fecha");
+                    }
+                    if (colFechaArchivo1 == -1)
+                    {
+                        MessageBox.Show("No se encontro la columna fecha en el archivo 1", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    int colFechaArchivo2 = ObtenerIndiceColumna(worksheetArchivo2, "FECHA_RET");
+                    if (colFechaArchivo2 == -1)
+                    {
+                        colFechaArchivo2 = ObtenerIndiceColumna(worksheetArchivo2, "Fecha Ret./Perc.");
+                    }
+                    if (colFechaArchivo1 == -1)
+                    {
+                        colFechaArchivo1 = ObtenerIndiceColumna(worksheetArchivo1, "Fecha Cert.");
+                    }
+                    if (colFechaArchivo2 == -1)
+                    {
+                        colFechaArchivo2 = ObtenerIndiceColumna(worksheetArchivo2, "FECH_COMP");
+                    }
+                    if (colFechaArchivo2 == -1)
+                    {
+                        colFechaArchivo2 = ObtenerIndiceColumna(worksheetArchivo2, "Fecha");
+                    }
+                    if (colFechaArchivo2 == -1)
+                    {
+                        MessageBox.Show("No se encontro la columna fecha en el archivo 2", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+
+                    int indiceColor = 0;
+
+                    // Diccionarios para almacenar filas por Nro. Doc. / CUIT 
+                    Dictionary<string, List<(int, bool, DateTime)>> diccionarioArchivo1 = new Dictionary<string, List<(int, bool, DateTime)>>();
+                    Dictionary<string, List<(int, bool, DateTime)>> diccionarioArchivo2 = new Dictionary<string, List<(int, bool, DateTime)>>();
+
+                    // Llenar diccionario para el archivo 1
+                    for (int filaArchivo1 = 2; filaArchivo1 <= worksheetArchivo1.RowsUsed().Count(); filaArchivo1++)
+                    {
+                        string valorCeldaNroDoc = worksheetArchivo1.Cell(filaArchivo1, colNroDocArchivo1).GetString();
+                        string nroDoc = valorCeldaNroDoc;
+
+                        string stringFechaArchivo1 = worksheetArchivo1.Cell(filaArchivo1, colFechaArchivo1).GetString();
+                        DateTime fechaArchivo1 = DateTime.Parse(stringFechaArchivo1);
+
+                        XLColor colorArchivo1 = worksheetArchivo1.Cell(filaArchivo1, colImporteArchivo1).Style.Fill.BackgroundColor;
+                        if (colorArchivo1 == XLColor.FromArgb(255, 204, 255, 204)) // Verde claro
+                        {
+                            continue; // Saltar filas ya marcadas en verde
+                        }
+
+                        if (diccionarioArchivo1.ContainsKey(nroDoc))
+                        {
+                            diccionarioArchivo1[nroDoc].Add((filaArchivo1, false, fechaArchivo1));
+                        }
+                        else
+                        {
+                            diccionarioArchivo1[nroDoc] = new List<(int, bool, DateTime)> { (filaArchivo1, false, fechaArchivo1) };
+                        }
+                    }
+
+                    // Llenar diccionario para el archivo 2
+                    for (int filaArchivo2 = 2; filaArchivo2 <= worksheetArchivo2.RowsUsed().Count(); filaArchivo2++)
+                    {
+                        string valorCeldaCuitAgente = worksheetArchivo2.Cell(filaArchivo2, colCuitAgenteArchivo2).GetString();
+                        string cuitAgente = valorCeldaCuitAgente;
+
+                        string stringFechaArchivo2 = worksheetArchivo2.Cell(filaArchivo2, colFechaArchivo2).GetString();
+                        DateTime fechaArchivo2 = DateTime.Parse(stringFechaArchivo2);
+
+                        XLColor colorArchivo2 = worksheetArchivo2.Cell(filaArchivo2, colImporteArchivo2).Style.Fill.BackgroundColor;
+                        if (colorArchivo2 == XLColor.FromArgb(255, 204, 255, 204)) // Verde claro
+                        {
+                            continue; // Saltar filas ya marcadas en verde
+                        }
+
+                        if (diccionarioArchivo2.ContainsKey(cuitAgente))
+                        {
+                            diccionarioArchivo2[cuitAgente].Add((filaArchivo2, false, fechaArchivo2));
+                        }
+                        else
+                        {
+                            diccionarioArchivo2[cuitAgente] = new List<(int, bool, DateTime)> { (filaArchivo2, false, fechaArchivo2) };
+                        }
+                    }
+
+
+                    // Bucle principal para comparar y marcar en verde
+                    foreach (var claveArchivo1 in diccionarioArchivo1.Keys.ToList())
+                    {
+                        if (diccionarioArchivo2.TryGetValue(claveArchivo1, out List<(int, bool, DateTime)> filasArchivo2))
+                        {
+                            foreach ((int filaArchivo1, bool comparado, DateTime fechaArchivo1) in diccionarioArchivo1[claveArchivo1].ToList())
+                            {
+                                if (comparado == false) // Solo si aún no se ha comparado esta fila
+                                {
+                                    double importeArchivo1 = worksheetArchivo1.Cell(filaArchivo1, colImporteArchivo1).GetValue<double>();
+
+                                    int ban = 0;
+
+                                    foreach ((int filaArchivo2, bool comparadoArchivo2, DateTime fechaArchivo2) in filasArchivo2.ToList())
+                                    {
+                                        if (comparadoArchivo2 == false) //Solo si aún no se ha comparado esta fila
+                                        {
+                                            string valorCeldaImporterArchivo2 = worksheetArchivo2.Cell(filaArchivo2, colImporteArchivo2).GetString();
+                                            string valorCeldaImporterArchivo2SinComa = valorCeldaImporterArchivo2.Replace(",", ".");
+                                            double importeArchivo2 = double.Parse(valorCeldaImporterArchivo2SinComa, CultureInfo.InvariantCulture);
+                                            double resultado = Math.Abs(importeArchivo1 - importeArchivo2);
+
+                                            // Comparar con una tolerancia recibida por parametro
+                                            if (Math.Abs(importeArchivo1 - importeArchivo2) <= tolerancia && fechaArchivo1 == fechaArchivo2)
+                                            {
+                                                // Obtén el siguiente color de la lista
+                                                XLColor color = coloresCoincide[indiceColor % coloresCoincide.Count];
+
+                                                worksheetArchivo1.Cell(filaArchivo1, colImporteArchivo1).Style.Fill.BackgroundColor = color;
+                                                worksheetArchivo2.Cell(filaArchivo2, colImporteArchivo2).Style.Fill.BackgroundColor = color;
+
+                                                // Marcar como comparado
+                                                var indiceArchivo1 = diccionarioArchivo1[claveArchivo1].FindIndex(f => f.Item1 == filaArchivo1);
+                                                var indiceArchivo2 = diccionarioArchivo2[claveArchivo1].FindIndex(f => f.Item1 == filaArchivo2);
+
+                                                diccionarioArchivo1[claveArchivo1][indiceArchivo1] = (filaArchivo1, true, fechaArchivo1);
+                                                diccionarioArchivo2[claveArchivo1][indiceArchivo2] = (filaArchivo2, true, fechaArchivo2);
+
+                                                indiceColor++; // Incrementar el índice de color
+
+                                                ban = 1;
+
+                                                break; // Salir del bucle interno después de encontrar una coincidencia
+                                            }
+                                        }
+                                    }
+                                    if (ban == 0)
+                                    {
+                                        // Obtén el siguiente color de la lista
+                                        XLColor color = coloresNoCoincide[indiceColor % coloresCoincide.Count];
+                                        worksheetArchivo1.Cell(filaArchivo1, colImporteArchivo1).Style.Fill.BackgroundColor = color;
+
+                                        importeArchivo1 = worksheetArchivo1.Cell(filaArchivo1, colImporteArchivo1).GetValue<double>();
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+
+                    workbookArchivo1.SaveAs(pathfileArchivo1);
+                    workbookArchivo2.SaveAs(pathfileArchivo2);
+                }
+            }
+
         }
 
         private void CompararArchivosPorCuit(string pathfileArchivo1, string pathfileArchivo2, double tolerancia)
@@ -653,6 +928,204 @@ namespace ControlRetenciones
             }
         }
 
+        private void CompararArchivosPorCertificado(string pathfileArchivo1, string pathfileArchivo2)
+        {
+            using (var workbookArchivo1 = new XLWorkbook(pathfileArchivo1))
+            {
+                using (var workbookArchivo2 = new XLWorkbook(pathfileArchivo2))
+                {
+                    var worksheetArchivo1 = workbookArchivo1.Worksheets.First();
+                    var worksheetArchivo2 = workbookArchivo2.Worksheets.First();
+
+                    int indiceColor = 0;
+
+                    int colImporteArchivo1 = ObtenerIndiceColumna(worksheetArchivo1, "Importe");
+                    if (colImporteArchivo1 == -1)
+                    {
+                        colImporteArchivo1 = ObtenerIndiceColumna(worksheetArchivo1, "ImporteRet");
+                    }
+                    if (colImporteArchivo1 == -1)
+                    {
+                        colImporteArchivo1 = ObtenerIndiceColumna(worksheetArchivo1, "Importe Ret./Perc.");
+                    }
+                    if (colImporteArchivo1 == -1)
+                    {
+                        colImporteArchivo1 = ObtenerIndiceColumna(worksheetArchivo1, "IMP_RET");
+                    }
+                    if (colImporteArchivo1 == -1)
+                    {
+                        colImporteArchivo1 = ObtenerIndiceColumna(worksheetArchivo1, "Importe Ret,/Perc,");
+                    }
+                    if (colImporteArchivo1 == -1)
+                    {
+
+                        colImporteArchivo1 = ObtenerIndiceColumna(worksheetArchivo1, "IMP_RET");
+                    }
+                    if (colImporteArchivo1 == -1)
+                    {
+                        MessageBox.Show("No se encontro la columna importe en el archivo 1", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    int colImporteArchivo2 = ObtenerIndiceColumna(worksheetArchivo2, "Importe Ret./Perc.");
+                    if (colImporteArchivo2 == -1)
+                    {
+                        colImporteArchivo2 = ObtenerIndiceColumna(worksheetArchivo2, "Importe Ret,/Perc,");
+                    }
+                    if (colImporteArchivo2 == -1)
+                    {
+                        colImporteArchivo2 = ObtenerIndiceColumna(worksheetArchivo2, "ImporteRet");
+                    }
+                    if (colImporteArchivo2 == -1)
+                    {
+                        colImporteArchivo2 = ObtenerIndiceColumna(worksheetArchivo2, "Importe");
+                    }
+                    if (colImporteArchivo2 == -1)
+                    {
+                        colImporteArchivo2 = ObtenerIndiceColumna(worksheetArchivo2, "IMP_RET");
+                    }
+                    if (colImporteArchivo2 == -1)
+                    {
+                        colImporteArchivo2 = ObtenerIndiceColumna(worksheetArchivo2, "Importe Ret,/Perc,");
+                    }
+                    if (colImporteArchivo2 == -1)
+                    {
+                        MessageBox.Show("No se encontro la columna importe en el archivo 2", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    int colNroCertificadoArchivo1 = ObtenerIndiceColumna(worksheetArchivo1, "Nro. Certif.");
+                    if (colNroCertificadoArchivo1 == -1)
+                    {
+                        colNroCertificadoArchivo1 = ObtenerIndiceColumna(worksheetArchivo1, "Certificado");
+                    }
+                    if (colNroCertificadoArchivo1 == -1)
+                    {
+                        colNroCertificadoArchivo1 = ObtenerIndiceColumna(worksheetArchivo1, "Número Certificado");
+                    }
+                    if (colNroCertificadoArchivo1 == -1)
+                    {
+                        colNroCertificadoArchivo1 = ObtenerIndiceColumna(worksheetArchivo1, "N_CERTIF");
+                    }
+                    int colNroCertificadoArchivo2 = ObtenerIndiceColumna(worksheetArchivo2, "Número Certificado");
+                    if (colNroCertificadoArchivo2 == -1)
+                    {
+                        colNroCertificadoArchivo2 = ObtenerIndiceColumna(worksheetArchivo2, "Nro. Certif.");
+                    }
+                    if (colNroCertificadoArchivo2 == -1)
+                    {
+                        colNroCertificadoArchivo2 = ObtenerIndiceColumna(worksheetArchivo2, "Certificado");
+                    }
+                    if (colNroCertificadoArchivo2 == -1)
+                    {
+                        colNroCertificadoArchivo2 = ObtenerIndiceColumna(worksheetArchivo2, "N_CERTIF");
+                    }
+
+                    if (colNroCertificadoArchivo1 == -1 || colNroCertificadoArchivo2 == -1)
+                    {
+                        return;
+                    }
+
+                    // Nuevo diccionario para almacenar filas no marcadas en verde por número de certificado
+                    Dictionary<string, List<int>> diccionarioCertificadoNoMarcadoArchivo1 = new Dictionary<string, List<int>>();
+                    Dictionary<string, List<int>> diccionarioCertificadoNoMarcadoArchivo2 = new Dictionary<string, List<int>>();
+
+                    // Llenar diccionario para el archivo 1
+                    for (int filaArchivo1 = 2; filaArchivo1 <= worksheetArchivo1.RowsUsed().Count(); filaArchivo1++)
+                    {
+                        string certificadoArchivo1 = worksheetArchivo1.Cell(filaArchivo1, colNroCertificadoArchivo1).GetString();
+                        XLColor colorArchivo1 = worksheetArchivo1.Cell(filaArchivo1, colImporteArchivo1).Style.Fill.BackgroundColor;
+
+                        if (colorArchivo1 == XLColor.FromArgb(255, 204, 255, 204)) // Verde claro
+                        {
+                            continue; // Saltar filas ya marcadas en verde
+                        }
+
+                        // Manipulación del número de certificado para que coincida con el formato del archivo 2
+                        string certificadoArchivo1Formateado = certificadoArchivo1.Replace("-", "").Substring(4);
+
+                        if (diccionarioCertificadoNoMarcadoArchivo1.ContainsKey(certificadoArchivo1Formateado))
+                        {
+                            diccionarioCertificadoNoMarcadoArchivo1[certificadoArchivo1Formateado].Add(filaArchivo1);
+                        }
+                        else
+                        {
+                            diccionarioCertificadoNoMarcadoArchivo1[certificadoArchivo1Formateado] = new List<int> { filaArchivo1 };
+                        }
+                    }
+
+                    // Llenar diccionario para el archivo 2
+                    for (int filaArchivo2 = 2; filaArchivo2 <= worksheetArchivo2.RowsUsed().Count(); filaArchivo2++)
+                    {
+                        string certificadoArchivo2 = worksheetArchivo2.Cell(filaArchivo2, colNroCertificadoArchivo2).GetString();
+                        XLColor colorArchivo2 = worksheetArchivo2.Cell(filaArchivo2, colImporteArchivo2).Style.Fill.BackgroundColor;
+
+                        if (colorArchivo2 == XLColor.FromArgb(255, 204, 255, 204)) // Verde claro
+                        {
+                            continue; // Saltar filas ya marcadas en verde
+                        }
+
+                        if (diccionarioCertificadoNoMarcadoArchivo2.ContainsKey(certificadoArchivo2))
+                        {
+                            diccionarioCertificadoNoMarcadoArchivo2[certificadoArchivo2].Add(filaArchivo2);
+                        }
+                        else
+                        {
+                            diccionarioCertificadoNoMarcadoArchivo2[certificadoArchivo2] = new List<int> { filaArchivo2 };
+                        }
+                    }
+
+                    // Bucle adicional para comparar por número de certificado
+                    foreach (var certificadoArchivo1 in diccionarioCertificadoNoMarcadoArchivo1.Keys.ToList())
+                    {
+                        foreach (int filaArchivo1 in diccionarioCertificadoNoMarcadoArchivo1[certificadoArchivo1].ToList())
+                        {
+                            double importeArchivo1 = worksheetArchivo1.Cell(filaArchivo1, colImporteArchivo1).GetValue<double>();
+
+                            int ban = 0;
+
+                            if (diccionarioCertificadoNoMarcadoArchivo2.TryGetValue(certificadoArchivo1, out List<int> filasCertificadoArchivo2))
+                            {
+                                foreach (int filaArchivo2 in filasCertificadoArchivo2.ToList())
+                                {
+                                    string valorCeldaImporterArchivo2 = worksheetArchivo2.Cell(filaArchivo2, colImporteArchivo2).GetString();
+                                    string valorCeldaImporterArchivo2SinComa = valorCeldaImporterArchivo2.Replace(",", ".");
+                                    double importeArchivo2 = double.Parse(valorCeldaImporterArchivo2SinComa, CultureInfo.InvariantCulture);
+
+                                    // Comparar con una tolerancia de ±10
+                                    if (Math.Abs(importeArchivo1 - importeArchivo2) <= 10)
+                                    {
+                                        // Obtén el siguiente color de la lista
+                                        XLColor color = coloresCoincide[indiceColor % coloresCoincide.Count];
+
+                                        worksheetArchivo1.Cell(filaArchivo1, colImporteArchivo1).Style.Fill.BackgroundColor = color;
+                                        worksheetArchivo2.Cell(filaArchivo2, colImporteArchivo2).Style.Fill.BackgroundColor = color;
+
+                                        // Marcar como comparado
+                                        diccionarioCertificadoNoMarcadoArchivo1[certificadoArchivo1].Remove(filaArchivo1);
+                                        diccionarioCertificadoNoMarcadoArchivo2[certificadoArchivo1].Remove(filaArchivo2);
+
+                                        indiceColor++; // Incrementar el índice de color
+
+                                        ban = 1;
+                                        break; // Salir del bucle interno después de encontrar una coincidencia
+                                    }
+                                }
+                            }
+
+                            if (ban == 0)
+                            {
+                                // Obtén el siguiente color de la lista
+                                XLColor color = coloresNoCoincide[indiceColor % coloresNoCoincide.Count];
+
+                                worksheetArchivo1.Cell(filaArchivo1, colImporteArchivo1).Style.Fill.BackgroundColor = color;
+                            }
+                        }
+                    }
+
+                    // Guardar el archivo después de la comparación
+                    workbookArchivo1.SaveAs(pathfileArchivo1);
+                    workbookArchivo2.SaveAs(pathfileArchivo2);
+                }
+            }
+        }
+
         private void MarcarNoCoincidentesEnRojo(string pathArchivo, int archivo)
         {
             using (var workbookArchivo = new XLWorkbook(pathArchivo))
@@ -744,7 +1217,7 @@ namespace ControlRetenciones
             // Agregar la extensión .xlsx si no se proporciona
             if (Path.GetExtension(rutaArchivo) != ".xlsx")
             {
-                rutaArchivo += "/reporte";
+                rutaArchivo += "/REPORTE";
                 rutaArchivo += ".xlsx";
             }
 
