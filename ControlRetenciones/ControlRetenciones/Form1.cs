@@ -243,7 +243,6 @@ namespace ControlRetenciones
             MarcarNoCoincidentesEnRojo(pathfileArchivo2, 2);
         }
 
-
         private void CompararArchivosPorCuitFechaImporte(string pathfileArchivo1, string pathfileArchivo2, double tolerancia)
         {
             using (var workbookArchivo1 = new XLWorkbook(pathfileArchivo1))
