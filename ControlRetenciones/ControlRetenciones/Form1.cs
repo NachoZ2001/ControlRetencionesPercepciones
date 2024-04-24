@@ -232,11 +232,11 @@ namespace ControlRetenciones
             // Tercera y ultima llamada para que compare con una tolerancia de 2 en el importe
             CompararArchivosPorCuit(pathfileArchivo1, pathfileArchivo2, 2);
 
-            // Cuarta comparacion para comparar por fecha e importe exactos sin tener en cuenta CUIT        
-            CompararArchivosPorFechaEImporte(pathfileArchivo1, pathfileArchivo2);
-
-            // Quinta comparacion para comparar por certificado e importe 
+            // Cuarta comparacion para comparar por certificado e importe 
             CompararArchivosPorCertificado(pathfileArchivo1, pathfileArchivo2);
+
+            // Quinta comparacion para comparar por fecha e importe exactos sin tener en cuenta CUIT        
+            CompararArchivosPorFechaEImporte(pathfileArchivo1, pathfileArchivo2);
 
             //Marcar en rojo los que no coinciden
             MarcarNoCoincidentesEnRojo(pathfileArchivo1, 1);
