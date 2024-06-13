@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "FE9T+LvkQS9homKitdSC5hPWMaYG5A8duGY4HN+lQp9xe8XEg1JT0y1bpA6UZOjZ7Y9aDNb/ZK/88BYxTOGOSQ==",
+  "dgSpecHash": "ka0OuX2xziseVYhh/hLnjxMKq8J0ED1nWyGLoaErGGENWj6LyglSMRWompqJT2Hvfq755lKX+T6+T42LxMbKCw==",
   "success": true,
-  "projectFilePath": "C:\\Program Files\\Sublime Merge\\ControlRetenciones\\ControlRetenciones\\ControlRetenciones\\ControlRetenciones.csproj",
+  "projectFilePath": "C:\\Program Files\\Sublime Merge\\ControlRetencionesPercepciones\\ControlRetenciones\\ControlRetenciones\\ControlRetenciones.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\w1zar\\.nuget\\packages\\bouncycastle.cryptography\\2.2.1\\bouncycastle.cryptography.2.2.1.nupkg.sha512",
     "C:\\Users\\w1zar\\.nuget\\packages\\closedxml\\0.102.1\\closedxml.0.102.1.nupkg.sha512",

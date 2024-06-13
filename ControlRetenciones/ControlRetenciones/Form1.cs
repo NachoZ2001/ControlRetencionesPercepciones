@@ -272,6 +272,11 @@ namespace ControlRetenciones
                     }
                     if (colImporteArchivo1 == -1)
                     {
+
+                        colImporteArchivo1 = ObtenerIndiceColumna(worksheetArchivo1, "importe");
+                    }
+                    if (colImporteArchivo1 == -1)
+                    {
                         MessageBox.Show("No se encontro la columna importe en el archivo 1", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                     int colImporteArchivo2 = ObtenerIndiceColumna(worksheetArchivo2, "Importe Ret./Perc.");
@@ -289,6 +294,10 @@ namespace ControlRetenciones
                     }
                     if (colImporteArchivo2 == -1)
                     {
+                        colImporteArchivo2 = ObtenerIndiceColumna(worksheetArchivo2, "importe");
+                    }
+                    if (colImporteArchivo2 == -1)
+                    {
                         colImporteArchivo2 = ObtenerIndiceColumna(worksheetArchivo2, "IMP_RET");
                     }
                     if (colImporteArchivo2 == -1)
@@ -303,6 +312,10 @@ namespace ControlRetenciones
                     if (colNroDocArchivo1 == -1)
                     {
                         colNroDocArchivo1 = ObtenerIndiceColumna(worksheetArchivo1, "Cuit");
+                    }
+                    if (colNroDocArchivo1 == -1)
+                    {
+                        colNroDocArchivo1 = ObtenerIndiceColumna(worksheetArchivo1, "cuit");
                     }
                     if (colNroDocArchivo1 == -1)
                     {
@@ -328,6 +341,10 @@ namespace ControlRetenciones
                     if (colCuitAgenteArchivo2 == -1)
                     {
                         colCuitAgenteArchivo2 = ObtenerIndiceColumna(worksheetArchivo2, "Cuit");
+                    }
+                    if (colCuitAgenteArchivo2 == -1)
+                    {
+                        colCuitAgenteArchivo2 = ObtenerIndiceColumna(worksheetArchivo2, "cuit");
                     }
                     if (colCuitAgenteArchivo2 == -1)
                     {
@@ -364,6 +381,10 @@ namespace ControlRetenciones
                     }
                     if (colFechaArchivo1 == -1)
                     {
+                        colFechaArchivo1 = ObtenerIndiceColumna(worksheetArchivo1, "fecharet");
+                    }
+                    if (colFechaArchivo1 == -1)
+                    {
                         MessageBox.Show("No se encontro la columna fecha en el archivo 1", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                     int colFechaArchivo2 = ObtenerIndiceColumna(worksheetArchivo2, "FECHA_RET");
@@ -382,6 +403,10 @@ namespace ControlRetenciones
                     if (colFechaArchivo2 == -1)
                     {
                         colFechaArchivo2 = ObtenerIndiceColumna(worksheetArchivo2, "Fecha");
+                    }
+                    if (colFechaArchivo2 == -1)
+                    {
+                        colFechaArchivo2 = ObtenerIndiceColumna(worksheetArchivo2, "fecharet");
                     }
                     if (colFechaArchivo2 == -1)
                     {
@@ -528,6 +553,10 @@ namespace ControlRetenciones
                     }
                     if (colImporteArchivo1 == -1)
                     {
+                        colImporteArchivo1 = ObtenerIndiceColumna(worksheetArchivo1, "importe");
+                    }
+                    if (colImporteArchivo1 == -1)
+                    {
                         colImporteArchivo1 = ObtenerIndiceColumna(worksheetArchivo1, "ImporteRet");
                     }
                     if (colImporteArchivo1 == -1)
@@ -558,6 +587,10 @@ namespace ControlRetenciones
                     }
                     if (colImporteArchivo2 == -1)
                     {
+                        colImporteArchivo2 = ObtenerIndiceColumna(worksheetArchivo2, "importe");
+                    }
+                    if (colImporteArchivo2 == -1)
+                    {
                         colImporteArchivo2 = ObtenerIndiceColumna(worksheetArchivo2, "IMP_RET");
                     }
                     if (colImporteArchivo2 == -1)
@@ -572,6 +605,10 @@ namespace ControlRetenciones
                     if (colNroDocArchivo1 == -1)
                     {
                         colNroDocArchivo1 = ObtenerIndiceColumna(worksheetArchivo1, "Cuit");
+                    }
+                    if (colNroDocArchivo1 == -1)
+                    {
+                        colNroDocArchivo1 = ObtenerIndiceColumna(worksheetArchivo1, "cuit");
                     }
                     if (colNroDocArchivo1 == -1)
                     {
@@ -597,6 +634,10 @@ namespace ControlRetenciones
                     if (colCuitAgenteArchivo2 == -1)
                     {
                         colCuitAgenteArchivo2 = ObtenerIndiceColumna(worksheetArchivo2, "Cuit");
+                    }
+                    if (colCuitAgenteArchivo2 == -1)
+                    {
+                        colCuitAgenteArchivo2 = ObtenerIndiceColumna(worksheetArchivo2, "cuit");
                     }
                     if (colCuitAgenteArchivo2 == -1)
                     {
@@ -762,6 +803,10 @@ namespace ControlRetenciones
                     }
                     if (colFechaArchivo1 == -1)
                     {
+                        colFechaArchivo1 = ObtenerIndiceColumna(worksheetArchivo1, "fecharet");
+                    }
+                    if (colFechaArchivo1 == -1)
+                    {
                         MessageBox.Show("No se encontro la columna fecha en el archivo 1", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                     int colFechaArchivo2 = ObtenerIndiceColumna(worksheetArchivo2, "FECHA_RET");
@@ -783,12 +828,20 @@ namespace ControlRetenciones
                     }
                     if (colFechaArchivo2 == -1)
                     {
+                        colFechaArchivo2 = ObtenerIndiceColumna(worksheetArchivo2, "fecharet");
+                    }
+                    if (colFechaArchivo2 == -1)
+                    {
                         MessageBox.Show("No se encontro la columna fecha en el archivo 2", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                     int colImporteArchivo1 = ObtenerIndiceColumna(worksheetArchivo1, "Importe");
                     if (colImporteArchivo1 == -1)
                     {
                         colImporteArchivo1 = ObtenerIndiceColumna(worksheetArchivo1, "ImporteRet");
+                    }
+                    if (colImporteArchivo1 == -1)
+                    {
+                        colImporteArchivo1 = ObtenerIndiceColumna(worksheetArchivo1, "importe");
                     }
                     if (colImporteArchivo1 == -1)
                     {
@@ -818,6 +871,10 @@ namespace ControlRetenciones
                     if (colImporteArchivo2 == -1)
                     {
                         colImporteArchivo2 = ObtenerIndiceColumna(worksheetArchivo2, "Importe");
+                    }
+                    if (colImporteArchivo2 == -1)
+                    {
+                        colImporteArchivo2 = ObtenerIndiceColumna(worksheetArchivo2, "importe");
                     }
                     if (colImporteArchivo2 == -1)
                     {
@@ -945,6 +1002,10 @@ namespace ControlRetenciones
                     }
                     if (colImporteArchivo1 == -1)
                     {
+                        colImporteArchivo1 = ObtenerIndiceColumna(worksheetArchivo1, "importe");
+                    }
+                    if (colImporteArchivo1 == -1)
+                    {
                         colImporteArchivo1 = ObtenerIndiceColumna(worksheetArchivo1, "Importe Ret./Perc.");
                     }
                     if (colImporteArchivo1 == -1)
@@ -979,6 +1040,10 @@ namespace ControlRetenciones
                     }
                     if (colImporteArchivo2 == -1)
                     {
+                        colImporteArchivo2 = ObtenerIndiceColumna(worksheetArchivo2, "importe");
+                    }
+                    if (colImporteArchivo2 == -1)
+                    {
                         colImporteArchivo2 = ObtenerIndiceColumna(worksheetArchivo2, "IMP_RET");
                     }
                     if (colImporteArchivo2 == -1)
@@ -1002,6 +1067,10 @@ namespace ControlRetenciones
                     {
                         colNroCertificadoArchivo1 = ObtenerIndiceColumna(worksheetArchivo1, "N_CERTIF");
                     }
+                    if (colNroCertificadoArchivo1 == -1)
+                    {
+                        colNroCertificadoArchivo1 = ObtenerIndiceColumna(worksheetArchivo1, "numerode");
+                    }
                     int colNroCertificadoArchivo2 = ObtenerIndiceColumna(worksheetArchivo2, "Número Certificado");
                     if (colNroCertificadoArchivo2 == -1)
                     {
@@ -1015,7 +1084,10 @@ namespace ControlRetenciones
                     {
                         colNroCertificadoArchivo2 = ObtenerIndiceColumna(worksheetArchivo2, "N_CERTIF");
                     }
-
+                    if (colNroCertificadoArchivo2 == -1)
+                    {
+                        colNroCertificadoArchivo2 = ObtenerIndiceColumna(worksheetArchivo2, "numerode");
+                    }
                     if (colNroCertificadoArchivo1 == -1 || colNroCertificadoArchivo2 == -1)
                     {
                         return;
@@ -1148,6 +1220,10 @@ namespace ControlRetenciones
                 if (colImporte == -1)
                 {
                     colImporte = ObtenerIndiceColumna(worksheetArchivo, "Importe Ret,/Perc,");
+                }
+                if (colImporte == -1)
+                {
+                    colImporte = ObtenerIndiceColumna(worksheetArchivo, "importe");
                 }
                 if (colImporte == -1)
                 {
