@@ -1,4 +1,5 @@
 Este programa sirve para comparar las retenciones percepciones de AFIP con el Excel extraido de la plataforma de contabilidad. Comparaciones que realiza:
+
 1- LLamada para comparar por cuit, importe y fecha (mayor exactitud).
 2- Segunda llamada para que compare de manera exacta sin tener en cuenta la fecha
 3- Tercera llamada para que compare con una tolerancia de 1 peso en el importe
