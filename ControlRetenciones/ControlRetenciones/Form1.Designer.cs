@@ -45,6 +45,7 @@
             // txtRutaArchivo2
             // 
             txtRutaArchivo2.BackColor = Color.BlueViolet;
+            txtRutaArchivo2.BorderStyle = BorderStyle.FixedSingle;
             txtRutaArchivo2.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
             txtRutaArchivo2.ForeColor = SystemColors.ButtonFace;
             txtRutaArchivo2.Location = new Point(257, 12);
@@ -58,6 +59,7 @@
             // txtRutaArchivo1
             // 
             txtRutaArchivo1.BackColor = Color.BlueViolet;
+            txtRutaArchivo1.BorderStyle = BorderStyle.FixedSingle;
             txtRutaArchivo1.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
             txtRutaArchivo1.ForeColor = SystemColors.ButtonFace;
             txtRutaArchivo1.Location = new Point(12, 12);
@@ -71,9 +73,10 @@
             // btnSeleccionarArchivo1
             // 
             btnSeleccionarArchivo1.BackColor = Color.BlueViolet;
+            btnSeleccionarArchivo1.FlatStyle = FlatStyle.Popup;
             btnSeleccionarArchivo1.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
             btnSeleccionarArchivo1.ForeColor = SystemColors.ButtonFace;
-            btnSeleccionarArchivo1.Location = new Point(12, 54);
+            btnSeleccionarArchivo1.Location = new Point(47, 54);
             btnSeleccionarArchivo1.Name = "btnSeleccionarArchivo1";
             btnSeleccionarArchivo1.Size = new Size(124, 23);
             btnSeleccionarArchivo1.TabIndex = 2;
@@ -84,9 +87,10 @@
             // btnSeleccionarArchivo2
             // 
             btnSeleccionarArchivo2.BackColor = Color.BlueViolet;
+            btnSeleccionarArchivo2.FlatStyle = FlatStyle.Popup;
             btnSeleccionarArchivo2.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
             btnSeleccionarArchivo2.ForeColor = SystemColors.ButtonFace;
-            btnSeleccionarArchivo2.Location = new Point(257, 54);
+            btnSeleccionarArchivo2.Location = new Point(282, 54);
             btnSeleccionarArchivo2.Name = "btnSeleccionarArchivo2";
             btnSeleccionarArchivo2.Size = new Size(124, 23);
             btnSeleccionarArchivo2.TabIndex = 3;
@@ -97,6 +101,7 @@
             // btnProcesar
             // 
             btnProcesar.BackColor = Color.BlueViolet;
+            btnProcesar.FlatStyle = FlatStyle.Popup;
             btnProcesar.ForeColor = SystemColors.ButtonFace;
             btnProcesar.Location = new Point(740, 11);
             btnProcesar.Name = "btnProcesar";
@@ -132,6 +137,7 @@
             // textBoxReporte
             // 
             textBoxReporte.BackColor = Color.BlueViolet;
+            textBoxReporte.BorderStyle = BorderStyle.FixedSingle;
             textBoxReporte.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
             textBoxReporte.ForeColor = SystemColors.Window;
             textBoxReporte.Location = new Point(503, 12);
@@ -146,9 +152,10 @@
             // buttonCarpeta
             // 
             buttonCarpeta.BackColor = Color.BlueViolet;
+            buttonCarpeta.FlatStyle = FlatStyle.Popup;
             buttonCarpeta.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
             buttonCarpeta.ForeColor = SystemColors.ButtonFace;
-            buttonCarpeta.Location = new Point(503, 54);
+            buttonCarpeta.Location = new Point(534, 54);
             buttonCarpeta.Name = "buttonCarpeta";
             buttonCarpeta.Size = new Size(124, 23);
             buttonCarpeta.TabIndex = 10;
