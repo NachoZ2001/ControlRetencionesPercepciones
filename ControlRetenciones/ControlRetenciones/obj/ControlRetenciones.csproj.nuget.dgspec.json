@@ -57,6 +57,10 @@
               "target": "Package",
               "version": "[2.6.2, )"
             },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.3, )"
+            },
             "SpreadsheetLight": {
               "target": "Package",
               "version": "[3.5.0, )"

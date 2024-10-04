@@ -116,3 +116,5 @@ C:\Program Files\Sublime Merge\ControlRetencionesPercepciones\ControlRetenciones
 C:\Program Files\Sublime Merge\ControlRetencionesPercepciones\ControlRetenciones\ControlRetenciones\obj\Debug\net6.0-windows\ref\ControlRetenciones.dll
 C:\Program Files\Sublime Merge\ControlRetencionesPercepciones\ControlRetenciones\ControlRetenciones\obj\Debug\net6.0-windows\ControlRetenciones.sourcelink.json
 C:\Program Files\Sublime Merge\ControlRetencionesPercepciones\ControlRetenciones\ControlRetenciones\obj\Debug\net6.0-windows\ControlR.BE7414BF.Up2Date
+C:\Program Files\Sublime Merge\ControlRetencionesPercepciones\ControlRetenciones\ControlRetenciones\obj\Debug\net6.0-windows\ControlRetenciones.FormColumnas.resources
+C:\Program Files\Sublime Merge\ControlRetencionesPercepciones\ControlRetenciones\ControlRetenciones\bin\Debug\net6.0-windows\Newtonsoft.Json.dll

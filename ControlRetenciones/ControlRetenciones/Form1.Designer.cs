@@ -38,6 +38,10 @@
             pictureBoxRuedaCargando = new PictureBox();
             textBoxReporte = new TextBox();
             buttonCarpeta = new Button();
+            buttonCrearEsquema = new Button();
+            buttonEditarEsquema = new Button();
+            comboBoxEsquemas = new ComboBox();
+            textBoxSeleccionarEsquema = new TextBox();
             ((System.ComponentModel.ISupportInitialize)pictureBoxLogoEstudio).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBoxRuedaCargando).BeginInit();
             SuspendLayout();
@@ -62,7 +66,7 @@
             txtRutaArchivo1.BorderStyle = BorderStyle.FixedSingle;
             txtRutaArchivo1.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
             txtRutaArchivo1.ForeColor = SystemColors.ButtonFace;
-            txtRutaArchivo1.Location = new Point(12, 12);
+            txtRutaArchivo1.Location = new Point(23, 11);
             txtRutaArchivo1.Name = "txtRutaArchivo1";
             txtRutaArchivo1.ReadOnly = true;
             txtRutaArchivo1.Size = new Size(190, 23);
@@ -90,7 +94,7 @@
             btnSeleccionarArchivo2.FlatStyle = FlatStyle.Popup;
             btnSeleccionarArchivo2.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
             btnSeleccionarArchivo2.ForeColor = SystemColors.ButtonFace;
-            btnSeleccionarArchivo2.Location = new Point(282, 54);
+            btnSeleccionarArchivo2.Location = new Point(284, 54);
             btnSeleccionarArchivo2.Name = "btnSeleccionarArchivo2";
             btnSeleccionarArchivo2.Size = new Size(124, 23);
             btnSeleccionarArchivo2.TabIndex = 3;
@@ -116,18 +120,19 @@
             pictureBoxLogoEstudio.BackColor = Color.Purple;
             pictureBoxLogoEstudio.BackgroundImageLayout = ImageLayout.None;
             pictureBoxLogoEstudio.Image = (Image)resources.GetObject("pictureBoxLogoEstudio.Image");
-            pictureBoxLogoEstudio.Location = new Point(92, 98);
+            pictureBoxLogoEstudio.Location = new Point(47, 183);
             pictureBoxLogoEstudio.Name = "pictureBoxLogoEstudio";
-            pictureBoxLogoEstudio.Size = new Size(807, 247);
+            pictureBoxLogoEstudio.Size = new Size(611, 174);
             pictureBoxLogoEstudio.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBoxLogoEstudio.TabIndex = 6;
             pictureBoxLogoEstudio.TabStop = false;
+            pictureBoxLogoEstudio.Click += pictureBoxLogoEstudio_Click;
             // 
             // pictureBoxRuedaCargando
             // 
             pictureBoxRuedaCargando.BackColor = Color.Transparent;
             pictureBoxRuedaCargando.Image = (Image)resources.GetObject("pictureBoxRuedaCargando.Image");
-            pictureBoxRuedaCargando.Location = new Point(926, 12);
+            pictureBoxRuedaCargando.Location = new Point(773, 107);
             pictureBoxRuedaCargando.Name = "pictureBoxRuedaCargando";
             pictureBoxRuedaCargando.Size = new Size(85, 65);
             pictureBoxRuedaCargando.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -163,12 +168,67 @@
             buttonCarpeta.UseVisualStyleBackColor = false;
             buttonCarpeta.Click += btnCarpeta_Click;
             // 
+            // buttonCrearEsquema
+            // 
+            buttonCrearEsquema.BackColor = Color.BlueViolet;
+            buttonCrearEsquema.FlatStyle = FlatStyle.Popup;
+            buttonCrearEsquema.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            buttonCrearEsquema.ForeColor = SystemColors.ButtonFace;
+            buttonCrearEsquema.Location = new Point(47, 132);
+            buttonCrearEsquema.Name = "buttonCrearEsquema";
+            buttonCrearEsquema.Size = new Size(124, 23);
+            buttonCrearEsquema.TabIndex = 11;
+            buttonCrearEsquema.Text = "Crear esquema";
+            buttonCrearEsquema.UseVisualStyleBackColor = false;
+            buttonCrearEsquema.Click += buttonCrearEsquema_Click;
+            // 
+            // buttonEditarEsquema
+            // 
+            buttonEditarEsquema.BackColor = Color.BlueViolet;
+            buttonEditarEsquema.FlatStyle = FlatStyle.Popup;
+            buttonEditarEsquema.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            buttonEditarEsquema.ForeColor = SystemColors.ButtonFace;
+            buttonEditarEsquema.Location = new Point(534, 132);
+            buttonEditarEsquema.Name = "buttonEditarEsquema";
+            buttonEditarEsquema.Size = new Size(124, 23);
+            buttonEditarEsquema.TabIndex = 12;
+            buttonEditarEsquema.Text = "Editar esquema";
+            buttonEditarEsquema.UseVisualStyleBackColor = false;
+            buttonEditarEsquema.Click += buttonEditarEsquema_Click;
+            // 
+            // comboBoxEsquemas
+            // 
+            comboBoxEsquemas.BackColor = Color.BlueViolet;
+            comboBoxEsquemas.FlatStyle = FlatStyle.Popup;
+            comboBoxEsquemas.ForeColor = Color.White;
+            comboBoxEsquemas.FormattingEnabled = true;
+            comboBoxEsquemas.Location = new Point(271, 133);
+            comboBoxEsquemas.Name = "comboBoxEsquemas";
+            comboBoxEsquemas.Size = new Size(176, 23);
+            comboBoxEsquemas.TabIndex = 13;
+            // 
+            // textBoxSeleccionarEsquema
+            // 
+            textBoxSeleccionarEsquema.BackColor = Color.Purple;
+            textBoxSeleccionarEsquema.BorderStyle = BorderStyle.None;
+            textBoxSeleccionarEsquema.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            textBoxSeleccionarEsquema.ForeColor = Color.White;
+            textBoxSeleccionarEsquema.Location = new Point(284, 107);
+            textBoxSeleccionarEsquema.Name = "textBoxSeleccionarEsquema";
+            textBoxSeleccionarEsquema.Size = new Size(150, 20);
+            textBoxSeleccionarEsquema.TabIndex = 14;
+            textBoxSeleccionarEsquema.Text = "Seleccionar esquema";
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Purple;
-            ClientSize = new Size(1033, 382);
+            ClientSize = new Size(901, 382);
+            Controls.Add(textBoxSeleccionarEsquema);
+            Controls.Add(comboBoxEsquemas);
+            Controls.Add(buttonEditarEsquema);
+            Controls.Add(buttonCrearEsquema);
             Controls.Add(buttonCarpeta);
             Controls.Add(textBoxReporte);
             Controls.Add(pictureBoxRuedaCargando);
@@ -180,6 +240,7 @@
             Controls.Add(pictureBoxLogoEstudio);
             Name = "Form1";
             Text = "Form1";
+            Load += Form1_Load;
             ((System.ComponentModel.ISupportInitialize)pictureBoxLogoEstudio).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBoxRuedaCargando).EndInit();
             ResumeLayout(false);
@@ -197,5 +258,9 @@
         private PictureBox pictureBoxRuedaCargando;
         private TextBox textBoxReporte;
         private Button buttonCarpeta;
+        private Button buttonCrearEsquema;
+        private Button buttonEditarEsquema;
+        private ComboBox comboBoxEsquemas;
+        private TextBox textBoxSeleccionarEsquema;
     }
 }

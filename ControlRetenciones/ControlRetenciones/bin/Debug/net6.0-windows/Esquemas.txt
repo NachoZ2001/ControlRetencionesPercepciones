@@ -1,0 +1,2 @@
+{"Nombre":"prueba","IndiceColumnaCuit":0,"IndiceColumnaImporte":0,"IndiceColumnaFecha":0,"IndiceColumnaCertificado":0}
+{"Nombre":"Eliana","IndiceColumnaCuit":10,"IndiceColumnaImporte":13,"IndiceColumnaFecha":5,"IndiceColumnaCertificado":-1}
