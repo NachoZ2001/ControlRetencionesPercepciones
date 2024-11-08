@@ -118,3 +118,45 @@ C:\Program Files\Sublime Merge\ControlRetencionesPercepciones\ControlRetenciones
 C:\Program Files\Sublime Merge\ControlRetencionesPercepciones\ControlRetenciones\ControlRetenciones\obj\Debug\net6.0-windows\ControlR.BE7414BF.Up2Date
 C:\Program Files\Sublime Merge\ControlRetencionesPercepciones\ControlRetenciones\ControlRetenciones\obj\Debug\net6.0-windows\ControlRetenciones.FormColumnas.resources
 C:\Program Files\Sublime Merge\ControlRetencionesPercepciones\ControlRetenciones\ControlRetenciones\bin\Debug\net6.0-windows\Newtonsoft.Json.dll
+C:\Proyectos\ControladorRetenciones\ControlRetenciones\ControlRetenciones\bin\Debug\net6.0-windows\ControlRetenciones.exe
+C:\Proyectos\ControladorRetenciones\ControlRetenciones\ControlRetenciones\bin\Debug\net6.0-windows\ControlRetenciones.deps.json
+C:\Proyectos\ControladorRetenciones\ControlRetenciones\ControlRetenciones\bin\Debug\net6.0-windows\ControlRetenciones.runtimeconfig.json
+C:\Proyectos\ControladorRetenciones\ControlRetenciones\ControlRetenciones\bin\Debug\net6.0-windows\ControlRetenciones.dll
+C:\Proyectos\ControladorRetenciones\ControlRetenciones\ControlRetenciones\bin\Debug\net6.0-windows\ControlRetenciones.pdb
+C:\Proyectos\ControladorRetenciones\ControlRetenciones\ControlRetenciones\bin\Debug\net6.0-windows\BouncyCastle.Cryptography.dll
+C:\Proyectos\ControladorRetenciones\ControlRetenciones\ControlRetenciones\bin\Debug\net6.0-windows\ClosedXML.dll
+C:\Proyectos\ControladorRetenciones\ControlRetenciones\ControlRetenciones\bin\Debug\net6.0-windows\DocumentFormat.OpenXml.dll
+C:\Proyectos\ControladorRetenciones\ControlRetenciones\ControlRetenciones\bin\Debug\net6.0-windows\Enums.NET.dll
+C:\Proyectos\ControladorRetenciones\ControlRetenciones\ControlRetenciones\bin\Debug\net6.0-windows\ExcelNumberFormat.dll
+C:\Proyectos\ControladorRetenciones\ControlRetenciones\ControlRetenciones\bin\Debug\net6.0-windows\Irony.dll
+C:\Proyectos\ControladorRetenciones\ControlRetenciones\ControlRetenciones\bin\Debug\net6.0-windows\MathNet.Numerics.dll
+C:\Proyectos\ControladorRetenciones\ControlRetenciones\ControlRetenciones\bin\Debug\net6.0-windows\Microsoft.IO.RecyclableMemoryStream.dll
+C:\Proyectos\ControladorRetenciones\ControlRetenciones\ControlRetenciones\bin\Debug\net6.0-windows\Newtonsoft.Json.dll
+C:\Proyectos\ControladorRetenciones\ControlRetenciones\ControlRetenciones\bin\Debug\net6.0-windows\NPOI.Core.dll
+C:\Proyectos\ControladorRetenciones\ControlRetenciones\ControlRetenciones\bin\Debug\net6.0-windows\NPOI.OOXML.dll
+C:\Proyectos\ControladorRetenciones\ControlRetenciones\ControlRetenciones\bin\Debug\net6.0-windows\NPOI.OpenXml4Net.dll
+C:\Proyectos\ControladorRetenciones\ControlRetenciones\ControlRetenciones\bin\Debug\net6.0-windows\NPOI.OpenXmlFormats.dll
+C:\Proyectos\ControladorRetenciones\ControlRetenciones\ControlRetenciones\bin\Debug\net6.0-windows\ICSharpCode.SharpZipLib.dll
+C:\Proyectos\ControladorRetenciones\ControlRetenciones\ControlRetenciones\bin\Debug\net6.0-windows\SixLabors.Fonts.dll
+C:\Proyectos\ControladorRetenciones\ControlRetenciones\ControlRetenciones\bin\Debug\net6.0-windows\SixLabors.ImageSharp.dll
+C:\Proyectos\ControladorRetenciones\ControlRetenciones\ControlRetenciones\bin\Debug\net6.0-windows\SpreadsheetLight.dll
+C:\Proyectos\ControladorRetenciones\ControlRetenciones\ControlRetenciones\bin\Debug\net6.0-windows\System.Security.Cryptography.Pkcs.dll
+C:\Proyectos\ControladorRetenciones\ControlRetenciones\ControlRetenciones\bin\Debug\net6.0-windows\System.Security.Cryptography.Xml.dll
+C:\Proyectos\ControladorRetenciones\ControlRetenciones\ControlRetenciones\bin\Debug\net6.0-windows\XLParser.dll
+C:\Proyectos\ControladorRetenciones\ControlRetenciones\ControlRetenciones\bin\Debug\net6.0-windows\runtimes\win\lib\net6.0\System.Security.Cryptography.Pkcs.dll
+C:\Proyectos\ControladorRetenciones\ControlRetenciones\ControlRetenciones\obj\Debug\net6.0-windows\ControlRetenciones.csproj.AssemblyReference.cache
+C:\Proyectos\ControladorRetenciones\ControlRetenciones\ControlRetenciones\obj\Debug\net6.0-windows\ControlRetenciones.Form1.resources
+C:\Proyectos\ControladorRetenciones\ControlRetenciones\ControlRetenciones\obj\Debug\net6.0-windows\ControlRetenciones.FormColumnas.resources
+C:\Proyectos\ControladorRetenciones\ControlRetenciones\ControlRetenciones\obj\Debug\net6.0-windows\ControlRetenciones.Properties.Resources.resources
+C:\Proyectos\ControladorRetenciones\ControlRetenciones\ControlRetenciones\obj\Debug\net6.0-windows\ControlRetenciones.csproj.GenerateResource.cache
+C:\Proyectos\ControladorRetenciones\ControlRetenciones\ControlRetenciones\obj\Debug\net6.0-windows\ControlRetenciones.GeneratedMSBuildEditorConfig.editorconfig
+C:\Proyectos\ControladorRetenciones\ControlRetenciones\ControlRetenciones\obj\Debug\net6.0-windows\ControlRetenciones.AssemblyInfoInputs.cache
+C:\Proyectos\ControladorRetenciones\ControlRetenciones\ControlRetenciones\obj\Debug\net6.0-windows\ControlRetenciones.AssemblyInfo.cs
+C:\Proyectos\ControladorRetenciones\ControlRetenciones\ControlRetenciones\obj\Debug\net6.0-windows\ControlRetenciones.csproj.CoreCompileInputs.cache
+C:\Proyectos\ControladorRetenciones\ControlRetenciones\ControlRetenciones\obj\Debug\net6.0-windows\ControlRetenciones.sourcelink.json
+C:\Proyectos\ControladorRetenciones\ControlRetenciones\ControlRetenciones\obj\Debug\net6.0-windows\ControlR.BE7414BF.Up2Date
+C:\Proyectos\ControladorRetenciones\ControlRetenciones\ControlRetenciones\obj\Debug\net6.0-windows\ControlRetenciones.dll
+C:\Proyectos\ControladorRetenciones\ControlRetenciones\ControlRetenciones\obj\Debug\net6.0-windows\refint\ControlRetenciones.dll
+C:\Proyectos\ControladorRetenciones\ControlRetenciones\ControlRetenciones\obj\Debug\net6.0-windows\ControlRetenciones.pdb
+C:\Proyectos\ControladorRetenciones\ControlRetenciones\ControlRetenciones\obj\Debug\net6.0-windows\ControlRetenciones.genruntimeconfig.cache
+C:\Proyectos\ControladorRetenciones\ControlRetenciones\ControlRetenciones\obj\Debug\net6.0-windows\ref\ControlRetenciones.dll

@@ -51,9 +51,10 @@
             textBoxColumna.BackColor = Color.BlueViolet;
             textBoxColumna.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
             textBoxColumna.ForeColor = Color.White;
-            textBoxColumna.Location = new Point(43, 27);
+            textBoxColumna.Location = new Point(49, 36);
+            textBoxColumna.Margin = new Padding(3, 4, 3, 4);
             textBoxColumna.Name = "textBoxColumna";
-            textBoxColumna.Size = new Size(100, 25);
+            textBoxColumna.Size = new Size(114, 29);
             textBoxColumna.TabIndex = 0;
             textBoxColumna.Text = "Columna";
             textBoxColumna.TextAlign = HorizontalAlignment.Center;
@@ -63,9 +64,10 @@
             textBoxNumeroColumna.BackColor = Color.BlueViolet;
             textBoxNumeroColumna.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
             textBoxNumeroColumna.ForeColor = Color.White;
-            textBoxNumeroColumna.Location = new Point(198, 27);
+            textBoxNumeroColumna.Location = new Point(226, 36);
+            textBoxNumeroColumna.Margin = new Padding(3, 4, 3, 4);
             textBoxNumeroColumna.Name = "textBoxNumeroColumna";
-            textBoxNumeroColumna.Size = new Size(100, 25);
+            textBoxNumeroColumna.Size = new Size(114, 29);
             textBoxNumeroColumna.TabIndex = 1;
             textBoxNumeroColumna.Text = "Índice";
             textBoxNumeroColumna.TextAlign = HorizontalAlignment.Center;
@@ -75,9 +77,10 @@
             textBoxCUIT.BackColor = Color.BlueViolet;
             textBoxCUIT.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
             textBoxCUIT.ForeColor = Color.White;
-            textBoxCUIT.Location = new Point(43, 83);
+            textBoxCUIT.Location = new Point(49, 111);
+            textBoxCUIT.Margin = new Padding(3, 4, 3, 4);
             textBoxCUIT.Name = "textBoxCUIT";
-            textBoxCUIT.Size = new Size(100, 25);
+            textBoxCUIT.Size = new Size(114, 29);
             textBoxCUIT.TabIndex = 2;
             textBoxCUIT.Text = "CUIT";
             textBoxCUIT.TextAlign = HorizontalAlignment.Center;
@@ -87,10 +90,11 @@
             numericUpDownCUIT.BackColor = Color.BlueViolet;
             numericUpDownCUIT.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
             numericUpDownCUIT.ForeColor = Color.White;
-            numericUpDownCUIT.Location = new Point(200, 85);
+            numericUpDownCUIT.Location = new Point(229, 113);
+            numericUpDownCUIT.Margin = new Padding(3, 4, 3, 4);
             numericUpDownCUIT.Minimum = new decimal(new int[] { 1, 0, 0, int.MinValue });
             numericUpDownCUIT.Name = "numericUpDownCUIT";
-            numericUpDownCUIT.Size = new Size(98, 25);
+            numericUpDownCUIT.Size = new Size(112, 29);
             numericUpDownCUIT.TabIndex = 3;
             numericUpDownCUIT.TextAlign = HorizontalAlignment.Center;
             // 
@@ -99,9 +103,10 @@
             textBoxFecha.BackColor = Color.BlueViolet;
             textBoxFecha.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
             textBoxFecha.ForeColor = Color.White;
-            textBoxFecha.Location = new Point(43, 139);
+            textBoxFecha.Location = new Point(49, 185);
+            textBoxFecha.Margin = new Padding(3, 4, 3, 4);
             textBoxFecha.Name = "textBoxFecha";
-            textBoxFecha.Size = new Size(100, 25);
+            textBoxFecha.Size = new Size(114, 29);
             textBoxFecha.TabIndex = 4;
             textBoxFecha.Text = "Fecha";
             textBoxFecha.TextAlign = HorizontalAlignment.Center;
@@ -111,10 +116,11 @@
             numericUpDownFecha.BackColor = Color.BlueViolet;
             numericUpDownFecha.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
             numericUpDownFecha.ForeColor = Color.White;
-            numericUpDownFecha.Location = new Point(198, 140);
+            numericUpDownFecha.Location = new Point(226, 187);
+            numericUpDownFecha.Margin = new Padding(3, 4, 3, 4);
             numericUpDownFecha.Minimum = new decimal(new int[] { 1, 0, 0, int.MinValue });
             numericUpDownFecha.Name = "numericUpDownFecha";
-            numericUpDownFecha.Size = new Size(98, 25);
+            numericUpDownFecha.Size = new Size(112, 29);
             numericUpDownFecha.TabIndex = 5;
             numericUpDownFecha.TextAlign = HorizontalAlignment.Center;
             // 
@@ -123,9 +129,10 @@
             textBoxCertificado.BackColor = Color.BlueViolet;
             textBoxCertificado.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
             textBoxCertificado.ForeColor = Color.White;
-            textBoxCertificado.Location = new Point(43, 197);
+            textBoxCertificado.Location = new Point(49, 263);
+            textBoxCertificado.Margin = new Padding(3, 4, 3, 4);
             textBoxCertificado.Name = "textBoxCertificado";
-            textBoxCertificado.Size = new Size(100, 25);
+            textBoxCertificado.Size = new Size(114, 29);
             textBoxCertificado.TabIndex = 6;
             textBoxCertificado.Text = "Certificado";
             textBoxCertificado.TextAlign = HorizontalAlignment.Center;
@@ -135,10 +142,11 @@
             numericUpDownCertificado.BackColor = Color.BlueViolet;
             numericUpDownCertificado.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
             numericUpDownCertificado.ForeColor = Color.White;
-            numericUpDownCertificado.Location = new Point(198, 198);
+            numericUpDownCertificado.Location = new Point(226, 264);
+            numericUpDownCertificado.Margin = new Padding(3, 4, 3, 4);
             numericUpDownCertificado.Minimum = new decimal(new int[] { 1, 0, 0, int.MinValue });
             numericUpDownCertificado.Name = "numericUpDownCertificado";
-            numericUpDownCertificado.Size = new Size(98, 25);
+            numericUpDownCertificado.Size = new Size(112, 29);
             numericUpDownCertificado.TabIndex = 7;
             numericUpDownCertificado.TextAlign = HorizontalAlignment.Center;
             // 
@@ -147,9 +155,10 @@
             textBoxImporte.BackColor = Color.BlueViolet;
             textBoxImporte.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
             textBoxImporte.ForeColor = Color.White;
-            textBoxImporte.Location = new Point(43, 264);
+            textBoxImporte.Location = new Point(49, 352);
+            textBoxImporte.Margin = new Padding(3, 4, 3, 4);
             textBoxImporte.Name = "textBoxImporte";
-            textBoxImporte.Size = new Size(100, 25);
+            textBoxImporte.Size = new Size(114, 29);
             textBoxImporte.TabIndex = 8;
             textBoxImporte.Text = "Importe";
             textBoxImporte.TextAlign = HorizontalAlignment.Center;
@@ -159,10 +168,11 @@
             numericUpDownImporte.BackColor = Color.BlueViolet;
             numericUpDownImporte.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
             numericUpDownImporte.ForeColor = Color.White;
-            numericUpDownImporte.Location = new Point(198, 265);
+            numericUpDownImporte.Location = new Point(226, 353);
+            numericUpDownImporte.Margin = new Padding(3, 4, 3, 4);
             numericUpDownImporte.Minimum = new decimal(new int[] { 1, 0, 0, int.MinValue });
             numericUpDownImporte.Name = "numericUpDownImporte";
-            numericUpDownImporte.Size = new Size(98, 25);
+            numericUpDownImporte.Size = new Size(112, 29);
             numericUpDownImporte.TabIndex = 9;
             numericUpDownImporte.TextAlign = HorizontalAlignment.Center;
             // 
@@ -172,9 +182,10 @@
             buttonCancelar.FlatStyle = FlatStyle.Flat;
             buttonCancelar.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
             buttonCancelar.ForeColor = Color.White;
-            buttonCancelar.Location = new Point(85, 314);
+            buttonCancelar.Location = new Point(77, 420);
+            buttonCancelar.Margin = new Padding(3, 4, 3, 4);
             buttonCancelar.Name = "buttonCancelar";
-            buttonCancelar.Size = new Size(82, 28);
+            buttonCancelar.Size = new Size(110, 37);
             buttonCancelar.TabIndex = 10;
             buttonCancelar.Text = "Cancelar";
             buttonCancelar.UseVisualStyleBackColor = false;
@@ -186,9 +197,10 @@
             buttonGuardar.FlatStyle = FlatStyle.Flat;
             buttonGuardar.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
             buttonGuardar.ForeColor = Color.White;
-            buttonGuardar.Location = new Point(186, 314);
+            buttonGuardar.Location = new Point(193, 420);
+            buttonGuardar.Margin = new Padding(3, 4, 3, 4);
             buttonGuardar.Name = "buttonGuardar";
-            buttonGuardar.Size = new Size(82, 28);
+            buttonGuardar.Size = new Size(110, 37);
             buttonGuardar.TabIndex = 11;
             buttonGuardar.Text = "Guardar";
             buttonGuardar.UseVisualStyleBackColor = false;
@@ -196,10 +208,10 @@
             // 
             // FormColumnas
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Purple;
-            ClientSize = new Size(349, 370);
+            ClientSize = new Size(399, 493);
             Controls.Add(buttonGuardar);
             Controls.Add(buttonCancelar);
             Controls.Add(numericUpDownImporte);
@@ -213,6 +225,7 @@
             Controls.Add(textBoxNumeroColumna);
             Controls.Add(textBoxColumna);
             ForeColor = Color.Purple;
+            Margin = new Padding(3, 4, 3, 4);
             Name = "FormColumnas";
             Text = "FormColumnas";
             ((System.ComponentModel.ISupportInitialize)numericUpDownCUIT).EndInit();

@@ -1,25 +1,25 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Program Files\\Sublime Merge\\ControlRetencionesPercepciones\\ControlRetenciones\\",
+  "WorkspaceRootPath": "C:\\Proyectos\\ControladorRetenciones\\ControlRetenciones\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{64EC2186-96C5-4E26-AE89-E0699F217A13}|ControlRetenciones\\ControlRetenciones.csproj|c:\\program files\\sublime merge\\controlretencionespercepciones\\controlretenciones\\controlretenciones\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{64EC2186-96C5-4E26-AE89-E0699F217A13}|ControlRetenciones\\ControlRetenciones.csproj|c:\\proyectos\\controladorretenciones\\controlretenciones\\controlretenciones\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{64EC2186-96C5-4E26-AE89-E0699F217A13}|ControlRetenciones\\ControlRetenciones.csproj|solutionrelative:controlretenciones\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{64EC2186-96C5-4E26-AE89-E0699F217A13}|ControlRetenciones\\ControlRetenciones.csproj|c:\\program files\\sublime merge\\controlretencionespercepciones\\controlretenciones\\controlretenciones\\formcolumnas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{64EC2186-96C5-4E26-AE89-E0699F217A13}|ControlRetenciones\\ControlRetenciones.csproj|c:\\proyectos\\controladorretenciones\\controlretenciones\\controlretenciones\\formcolumnas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{64EC2186-96C5-4E26-AE89-E0699F217A13}|ControlRetenciones\\ControlRetenciones.csproj|solutionrelative:controlretenciones\\formcolumnas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{64EC2186-96C5-4E26-AE89-E0699F217A13}|ControlRetenciones\\ControlRetenciones.csproj|C:\\Program Files\\Sublime Merge\\ControlRetencionesPercepciones\\ControlRetenciones\\controlretenciones\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{64EC2186-96C5-4E26-AE89-E0699F217A13}|ControlRetenciones\\ControlRetenciones.csproj|solutionrelative:controlretenciones\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{64EC2186-96C5-4E26-AE89-E0699F217A13}|ControlRetenciones\\ControlRetenciones.csproj|c:\\program files\\sublime merge\\controlretencionespercepciones\\controlretenciones\\controlretenciones\\formcolumnas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "AbsoluteMoniker": "D:0:0:{64EC2186-96C5-4E26-AE89-E0699F217A13}|ControlRetenciones\\ControlRetenciones.csproj|C:\\Proyectos\\ControladorRetenciones\\ControlRetenciones\\controlretenciones\\formcolumnas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{64EC2186-96C5-4E26-AE89-E0699F217A13}|ControlRetenciones\\ControlRetenciones.csproj|solutionrelative:controlretenciones\\formcolumnas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{64EC2186-96C5-4E26-AE89-E0699F217A13}|ControlRetenciones\\ControlRetenciones.csproj|c:\\program files\\sublime merge\\controlretencionespercepciones\\controlretenciones\\controlretenciones\\form1.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{64EC2186-96C5-4E26-AE89-E0699F217A13}|ControlRetenciones\\ControlRetenciones.csproj|C:\\Proyectos\\ControladorRetenciones\\ControlRetenciones\\controlretenciones\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{64EC2186-96C5-4E26-AE89-E0699F217A13}|ControlRetenciones\\ControlRetenciones.csproj|solutionrelative:controlretenciones\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{64EC2186-96C5-4E26-AE89-E0699F217A13}|ControlRetenciones\\ControlRetenciones.csproj|c:\\proyectos\\controladorretenciones\\controlretenciones\\controlretenciones\\form1.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{64EC2186-96C5-4E26-AE89-E0699F217A13}|ControlRetenciones\\ControlRetenciones.csproj|solutionrelative:controlretenciones\\form1.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -36,22 +36,22 @@
               "$type": "Document",
               "DocumentIndex": 1,
               "Title": "FormColumnas.cs",
-              "DocumentMoniker": "C:\\Program Files\\Sublime Merge\\ControlRetencionesPercepciones\\ControlRetenciones\\ControlRetenciones\\FormColumnas.cs",
+              "DocumentMoniker": "C:\\Proyectos\\ControladorRetenciones\\ControlRetenciones\\ControlRetenciones\\FormColumnas.cs",
               "RelativeDocumentMoniker": "ControlRetenciones\\FormColumnas.cs",
-              "ToolTip": "C:\\Program Files\\Sublime Merge\\ControlRetencionesPercepciones\\ControlRetenciones\\ControlRetenciones\\FormColumnas.cs",
+              "ToolTip": "C:\\Proyectos\\ControladorRetenciones\\ControlRetenciones\\ControlRetenciones\\FormColumnas.cs",
               "RelativeToolTip": "ControlRetenciones\\FormColumnas.cs",
-              "ViewState": "AgIAAMsAAAAAAAAAAAAxwBgAAAAIAAAAAAAAAA==",
+              "ViewState": "AgIAAOoAAAAAAAAAAAAgwBcAAABGAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-09-24T12:51:34.849Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 2,
               "Title": "FormColumnas.cs [Dise\u00F1o]",
-              "DocumentMoniker": "C:\\Program Files\\Sublime Merge\\ControlRetencionesPercepciones\\ControlRetenciones\\ControlRetenciones\\FormColumnas.cs",
+              "DocumentMoniker": "C:\\Proyectos\\ControladorRetenciones\\ControlRetenciones\\ControlRetenciones\\FormColumnas.cs",
               "RelativeDocumentMoniker": "ControlRetenciones\\FormColumnas.cs",
-              "ToolTip": "C:\\Program Files\\Sublime Merge\\ControlRetencionesPercepciones\\ControlRetenciones\\ControlRetenciones\\FormColumnas.cs [Dise\u00F1o]",
+              "ToolTip": "C:\\Proyectos\\ControladorRetenciones\\ControlRetenciones\\ControlRetenciones\\FormColumnas.cs [Dise\u00F1o]",
               "RelativeToolTip": "ControlRetenciones\\FormColumnas.cs [Dise\u00F1o]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-09-24T12:50:08.473Z",
@@ -61,11 +61,11 @@
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "Form1.cs",
-              "DocumentMoniker": "C:\\Program Files\\Sublime Merge\\ControlRetencionesPercepciones\\ControlRetenciones\\ControlRetenciones\\Form1.cs",
+              "DocumentMoniker": "C:\\Proyectos\\ControladorRetenciones\\ControlRetenciones\\ControlRetenciones\\Form1.cs",
               "RelativeDocumentMoniker": "ControlRetenciones\\Form1.cs",
-              "ToolTip": "C:\\Program Files\\Sublime Merge\\ControlRetencionesPercepciones\\ControlRetenciones\\ControlRetenciones\\Form1.cs",
+              "ToolTip": "C:\\Proyectos\\ControladorRetenciones\\ControlRetenciones\\ControlRetenciones\\Form1.cs",
               "RelativeToolTip": "ControlRetenciones\\Form1.cs",
-              "ViewState": "AgIAAGIDAAAAAAAAAAAYwGQDAAAXAAAAAAAAAA==",
+              "ViewState": "AgIAAHoBAAAAAAAAAIAwwIkBAAAVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-06-13T13:10:22.144Z",
               "EditorCaption": ""
@@ -74,9 +74,9 @@
               "$type": "Document",
               "DocumentIndex": 4,
               "Title": "Form1.Designer.cs",
-              "DocumentMoniker": "C:\\Program Files\\Sublime Merge\\ControlRetencionesPercepciones\\ControlRetenciones\\ControlRetenciones\\Form1.Designer.cs",
+              "DocumentMoniker": "C:\\Proyectos\\ControladorRetenciones\\ControlRetenciones\\ControlRetenciones\\Form1.Designer.cs",
               "RelativeDocumentMoniker": "ControlRetenciones\\Form1.Designer.cs",
-              "ToolTip": "C:\\Program Files\\Sublime Merge\\ControlRetencionesPercepciones\\ControlRetenciones\\ControlRetenciones\\Form1.Designer.cs",
+              "ToolTip": "C:\\Proyectos\\ControladorRetenciones\\ControlRetenciones\\ControlRetenciones\\Form1.Designer.cs",
               "RelativeToolTip": "ControlRetenciones\\Form1.Designer.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -85,11 +85,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "Form1.cs [Dise\u00F1o]",
-              "DocumentMoniker": "C:\\Program Files\\Sublime Merge\\ControlRetencionesPercepciones\\ControlRetenciones\\ControlRetenciones\\Form1.cs",
+              "DocumentMoniker": "C:\\Proyectos\\ControladorRetenciones\\ControlRetenciones\\ControlRetenciones\\Form1.cs",
               "RelativeDocumentMoniker": "ControlRetenciones\\Form1.cs",
-              "ToolTip": "C:\\Program Files\\Sublime Merge\\ControlRetencionesPercepciones\\ControlRetenciones\\ControlRetenciones\\Form1.cs [Dise\u00F1o]",
+              "ToolTip": "C:\\Proyectos\\ControladorRetenciones\\ControlRetenciones\\ControlRetenciones\\Form1.cs [Dise\u00F1o]",
               "RelativeToolTip": "ControlRetenciones\\Form1.cs [Dise\u00F1o]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-06-13T13:10:23.353Z",

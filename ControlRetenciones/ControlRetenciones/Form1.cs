@@ -280,14 +280,17 @@ namespace ControlRetenciones
             // Segunda llamada para que compare de manera exacta sin tener en cuenta la fecha
             CompararArchivosPorCuit(pathfileArchivo1, pathfileArchivo2, 0.1, indiceColumnaCUIT, indiceColumnaImporte);
 
-            // Segunda llamada para que compare con una tolerancia de 1 en el importe
+            // Segunda llamada para que compare con una tolerancia de 1 en el importe sin tener en cuenta la fecha
             CompararArchivosPorCuit(pathfileArchivo1, pathfileArchivo2, 1, indiceColumnaCUIT, indiceColumnaImporte);
 
-            // Tercera y ultima llamada para que compare con una tolerancia de 2 en el importe
+            // Tercera y ultima llamada para que compare con una tolerancia de 2 en el importe sin tener en cuenta la fecha
             CompararArchivosPorCuit(pathfileArchivo1, pathfileArchivo2, 2, indiceColumnaCUIT, indiceColumnaImporte);
 
-            // Cuarta comparacion para comparar por certificado e importe 
-            CompararArchivosPorCertificado(pathfileArchivo1, pathfileArchivo2, indiceColumnaCertificado, indiceColumnaImporte);
+            if (indiceColumnaCertificado != 1)
+            {
+                // Cuarta comparacion para comparar por certificado e importe 
+                CompararArchivosPorCertificado(pathfileArchivo1, pathfileArchivo2, indiceColumnaCertificado, indiceColumnaImporte);
+            }
 
             // Quinta comparacion para comparar por fecha e importe exactos sin tener en cuenta CUIT        
             CompararArchivosPorFechaEImporte(pathfileArchivo1, pathfileArchivo2, indiceColumnaImporte, indiceColumnaFecha);
@@ -323,9 +326,18 @@ namespace ControlRetenciones
                     {
                         string valorCeldaNroDoc = worksheetArchivo1.Cell(filaArchivo1, indiceColumnaCuitContabilidad).GetString();
                         string nroDoc = valorCeldaNroDoc;
+                        nroDoc = nroDoc.Replace("-", "");
 
                         string stringFechaArchivo1 = worksheetArchivo1.Cell(filaArchivo1, indiceColumnaFechaContabilidad).GetString();
-                        DateTime fechaArchivo1 = DateTime.Parse(stringFechaArchivo1);
+                        DateTime fechaArchivo1 = new DateTime();
+                        if (stringFechaArchivo1.Contains("/"))
+                        {
+                            fechaArchivo1 = DateTime.Parse(stringFechaArchivo1);
+                        }
+                        else
+                        {
+                            fechaArchivo1 = worksheetArchivo1.Cell(filaArchivo1, indiceColumnaFechaContabilidad).GetDateTime();
+                        }
 
                         XLColor colorArchivo1 = worksheetArchivo1.Cell(filaArchivo1, indiceColumnaImporteContabilidad).Style.Fill.BackgroundColor;
                         if (colorArchivo1 == XLColor.FromArgb(255, 204, 255, 204)) // Verde claro
@@ -348,9 +360,18 @@ namespace ControlRetenciones
                     {
                         string valorCeldaCuitAgente = worksheetArchivo2.Cell(filaArchivo2, IndiceColumnaCuitAFIP).GetString();
                         string cuitAgente = valorCeldaCuitAgente;
+                        cuitAgente = cuitAgente.Replace("-", "");
 
                         string stringFechaArchivo2 = worksheetArchivo2.Cell(filaArchivo2, IndiceColumnaFechaAFIP).GetString();
-                        DateTime fechaArchivo2 = DateTime.Parse(stringFechaArchivo2);
+                        DateTime fechaArchivo2 = new DateTime();
+                        if (stringFechaArchivo2.Contains("/"))
+                        {
+                            fechaArchivo2 = DateTime.Parse(stringFechaArchivo2);
+                        }
+                        else
+                        {
+                            fechaArchivo2 = worksheetArchivo1.Cell(filaArchivo2, indiceColumnaFechaContabilidad).GetDateTime();
+                        }
 
                         XLColor colorArchivo2 = worksheetArchivo2.Cell(filaArchivo2, IndiceColumnaImporteAFIP).Style.Fill.BackgroundColor;
                         if (colorArchivo2 == XLColor.FromArgb(255, 204, 255, 204)) // Verde claro
@@ -378,7 +399,6 @@ namespace ControlRetenciones
                                 if (comparado == false) // Solo si aún no se ha comparado esta fila
                                 {
                                     double importeArchivo1 = worksheetArchivo1.Cell(filaArchivo1, indiceColumnaImporteContabilidad).GetValue<double>();
-
                                     int ban = 0;
 
                                     foreach ((int filaArchivo2, bool comparadoArchivo2, DateTime fechaArchivo2) in filasArchivo2.ToList())
@@ -461,6 +481,7 @@ namespace ControlRetenciones
                     {
                         string valorCeldaNroDoc = worksheetArchivo1.Cell(filaArchivo1, indiceColumnaCuitContabilidad).GetString();
                         string nroDoc = valorCeldaNroDoc;
+                        nroDoc = nroDoc.Replace("-", "");
 
                         XLColor colorArchivo1 = worksheetArchivo1.Cell(filaArchivo1, indiceColumnaImporteContabilidad).Style.Fill.BackgroundColor;
                         if (colorArchivo1 == XLColor.FromArgb(255, 204, 255, 204)) // Verde claro
@@ -483,6 +504,7 @@ namespace ControlRetenciones
                     {
                         string valorCeldaCuitAgente = worksheetArchivo2.Cell(filaArchivo2, IndiceColumnaCuitAFIP).GetString();
                         string cuitAgente = valorCeldaCuitAgente;
+                        cuitAgente = cuitAgente.Replace("-", "");
 
                         XLColor colorArchivo2 = worksheetArchivo2.Cell(filaArchivo2, IndiceColumnaImporteAFIP).Style.Fill.BackgroundColor;
                         if (colorArchivo2 == XLColor.FromArgb(255, 204, 255, 204)) // Verde claro
@@ -602,7 +624,15 @@ namespace ControlRetenciones
                         }
 
                         string stringFechaArchivo1 = worksheetArchivo1.Cell(filaArchivo1, IndiceColumnaFechaContabilidad).GetString();
-                        DateTime fechaArchivo1 = DateTime.Parse(stringFechaArchivo1);
+                        DateTime fechaArchivo1 = new DateTime();
+                        if (stringFechaArchivo1.Contains("/"))
+                        {
+                            fechaArchivo1 = DateTime.Parse(stringFechaArchivo1);
+                        }
+                        else
+                        {
+                            fechaArchivo1 = worksheetArchivo1.Cell(filaArchivo1, IndiceColumnaFechaContabilidad).GetDateTime();
+                        }
 
                         if (diccionarioFechaArchivo1.ContainsKey(fechaArchivo1))
                         {
@@ -625,7 +655,15 @@ namespace ControlRetenciones
                         }
 
                         string stringFechaArchivo2 = worksheetArchivo2.Cell(filaArchivo2, IndiceColumnaFechaAFIP).GetString();
-                        DateTime fechaArchivo2 = DateTime.Parse(stringFechaArchivo2);
+                        DateTime fechaArchivo2 = new DateTime();
+                        if (stringFechaArchivo2.Contains("/"))
+                        {
+                            fechaArchivo2 = DateTime.Parse(stringFechaArchivo2);
+                        }
+                        else
+                        {
+                            fechaArchivo2 = worksheetArchivo1.Cell(filaArchivo2, IndiceColumnaFechaAFIP).GetDateTime();
+                        }
 
                         if (diccionarioFechaArchivo2.ContainsKey(fechaArchivo2))
                         {
@@ -799,7 +837,7 @@ namespace ControlRetenciones
                         workbookArchivo2.SaveAs(pathfileArchivo2);
                     }
                 }
-            }          
+            }
         }
 
         private void MarcarNoCoincidentesEnRojo(string pathArchivo, int archivo, int IndiceColumnaImporte)
@@ -1080,6 +1118,74 @@ namespace ControlRetenciones
 
             InicializarYMostrarEsquemas();
         }
+
+        private void buttonEliminarEsquema_Click(object sender, EventArgs e)
+        {
+            // Ruta del archivo Esquemas en el directorio de la aplicación
+            string filePath = Path.Combine(Application.StartupPath, "Esquemas.txt");
+
+            try
+            {
+                // Leer los esquemas existentes
+                List<Esquema> esquemasExistentes = new List<Esquema>();
+                CargarEsquemasDesdeArchivo(filePath, esquemasExistentes);
+
+                // Buscar el esquema por nombre seleccionado en el ComboBox
+                if (comboBoxEsquemas.SelectedItem != null)
+                {
+                    var esquemaExistente = esquemasExistentes.Find(e => e.Nombre == comboBoxEsquemas.SelectedItem.ToString());
+
+                    if (esquemaExistente != null)
+                    {
+                        // Confirmación para eliminar el esquema
+                        DialogResult result = MessageBox.Show($"¿Está seguro de que desea eliminar el esquema '{esquemaExistente.Nombre}'?",
+                                                              "Confirmar eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+                        if (result == DialogResult.Yes)
+                        {
+                            // Eliminar el esquema de la lista
+                            esquemasExistentes.Remove(esquemaExistente);
+
+                            // Serializar la lista de esquemas a JSON y escribir en el archivo
+                            List<string> esquemasJson = new List<string>();
+                            foreach (var esq in esquemasExistentes)
+                            {
+                                esquemasJson.Add(Newtonsoft.Json.JsonConvert.SerializeObject(esq));
+                            }
+                            File.WriteAllLines(filePath, esquemasJson);
+
+                            MessageBox.Show("Esquema eliminado correctamente.");
+
+                            // Actualizar el ComboBox
+                            comboBoxEsquemas.Items.Remove(esquemaExistente.Nombre);
+
+                            // Limpiar la selección del ComboBox si ya no hay esquemas
+                            if (comboBoxEsquemas.Items.Count == 0)
+                            {
+                                comboBoxEsquemas.SelectedIndex = -1;
+                                comboBoxEsquemas.Text = "";  // Opcional: limpiar texto visible
+                            }
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("El esquema no existe.");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("No se ha seleccionado ningún esquema para eliminar.");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al eliminar el esquema: " + ex.Message);
+            }
+
+            // Volver a cargar los esquemas (opcional, si la función actualiza otros elementos)
+            InicializarYMostrarEsquemas();
+        }
+
     }
 
     // Clase para representar un esquema

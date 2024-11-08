@@ -1,24 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Program Files\\Sublime Merge\\ControlRetencionesPercepciones\\ControlRetenciones\\ControlRetenciones\\ControlRetenciones.csproj": {}
+    "C:\\Proyectos\\ControladorRetenciones\\ControlRetenciones\\ControlRetenciones\\ControlRetenciones.csproj": {}
   },
   "projects": {
-    "C:\\Program Files\\Sublime Merge\\ControlRetencionesPercepciones\\ControlRetenciones\\ControlRetenciones\\ControlRetenciones.csproj": {
+    "C:\\Proyectos\\ControladorRetenciones\\ControlRetenciones\\ControlRetenciones\\ControlRetenciones.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Program Files\\Sublime Merge\\ControlRetencionesPercepciones\\ControlRetenciones\\ControlRetenciones\\ControlRetenciones.csproj",
+        "projectUniqueName": "C:\\Proyectos\\ControladorRetenciones\\ControlRetenciones\\ControlRetenciones\\ControlRetenciones.csproj",
         "projectName": "ControlRetenciones",
-        "projectPath": "C:\\Program Files\\Sublime Merge\\ControlRetencionesPercepciones\\ControlRetenciones\\ControlRetenciones\\ControlRetenciones.csproj",
-        "packagesPath": "C:\\Users\\w1zar\\.nuget\\packages\\",
-        "outputPath": "C:\\Program Files\\Sublime Merge\\ControlRetencionesPercepciones\\ControlRetenciones\\ControlRetenciones\\obj\\",
+        "projectPath": "C:\\Proyectos\\ControladorRetenciones\\ControlRetenciones\\ControlRetenciones\\ControlRetenciones.csproj",
+        "packagesPath": "C:\\Users\\IgnacioZbrun\\.nuget\\packages\\",
+        "outputPath": "C:\\Proyectos\\ControladorRetenciones\\ControlRetenciones\\ControlRetenciones\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\w1zar\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\IgnacioZbrun\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -77,6 +73,24 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[6.0.35, 6.0.35]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Host.win-x64",
+              "version": "[6.0.35, 6.0.35]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[6.0.35, 6.0.35]"
+            },
+            {
+              "name": "Microsoft.WindowsDesktop.App.Ref",
+              "version": "[6.0.35, 6.0.35]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
@@ -85,7 +99,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403\\RuntimeIdentifierGraph.json"
         }
       }
     }
