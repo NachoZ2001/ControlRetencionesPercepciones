@@ -194,7 +194,7 @@ namespace ControlRetenciones
             // Realizar el proceso de manera asíncrona
             await Task.Run(() => CompararArchivos(pathfileArchivo1, pathfileArchivo2));
 
-            CrearReporteExcel(pathfileReporte);
+            CrearReporteExcel(pathfileReporte, pathfileArchivo1, pathfileArchivo2, columnas[3]);
 
             // Ocultar el PictureBox al finalizar el proceso
             pictureBoxRuedaCargando.Visible = false;
@@ -898,7 +898,7 @@ namespace ControlRetenciones
             }
         }
 
-        private void CrearReporteExcel(string rutaArchivo)
+        private void CrearReporteExcel(string rutaArchivo, string pathArchivoContabilidad, string pathArchivoAFIP, int IndiceColumnaImporteContabilidad)
         {
             // Verificar si la ruta del archivo es válida
             if (string.IsNullOrWhiteSpace(rutaArchivo))
@@ -978,11 +978,109 @@ namespace ControlRetenciones
                 bordesStyle.LeftBorder = XLBorderStyleValues.Thin;
                 bordesStyle.RightBorder = XLBorderStyleValues.Thin;
 
+
+                worksheet.Cell("A11").Value = "Filas señalizadas en rojo en CONTABILIDAD";
+                char valorColumna = 'A'; // Para las columnas
+                int contadorFila = 12; // Para ubicar las filas
+                using (var workbookArchivoContabilidad = new XLWorkbook(pathArchivoContabilidad))
+                {
+                    var worksheetArchivoContabilidad = workbookArchivoContabilidad.Worksheets.First();
+                    int ultimaColumnaContabilidad = worksheetArchivoContabilidad.LastColumnUsed().ColumnNumber();
+                    for (int columnaArchivo = 1; columnaArchivo <= ultimaColumnaContabilidad; columnaArchivo++)
+                    {
+                        // Agregar la fila al reporte
+                        worksheet.Cell($"{valorColumna}{contadorFila}").Value = worksheetArchivoContabilidad.Cell(1, columnaArchivo).Value;
+                        int valorIntColumna = CharToNumber(valorColumna);
+                        valorIntColumna = valorIntColumna + 1;
+                        valorColumna = NumberToChar(valorIntColumna);
+                    }
+                    valorColumna = 'A'; // Reiniciar contador
+                    contadorFila++;
+                    for (int filaArchivo1 = 2; filaArchivo1 <= worksheetArchivoContabilidad.RowsUsed().Count(); filaArchivo1++)
+                    {
+                        XLColor colorArchivoContabilidad = worksheetArchivoContabilidad.Cell(filaArchivo1, IndiceColumnaImporteContabilidad).Style.Fill.BackgroundColor;
+                        if (colorArchivoContabilidad == XLColor.FromArgb(255, 255, 204, 204)) // rojo
+                        {
+                            for (int columnaArchivo = 1; columnaArchivo <= ultimaColumnaContabilidad; columnaArchivo++)
+                            {
+                                // Agregar la fila al reporte
+                                worksheet.Cell($"{valorColumna}{contadorFila}").Value = worksheetArchivoContabilidad.Cell(filaArchivo1, columnaArchivo).Value;
+                                int valorIntColumna = CharToNumber(valorColumna);
+                                valorIntColumna = valorIntColumna + 1;
+                                valorColumna = NumberToChar(valorIntColumna);
+                            }
+                            valorColumna = 'A'; // Reiniciar contador
+                            contadorFila++;
+                        }
+                    }
+                }
+
+                contadorFila++;
+                worksheet.Cell($"A{contadorFila}").Value = "Filas señalizadas en rojo en AFIP";
+                contadorFila++;
+                using (var workbookArchivoAFIP = new XLWorkbook(pathArchivoAFIP))
+                {
+                    valorColumna = 'A'; // Para las columnas
+                    var worksheetArchivoAFIP = workbookArchivoAFIP.Worksheets.First();
+                    int ultimaColumnaAFIP = worksheetArchivoAFIP.LastColumnUsed().ColumnNumber();
+                    for (int columnaArchivo = 1; columnaArchivo <= ultimaColumnaAFIP; columnaArchivo++)
+                    {
+                        // Agregar la fila al reporte
+                        worksheet.Cell($"{valorColumna}{contadorFila}").Value = worksheetArchivoAFIP.Cell(1, columnaArchivo).Value;
+                        int valorIntColumna = CharToNumber(valorColumna);
+                        valorIntColumna = valorIntColumna + 1;
+                        valorColumna = NumberToChar(valorIntColumna);
+                    }
+                    valorColumna = 'A'; // Reiniciar contador
+                    contadorFila++;
+                    for (int filaArchivo1 = 2; filaArchivo1 <= worksheetArchivoAFIP.RowsUsed().Count(); filaArchivo1++)
+                    {
+                        XLColor colorArchivoAFIP = worksheetArchivoAFIP.Cell(filaArchivo1, IndiceColumnaImporteAFIP).Style.Fill.BackgroundColor;
+                        if (colorArchivoAFIP == XLColor.FromArgb(255, 255, 204, 204)) // rojo
+                        {
+                            for (int columnaArchivo = 1; columnaArchivo <= ultimaColumnaAFIP; columnaArchivo++)
+                            {
+                                // Agregar la fila al reporte
+                                worksheet.Cell($"{valorColumna}{contadorFila}").Value = worksheetArchivoAFIP.Cell(filaArchivo1, columnaArchivo).Value;
+                                int valorIntColumna = CharToNumber(valorColumna);
+                                valorIntColumna = valorIntColumna + 1;
+                                valorColumna = NumberToChar(valorIntColumna);
+                            }
+                            valorColumna = 'A'; // Reiniciar contador
+                            contadorFila++;
+                        }
+                    }
+                }
+
                 // Ajustar automáticamente el ancho de las columnas
                 worksheet.Columns().AdjustToContents();
 
                 // Guardar el archivo
                 workbook.SaveAs(rutaArchivo);
+            }
+        }
+
+        static int CharToNumber(char c)
+        {
+            if (c >= 'A' && c <= 'Z')
+            {
+                return c - 'A' + 1;
+            }
+            else
+            {
+                throw new ArgumentException("El caracter debe estar entre A y Z");
+            }
+        }
+
+        static char NumberToChar (int number)
+        {
+            if (number >= 1 && number <= 26)
+            {
+                return (char)('A' + number - 1);
+            }
+            else
+            {
+                throw new ArgumentException("El numbero debe estar entre 1 y 26");
             }
         }
 

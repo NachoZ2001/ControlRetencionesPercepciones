@@ -1,2 +1,2 @@
-{"Nombre":"A&P","IndiceColumnaCuit":2,"IndiceColumnaImporte":3,"IndiceColumnaFecha":1,"IndiceColumnaCertificado":-1}
 {"Nombre":"plasticos bostico","IndiceColumnaCuit":4,"IndiceColumnaImporte":18,"IndiceColumnaFecha":14,"IndiceColumnaCertificado":-1}
+{"Nombre":"A&P","IndiceColumnaCuit":1,"IndiceColumnaImporte":2,"IndiceColumnaFecha":3,"IndiceColumnaCertificado":-1}
