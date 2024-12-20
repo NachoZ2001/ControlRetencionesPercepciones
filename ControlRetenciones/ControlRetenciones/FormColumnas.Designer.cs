@@ -40,6 +40,8 @@
             numericUpDownImporte = new NumericUpDown();
             buttonCancelar = new Button();
             buttonGuardar = new Button();
+            textBoxFormato = new TextBox();
+            textBoxFormatoInput = new TextBox();
             ((System.ComponentModel.ISupportInitialize)numericUpDownCUIT).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numericUpDownFecha).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numericUpDownCertificado).BeginInit();
@@ -155,7 +157,7 @@
             textBoxImporte.BackColor = Color.BlueViolet;
             textBoxImporte.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
             textBoxImporte.ForeColor = Color.White;
-            textBoxImporte.Location = new Point(49, 352);
+            textBoxImporte.Location = new Point(49, 332);
             textBoxImporte.Margin = new Padding(3, 4, 3, 4);
             textBoxImporte.Name = "textBoxImporte";
             textBoxImporte.Size = new Size(114, 29);
@@ -168,7 +170,7 @@
             numericUpDownImporte.BackColor = Color.BlueViolet;
             numericUpDownImporte.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
             numericUpDownImporte.ForeColor = Color.White;
-            numericUpDownImporte.Location = new Point(226, 353);
+            numericUpDownImporte.Location = new Point(226, 333);
             numericUpDownImporte.Margin = new Padding(3, 4, 3, 4);
             numericUpDownImporte.Minimum = new decimal(new int[] { 1, 0, 0, int.MinValue });
             numericUpDownImporte.Name = "numericUpDownImporte";
@@ -182,7 +184,7 @@
             buttonCancelar.FlatStyle = FlatStyle.Flat;
             buttonCancelar.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
             buttonCancelar.ForeColor = Color.White;
-            buttonCancelar.Location = new Point(77, 420);
+            buttonCancelar.Location = new Point(77, 463);
             buttonCancelar.Margin = new Padding(3, 4, 3, 4);
             buttonCancelar.Name = "buttonCancelar";
             buttonCancelar.Size = new Size(110, 37);
@@ -197,7 +199,7 @@
             buttonGuardar.FlatStyle = FlatStyle.Flat;
             buttonGuardar.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
             buttonGuardar.ForeColor = Color.White;
-            buttonGuardar.Location = new Point(193, 420);
+            buttonGuardar.Location = new Point(193, 463);
             buttonGuardar.Margin = new Padding(3, 4, 3, 4);
             buttonGuardar.Name = "buttonGuardar";
             buttonGuardar.Size = new Size(110, 37);
@@ -206,12 +208,39 @@
             buttonGuardar.UseVisualStyleBackColor = false;
             buttonGuardar.Click += buttonGuardar_Click_1;
             // 
+            // textBoxFormato
+            // 
+            textBoxFormato.BackColor = Color.BlueViolet;
+            textBoxFormato.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            textBoxFormato.ForeColor = Color.White;
+            textBoxFormato.Location = new Point(49, 398);
+            textBoxFormato.Margin = new Padding(3, 4, 3, 4);
+            textBoxFormato.Name = "textBoxFormato";
+            textBoxFormato.Size = new Size(114, 29);
+            textBoxFormato.TabIndex = 12;
+            textBoxFormato.Text = "Formato";
+            textBoxFormato.TextAlign = HorizontalAlignment.Center;
+            // 
+            // textBoxFormatoInput
+            // 
+            textBoxFormatoInput.BackColor = Color.BlueViolet;
+            textBoxFormatoInput.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            textBoxFormatoInput.ForeColor = Color.White;
+            textBoxFormatoInput.Location = new Point(226, 398);
+            textBoxFormatoInput.Margin = new Padding(3, 4, 3, 4);
+            textBoxFormatoInput.Name = "textBoxFormatoInput";
+            textBoxFormatoInput.Size = new Size(114, 29);
+            textBoxFormatoInput.TabIndex = 13;
+            textBoxFormatoInput.TextAlign = HorizontalAlignment.Center;
+            // 
             // FormColumnas
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Purple;
-            ClientSize = new Size(399, 493);
+            ClientSize = new Size(399, 546);
+            Controls.Add(textBoxFormatoInput);
+            Controls.Add(textBoxFormato);
             Controls.Add(buttonGuardar);
             Controls.Add(buttonCancelar);
             Controls.Add(numericUpDownImporte);
@@ -250,5 +279,7 @@
         private NumericUpDown numericUpDownImporte;
         private Button buttonCancelar;
         private Button buttonGuardar;
+        private TextBox textBoxFormato;
+        private TextBox textBoxFormatoInput;
     }
 }

@@ -34,16 +34,16 @@ namespace ControlRetenciones
                     if (!string.IsNullOrEmpty(nombreEsquema))
                     {
                         ColumnasSeleccionadas = new List<int>()
-                    {
-                        (int)numericUpDownCUIT.Value,
-                        (int)numericUpDownFecha.Value,
-                        (int)numericUpDownCertificado.Value,
-                        (int)numericUpDownImporte.Value,
-                    };
+                        {
+                            (int)numericUpDownCUIT.Value,
+                            (int)numericUpDownFecha.Value,
+                            (int)numericUpDownCertificado.Value,
+                            (int)numericUpDownImporte.Value,
+                        };
 
                         // Crear un nuevo objeto Esquema con el nombre y las columnas seleccionadas
                         EsquemaColumnas esquema = new EsquemaColumnas(nombreEsquema, (int)numericUpDownCUIT.Value, (int)numericUpDownFecha.Value,
-                            (int)numericUpDownCertificado.Value, (int)numericUpDownImporte.Value);
+                            (int)numericUpDownCertificado.Value, (int)numericUpDownImporte.Value, textBoxFormatoInput.Text);
 
                         // Ruta del archivo Esquemas en el directorio de la aplicación
                         string filePath = Path.Combine(Application.StartupPath, "Esquemas.txt");
@@ -113,7 +113,7 @@ namespace ControlRetenciones
                 if (esquemaExistente != null)
                 {
                     // Crear un nuevo objeto Esquema con el nombre y las columnas seleccionadas
-                    EsquemaColumnas esquema = new EsquemaColumnas(NombreEsquema, (int)numericUpDownCUIT.Value, (int)numericUpDownFecha.Value, (int)numericUpDownCertificado.Value, (int)numericUpDownImporte.Value);
+                    EsquemaColumnas esquema = new EsquemaColumnas(NombreEsquema, (int)numericUpDownCUIT.Value, (int)numericUpDownFecha.Value, (int)numericUpDownCertificado.Value, (int)numericUpDownImporte.Value, textBoxFormatoInput.Text);
 
                     // Eliminar el esquema existente de la lista
                     esquemasExistentes.Remove(esquemaExistente);
@@ -161,13 +161,14 @@ namespace ControlRetenciones
             this.Close();
         }
 
-        public void cargarDatos(int IndiceColumnaCuit, int IndiceColumnaFecha, int IndiceColumnaCertificado, int IndiceColumnaImporte, string Nombre)
+        public void cargarDatos(int IndiceColumnaCuit, int IndiceColumnaFecha, int IndiceColumnaCertificado, int IndiceColumnaImporte, string Nombre, string FormatoFecha)
         {
             numericUpDownCUIT.Value = IndiceColumnaCuit;
             numericUpDownFecha.Value = IndiceColumnaFecha;
             numericUpDownCertificado.Value = IndiceColumnaCertificado;
             numericUpDownImporte.Value = IndiceColumnaImporte;
             this.NombreEsquema = Nombre;
+            this.textBoxFormatoInput.Text = FormatoFecha;
         }
 
         private void FormColumnas_Load(object sender, EventArgs e)
@@ -189,15 +190,18 @@ namespace ControlRetenciones
         public int IndiceColumnaFecha { get; set; }
         public int IndiceColumnaCertificado{ get; set; }
 
+        public string FormatoFecha{ get; set; }
+
         public EsquemaColumnas() { }
 
-        public EsquemaColumnas(string nombre, int indiceCuit, int indiceFecha, int indiceCertificado, int indiceImporte)
+        public EsquemaColumnas(string nombre, int indiceCuit, int indiceFecha, int indiceCertificado, int indiceImporte, string formatoFecha)
         {
             Nombre = nombre;
             IndiceColumnaCuit = indiceCuit;
             IndiceColumnaFecha = indiceFecha;
             IndiceColumnaCertificado = indiceCertificado;
             IndiceColumnaImporte = indiceImporte;
+            FormatoFecha = formatoFecha;
         }
     }
 

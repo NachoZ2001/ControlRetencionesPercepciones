@@ -11,12 +11,12 @@
       "RelativeMoniker": "D:0:0:{64EC2186-96C5-4E26-AE89-E0699F217A13}|ControlRetenciones\\ControlRetenciones.csproj|solutionrelative:controlretenciones\\formcolumnas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{64EC2186-96C5-4E26-AE89-E0699F217A13}|ControlRetenciones\\ControlRetenciones.csproj|C:\\Proyectos\\ControladorRetenciones\\ControlRetenciones\\controlretenciones\\formcolumnas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{64EC2186-96C5-4E26-AE89-E0699F217A13}|ControlRetenciones\\ControlRetenciones.csproj|solutionrelative:controlretenciones\\formcolumnas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{64EC2186-96C5-4E26-AE89-E0699F217A13}|ControlRetenciones\\ControlRetenciones.csproj|C:\\Proyectos\\ControladorRetenciones\\ControlRetenciones\\controlretenciones\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{64EC2186-96C5-4E26-AE89-E0699F217A13}|ControlRetenciones\\ControlRetenciones.csproj|solutionrelative:controlretenciones\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{64EC2186-96C5-4E26-AE89-E0699F217A13}|ControlRetenciones\\ControlRetenciones.csproj|C:\\Proyectos\\ControladorRetenciones\\ControlRetenciones\\controlretenciones\\formcolumnas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{64EC2186-96C5-4E26-AE89-E0699F217A13}|ControlRetenciones\\ControlRetenciones.csproj|solutionrelative:controlretenciones\\formcolumnas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
       "AbsoluteMoniker": "D:0:0:{64EC2186-96C5-4E26-AE89-E0699F217A13}|ControlRetenciones\\ControlRetenciones.csproj|c:\\proyectos\\controladorretenciones\\controlretenciones\\controlretenciones\\form1.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -40,21 +40,22 @@
               "RelativeDocumentMoniker": "ControlRetenciones\\FormColumnas.cs",
               "ToolTip": "C:\\Proyectos\\ControladorRetenciones\\ControlRetenciones\\ControlRetenciones\\FormColumnas.cs",
               "RelativeToolTip": "ControlRetenciones\\FormColumnas.cs",
-              "ViewState": "AgIAAOoAAAAAAAAAAAAgwBcAAABGAAAAAAAAAA==",
+              "ViewState": "AgIAADMAAAAAAAAAAAD4v60AAABCAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-09-24T12:51:34.849Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "FormColumnas.cs [Dise\u00F1o]",
               "DocumentMoniker": "C:\\Proyectos\\ControladorRetenciones\\ControlRetenciones\\ControlRetenciones\\FormColumnas.cs",
               "RelativeDocumentMoniker": "ControlRetenciones\\FormColumnas.cs",
               "ToolTip": "C:\\Proyectos\\ControladorRetenciones\\ControlRetenciones\\ControlRetenciones\\FormColumnas.cs [Dise\u00F1o]",
               "RelativeToolTip": "ControlRetenciones\\FormColumnas.cs [Dise\u00F1o]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-24T12:50:08.473Z"
+              "WhenOpened": "2024-09-24T12:50:08.473Z",
+              "EditorCaption": " [Dise\u00F1o]"
             },
             {
               "$type": "Document",
@@ -64,7 +65,7 @@
               "RelativeDocumentMoniker": "ControlRetenciones\\Form1.cs",
               "ToolTip": "C:\\Proyectos\\ControladorRetenciones\\ControlRetenciones\\ControlRetenciones\\Form1.cs",
               "RelativeToolTip": "ControlRetenciones\\Form1.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIEAAAVAAAAAAAAAA==",
+              "ViewState": "AgIAACsAAAAAAAAAAAAAAOsDAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-06-13T13:10:22.144Z",
               "EditorCaption": ""
@@ -79,18 +80,20 @@
               "RelativeToolTip": "ControlRetenciones\\Form1.Designer.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-13T13:10:23.337Z"
+              "WhenOpened": "2024-06-13T13:10:23.337Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 2,
               "Title": "Form1.cs [Dise\u00F1o]",
               "DocumentMoniker": "C:\\Proyectos\\ControladorRetenciones\\ControlRetenciones\\ControlRetenciones\\Form1.cs",
               "RelativeDocumentMoniker": "ControlRetenciones\\Form1.cs",
               "ToolTip": "C:\\Proyectos\\ControladorRetenciones\\ControlRetenciones\\ControlRetenciones\\Form1.cs [Dise\u00F1o]",
               "RelativeToolTip": "ControlRetenciones\\Form1.cs [Dise\u00F1o]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-13T13:10:23.353Z"
+              "WhenOpened": "2024-06-13T13:10:23.353Z",
+              "EditorCaption": " [Dise\u00F1o]"
             }
           ]
         }

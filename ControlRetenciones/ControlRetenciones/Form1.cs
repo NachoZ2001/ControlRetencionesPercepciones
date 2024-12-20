@@ -177,6 +177,7 @@ namespace ControlRetenciones
                 this.columnas.Clear();
             }
 
+            string formatoFecha = "";
             if (comboBoxEsquemas.SelectedItem != null)
             {
                 foreach (Esquema esquema in listaEsquemas)
@@ -187,12 +188,13 @@ namespace ControlRetenciones
                         this.columnas.Add(esquema.IndiceFecha);
                         this.columnas.Add(esquema.IndiceCertificado);
                         this.columnas.Add(esquema.IndiceImporte);
+                        formatoFecha = esquema.Formato;
                     }
                 }
             }
 
             // Realizar el proceso de manera asíncrona
-            await Task.Run(() => CompararArchivos(pathfileArchivo1, pathfileArchivo2));
+            await Task.Run(() => CompararArchivos(pathfileArchivo1, pathfileArchivo2, formatoFecha));
 
             CrearReporteExcel(pathfileReporte, pathfileArchivo1, pathfileArchivo2, columnas[3]);
 
@@ -267,40 +269,61 @@ namespace ControlRetenciones
             return xlsxFilePath;
         }
 
-        private void CompararArchivos(string pathfileArchivo1, string pathfileArchivo2)
+        private void CompararArchivos(string pathfileArchivo1, string pathfileArchivo2, string formatoFecha)
         {
             int indiceColumnaCUIT = columnas[0];
             int indiceColumnaFecha = columnas[1];
             int indiceColumnaCertificado = columnas[2];
             int indiceColumnaImporte = columnas[3];
 
-            // LLamada para comparar por cuit, importe y fecha (mayor exactitud)
-            CompararArchivosPorCuitFechaImporte(pathfileArchivo1, pathfileArchivo2, 0.1, indiceColumnaCUIT, indiceColumnaFecha, indiceColumnaImporte);
-
-            // Segunda llamada para que compare de manera exacta sin tener en cuenta la fecha
-            CompararArchivosPorCuit(pathfileArchivo1, pathfileArchivo2, 0.1, indiceColumnaCUIT, indiceColumnaImporte);
-
-            // Segunda llamada para que compare con una tolerancia de 1 en el importe sin tener en cuenta la fecha
-            CompararArchivosPorCuit(pathfileArchivo1, pathfileArchivo2, 1, indiceColumnaCUIT, indiceColumnaImporte);
-
-            // Tercera y ultima llamada para que compare con una tolerancia de 2 en el importe sin tener en cuenta la fecha
-            CompararArchivosPorCuit(pathfileArchivo1, pathfileArchivo2, 2, indiceColumnaCUIT, indiceColumnaImporte);
-
-            if (indiceColumnaCertificado != 1)
+            if (indiceColumnaCUIT != -1 && indiceColumnaFecha != -1 && indiceColumnaImporte != -1)
             {
-                // Cuarta comparacion para comparar por certificado e importe 
-                CompararArchivosPorCertificado(pathfileArchivo1, pathfileArchivo2, indiceColumnaCertificado, indiceColumnaImporte);
+                // LLamada para comparar por cuit, importe y fecha (mayor exactitud)
+                CompararArchivosPorCuitFechaImporte(pathfileArchivo1, pathfileArchivo2, 0.1, indiceColumnaCUIT, indiceColumnaFecha, indiceColumnaImporte, formatoFecha);
             }
 
-            // Quinta comparacion para comparar por fecha e importe exactos sin tener en cuenta CUIT        
-            CompararArchivosPorFechaEImporte(pathfileArchivo1, pathfileArchivo2, indiceColumnaImporte, indiceColumnaFecha);
+            if (indiceColumnaCUIT != -1 && indiceColumnaImporte != -1)
+            {
+                // Segunda llamada para que compare de manera exacta sin tener en cuenta la fecha
+                CompararArchivosPorCuit(pathfileArchivo1, pathfileArchivo2, 0.1, indiceColumnaCUIT, indiceColumnaImporte, formatoFecha);
+            }
+
+            if (indiceColumnaCUIT != -1 && indiceColumnaImporte != -1)
+            {
+                // Segunda llamada para que compare con una tolerancia de 1 en el importe sin tener en cuenta la fecha
+                CompararArchivosPorCuit(pathfileArchivo1, pathfileArchivo2, 1, indiceColumnaCUIT, indiceColumnaImporte, formatoFecha);
+            }
+
+            if (indiceColumnaCUIT != -1 && indiceColumnaImporte != -1)
+            {
+                // Tercera y ultima llamada para que compare con una tolerancia de 2 en el importe sin tener en cuenta la fecha
+                CompararArchivosPorCuit(pathfileArchivo1, pathfileArchivo2, 2, indiceColumnaCUIT, indiceColumnaImporte, formatoFecha);
+            }
+
+            if (indiceColumnaCertificado != 1 && indiceColumnaImporte != -1)
+            {
+                // Cuarta comparacion para comparar por certificado e importe 
+                CompararArchivosPorCertificado(pathfileArchivo1, pathfileArchivo2, indiceColumnaCertificado, indiceColumnaImporte, formatoFecha);
+            }
+
+            if (indiceColumnaImporte != -1 && indiceColumnaFecha != -1)
+            {
+                // Quinta comparacion para comparar por fecha e importe exactos sin tener en cuenta CUIT        
+                CompararArchivosPorFechaEImporte(pathfileArchivo1, pathfileArchivo2, indiceColumnaImporte, indiceColumnaFecha, formatoFecha);
+            }
+
+            if (indiceColumnaImporte != -1)
+            {
+                // Sexta comparación para comparar solamente por Importee
+                CompararArchivosPorImporte(pathfileArchivo1, pathfileArchivo2, indiceColumnaImporte, formatoFecha);
+            }
 
             //Marcar en rojo los que no coinciden
             MarcarNoCoincidentesEnRojo(pathfileArchivo1, 1, indiceColumnaImporte);
             MarcarNoCoincidentesEnRojo(pathfileArchivo2, 2, IndiceColumnaImporteAFIP);
         }
 
-        private void CompararArchivosPorCuitFechaImporte(string pathfileArchivo1, string pathfileArchivo2, double tolerancia, int indiceColumnaCuitContabilidad, int indiceColumnaFechaContabilidad, int indiceColumnaImporteContabilidad)
+        private void CompararArchivosPorCuitFechaImporte(string pathfileArchivo1, string pathfileArchivo2, double tolerancia, int indiceColumnaCuitContabilidad, int indiceColumnaFechaContabilidad, int indiceColumnaImporteContabilidad, string formatoFecha)
         {
             using (var workbookArchivo1 = new XLWorkbook(pathfileArchivo1))
             {
@@ -327,17 +350,35 @@ namespace ControlRetenciones
                         string valorCeldaNroDoc = worksheetArchivo1.Cell(filaArchivo1, indiceColumnaCuitContabilidad).GetString();
                         string nroDoc = valorCeldaNroDoc;
                         nroDoc = nroDoc.Replace("-", "");
-
-                        string stringFechaArchivo1 = worksheetArchivo1.Cell(filaArchivo1, indiceColumnaFechaContabilidad).GetString();
+                        string stringFechaArchivo1 = "";
                         DateTime fechaArchivo1 = new DateTime();
-                        if (stringFechaArchivo1.Contains("/"))
+
+                        if (formatoFecha.ToLower() == "inglés" || formatoFecha.ToLower() == "inglés")
                         {
-                            fechaArchivo1 = DateTime.Parse(stringFechaArchivo1);
+                            stringFechaArchivo1 = worksheetArchivo1.Cell(filaArchivo1, indiceColumnaFechaContabilidad).GetString();
+                            
+                            if (stringFechaArchivo1.Contains("/"))
+                            {
+                                fechaArchivo1 = DateTime.ParseExact(stringFechaArchivo1, "MM/dd/yyyy", CultureInfo.InvariantCulture);
+                            }
+                            else
+                            {
+                                fechaArchivo1 = worksheetArchivo1.Cell(filaArchivo1, indiceColumnaFechaContabilidad).GetDateTime();
+                            }
                         }
                         else
                         {
-                            fechaArchivo1 = worksheetArchivo1.Cell(filaArchivo1, indiceColumnaFechaContabilidad).GetDateTime();
+                            stringFechaArchivo1 = worksheetArchivo1.Cell(filaArchivo1, indiceColumnaFechaContabilidad).GetString();
+                            if (stringFechaArchivo1.Contains("/"))
+                            {
+                                fechaArchivo1 = DateTime.ParseExact(stringFechaArchivo1, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                            }
+                            else
+                            {
+                                fechaArchivo1 = worksheetArchivo1.Cell(filaArchivo1, indiceColumnaFechaContabilidad).GetDateTime();
+                            }
                         }
+
 
                         XLColor colorArchivo1 = worksheetArchivo1.Cell(filaArchivo1, indiceColumnaImporteContabilidad).Style.Fill.BackgroundColor;
                         if (colorArchivo1 == XLColor.FromArgb(255, 204, 255, 204)) // Verde claro
@@ -398,7 +439,19 @@ namespace ControlRetenciones
                             {
                                 if (comparado == false) // Solo si aún no se ha comparado esta fila
                                 {
-                                    double importeArchivo1 = worksheetArchivo1.Cell(filaArchivo1, indiceColumnaImporteContabilidad).GetValue<double>();
+                                    double importeArchivo1 = 0;
+                                    if (formatoFecha.ToLower() == "inglés" || formatoFecha.ToLower() == "inglés")
+                                    {
+                                        string valorCeldaImporterArchivo1 = worksheetArchivo1.Cell(filaArchivo1, indiceColumnaImporteContabilidad).GetString();
+                                        string valorCeldaImporterArchivo1SinComa = valorCeldaImporterArchivo1.Replace(".", "");
+                                        valorCeldaImporterArchivo1SinComa = valorCeldaImporterArchivo1SinComa.Replace(",", ".");
+                                        importeArchivo1 = double.Parse(valorCeldaImporterArchivo1SinComa, CultureInfo.InvariantCulture);
+                                    }
+                                    else
+                                    {
+                                        importeArchivo1 = worksheetArchivo1.Cell(filaArchivo1, indiceColumnaImporteContabilidad).GetValue<double>();
+                                    }
+
                                     int ban = 0;
 
                                     foreach ((int filaArchivo2, bool comparadoArchivo2, DateTime fechaArchivo2) in filasArchivo2.ToList())
@@ -458,7 +511,7 @@ namespace ControlRetenciones
 
         }
 
-        private void CompararArchivosPorCuit(string pathfileArchivo1, string pathfileArchivo2, double tolerancia, int indiceColumnaCuitContabilidad, int indiceColumnaImporteContabilidad)
+        private void CompararArchivosPorCuit(string pathfileArchivo1, string pathfileArchivo2, double tolerancia, int indiceColumnaCuitContabilidad, int indiceColumnaImporteContabilidad, string formatoFecha)
         {
             using (var workbookArchivo1 = new XLWorkbook(pathfileArchivo1))
             {
@@ -532,7 +585,18 @@ namespace ControlRetenciones
                             {
                                 if (comparado == false) // Solo si aún no se ha comparado esta fila
                                 {
-                                    double importeArchivo1 = worksheetArchivo1.Cell(filaArchivo1, indiceColumnaImporteContabilidad).GetValue<double>();
+                                    double importeArchivo1 = 0;
+                                    if (formatoFecha.ToLower() == "inglés" || formatoFecha.ToLower() == "inglés")
+                                    {
+                                        string valorCeldaImporterArchivo1 = worksheetArchivo1.Cell(filaArchivo1, indiceColumnaImporteContabilidad).GetString();
+                                        string valorCeldaImporterArchivo1SinComa = valorCeldaImporterArchivo1.Replace(".", "");
+                                        valorCeldaImporterArchivo1SinComa = valorCeldaImporterArchivo1SinComa.Replace(",", ".");
+                                        importeArchivo1 = double.Parse(valorCeldaImporterArchivo1SinComa, CultureInfo.InvariantCulture);
+                                    }
+                                    else
+                                    {
+                                        importeArchivo1 = worksheetArchivo1.Cell(filaArchivo1, indiceColumnaImporteContabilidad).GetValue<double>();
+                                    }
 
                                     int ban = 0;
 
@@ -592,7 +656,7 @@ namespace ControlRetenciones
             }
         }
 
-        private void CompararArchivosPorFechaEImporte(string pathfileArchivo1, string pathfileArchivo2, int IndiceColumnaImporteContabilidad, int IndiceColumnaFechaContabilidad)
+        private void CompararArchivosPorFechaEImporte(string pathfileArchivo1, string pathfileArchivo2, int IndiceColumnaImporteContabilidad, int IndiceColumnaFechaContabilidad, string formatoFecha)
         {
             using (var workbookArchivo1 = new XLWorkbook(pathfileArchivo1))
             {
@@ -623,15 +687,33 @@ namespace ControlRetenciones
                             continue; // Saltar filas ya marcadas en verde
                         }
 
-                        string stringFechaArchivo1 = worksheetArchivo1.Cell(filaArchivo1, IndiceColumnaFechaContabilidad).GetString();
+                        string stringFechaArchivo1 = "";
                         DateTime fechaArchivo1 = new DateTime();
-                        if (stringFechaArchivo1.Contains("/"))
+
+                        if (formatoFecha.ToLower() == "inglés" || formatoFecha.ToLower() == "inglés")
                         {
-                            fechaArchivo1 = DateTime.Parse(stringFechaArchivo1);
+                            stringFechaArchivo1 = worksheetArchivo1.Cell(filaArchivo1, IndiceColumnaFechaContabilidad).GetString();
+
+                            if (stringFechaArchivo1.Contains("/"))
+                            {
+                                fechaArchivo1 = DateTime.ParseExact(stringFechaArchivo1, "MM/dd/yyyy", CultureInfo.InvariantCulture);
+                            }
+                            else
+                            {
+                                fechaArchivo1 = worksheetArchivo1.Cell(filaArchivo1, IndiceColumnaFechaContabilidad).GetDateTime();
+                            }
                         }
                         else
                         {
-                            fechaArchivo1 = worksheetArchivo1.Cell(filaArchivo1, IndiceColumnaFechaContabilidad).GetDateTime();
+                            stringFechaArchivo1 = worksheetArchivo1.Cell(filaArchivo1, IndiceColumnaFechaContabilidad).GetString();
+                            if (stringFechaArchivo1.Contains("/"))
+                            {
+                                fechaArchivo1 = DateTime.ParseExact(stringFechaArchivo1, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                            }
+                            else
+                            {
+                                fechaArchivo1 = worksheetArchivo1.Cell(filaArchivo1, IndiceColumnaFechaContabilidad).GetDateTime();
+                            }
                         }
 
                         if (diccionarioFechaArchivo1.ContainsKey(fechaArchivo1))
@@ -680,8 +762,18 @@ namespace ControlRetenciones
                     {
                         foreach (int filaArchivo1 in diccionarioFechaArchivo1[fechaArchivo1])
                         {
-                            double importeArchivo1 = worksheetArchivo1.Cell(filaArchivo1, IndiceColumnaImporteContabilidad).GetValue<double>();
-
+                            double importeArchivo1 = 0;
+                            if (formatoFecha.ToLower() == "inglés" || formatoFecha.ToLower() == "inglés")
+                            {
+                                string valorCeldaImporterArchivo1 = worksheetArchivo1.Cell(filaArchivo1, IndiceColumnaImporteContabilidad).GetString();
+                                string valorCeldaImporterArchivo1SinComa = valorCeldaImporterArchivo1.Replace(".", "");
+                                valorCeldaImporterArchivo1SinComa = valorCeldaImporterArchivo1SinComa.Replace(",", ".");
+                                importeArchivo1 = double.Parse(valorCeldaImporterArchivo1SinComa, CultureInfo.InvariantCulture);
+                            }
+                            else
+                            {
+                                importeArchivo1 = worksheetArchivo1.Cell(filaArchivo1, IndiceColumnaImporteContabilidad).GetValue<double>();
+                            }
                             if (diccionarioFechaArchivo2.TryGetValue(fechaArchivo1, out List<int> filasFechaArchivo2))
                             {
                                 foreach (int filaArchivo2 in filasFechaArchivo2.ToList())
@@ -716,7 +808,7 @@ namespace ControlRetenciones
             }
         }
 
-        private void CompararArchivosPorCertificado(string pathfileArchivo1, string pathfileArchivo2, int IndiceColumnaCertificadoContabilidad, int IndiceColumnaImporteContabilidad)
+        private void CompararArchivosPorCertificado(string pathfileArchivo1, string pathfileArchivo2, int IndiceColumnaCertificadoContabilidad, int IndiceColumnaImporteContabilidad, string formatoFecha)
         {
             if (IndiceColumnaCertificadoContabilidad != -1)
             {
@@ -786,8 +878,18 @@ namespace ControlRetenciones
                         {
                             foreach (int filaArchivo1 in diccionarioCertificadoNoMarcadoArchivo1[certificadoArchivo1].ToList())
                             {
-                                double importeArchivo1 = worksheetArchivo1.Cell(filaArchivo1, IndiceColumnaImporteContabilidad).GetValue<double>();
-
+                                double importeArchivo1 = 0;
+                                if (formatoFecha.ToLower() == "inglés" || formatoFecha.ToLower() == "inglés")
+                                {
+                                    string valorCeldaImporterArchivo1 = worksheetArchivo1.Cell(filaArchivo1, IndiceColumnaImporteContabilidad).GetString();
+                                    string valorCeldaImporterArchivo1SinComa = valorCeldaImporterArchivo1.Replace(".", "");
+                                    valorCeldaImporterArchivo1SinComa = valorCeldaImporterArchivo1SinComa.Replace(",", ".");
+                                    importeArchivo1 = double.Parse(valorCeldaImporterArchivo1SinComa, CultureInfo.InvariantCulture);
+                                }
+                                else
+                                {
+                                    importeArchivo1 = worksheetArchivo1.Cell(filaArchivo1, IndiceColumnaImporteContabilidad).GetValue<double>();
+                                }
                                 int ban = 0;
 
                                 if (diccionarioCertificadoNoMarcadoArchivo2.TryGetValue(certificadoArchivo1, out List<int> filasCertificadoArchivo2))
@@ -898,6 +1000,75 @@ namespace ControlRetenciones
             }
         }
 
+        private void CompararArchivosPorImporte(string pathfileArchivo1, string pathfileArchivo2, int indiceColumnaImporteContabilidad, string formatoFecha)
+        {
+            using (var workbookArchivo1 = new XLWorkbook(pathfileArchivo1))
+            {
+                using (var workbookArchivo2 = new XLWorkbook(pathfileArchivo2))
+                {
+                    var worksheetArchivo1 = workbookArchivo1.Worksheet(1);
+                    var rowsArchivo1 = worksheetArchivo1.RowsUsed();
+
+                    var worksheetArchivo2 = workbookArchivo2.Worksheet(1);
+                    var rowsArchivo2 = worksheetArchivo2.RowsUsed();
+
+                    int ultimaColumnaContabilidad = worksheetArchivo1.LastColumnUsed().ColumnNumber();
+                    int ultimaColumnaAFIP = worksheetArchivo2.LastColumnUsed().ColumnNumber();
+
+                    int indiceColor = 0;
+
+                    foreach (var row in rowsArchivo1)
+                    {
+                        if (row.RowNumber() == 1)
+                        {
+                            continue;
+                        }
+                        double importeArchivo1 = 0;
+                        if (formatoFecha.ToLower() == "inglés" || formatoFecha.ToLower() == "inglés")
+                        {
+                            string valorCeldaImporterArchivo1 = worksheetArchivo1.Cell(row.RowNumber(), indiceColumnaImporteContabilidad).GetString();
+                            string valorCeldaImporterArchivo1SinComa = valorCeldaImporterArchivo1.Replace(".", "");
+                            valorCeldaImporterArchivo1SinComa = valorCeldaImporterArchivo1SinComa.Replace(",", ".");
+                            importeArchivo1 = double.Parse(valorCeldaImporterArchivo1SinComa, CultureInfo.InvariantCulture);
+                        }
+                        else
+                        {
+                            importeArchivo1 = worksheetArchivo1.Cell(row.RowNumber(), indiceColumnaImporteContabilidad).GetValue<double>();
+                        }
+
+                        foreach (var row2 in rowsArchivo2)
+                        {
+                            if (row2.RowNumber() == 1)
+                            {
+                                continue;
+                            }
+
+                            string valorCeldaImporterArchivo2 = worksheetArchivo2.Cell(row2.RowNumber(), IndiceColumnaImporteAFIP).GetString();
+                            string valorCeldaImporterArchivo2SinComa = valorCeldaImporterArchivo2.Replace(",", ".");
+                            double importeArchivo2 = double.Parse(valorCeldaImporterArchivo2SinComa, CultureInfo.InvariantCulture);
+                            // Comparar por importe
+                            if (Math.Abs(importeArchivo1 - importeArchivo2) <= 1)
+                            {
+                                // Obtén el siguiente color de la lista para marcar en verde
+                                XLColor colorVerde = coloresCoincide[indiceColor % coloresCoincide.Count];
+
+                                worksheetArchivo1.Cell(row.RowNumber(), indiceColumnaImporteContabilidad).Style.Fill.BackgroundColor = colorVerde;
+                                worksheetArchivo2.Cell(row2.RowNumber(), IndiceColumnaImporteAFIP).Style.Fill.BackgroundColor = colorVerde;
+
+                                worksheetArchivo1.Cell(row.RowNumber(), ultimaColumnaContabilidad).Value = row2.RowNumber();
+                                worksheetArchivo2.Cell(row2.RowNumber(), ultimaColumnaAFIP).Value = row.RowNumber();
+
+                                indiceColor++; // Incrementar el índice de color
+
+                                break; // Salir del bucle interno después de encontrar una coincidencia
+                            }
+                        }
+                    }
+                    workbookArchivo1.SaveAs(pathfileArchivo1);
+                    workbookArchivo2.SaveAs(pathfileArchivo2);
+                }
+            }
+        }
         private void CrearReporteExcel(string rutaArchivo, string pathArchivoContabilidad, string pathArchivoAFIP, int IndiceColumnaImporteContabilidad)
         {
             // Verificar si la ruta del archivo es válida
@@ -1208,7 +1379,7 @@ namespace ControlRetenciones
             {
                 if (comboBoxEsquemas.SelectedItem.ToString() == esquema.Nombre)
                 {
-                    columnasForm.cargarDatos(esquema.IndiceCuit, esquema.IndiceFecha, esquema.IndiceCertificado, esquema.IndiceImporte, esquema.Nombre);
+                    columnasForm.cargarDatos(esquema.IndiceCuit, esquema.IndiceFecha, esquema.IndiceCertificado, esquema.IndiceImporte, esquema.Nombre, esquema.Formato);
                 }
             }
 
@@ -1304,6 +1475,8 @@ namespace ControlRetenciones
         [JsonProperty("IndiceColumnaImporte")]
         public int IndiceImporte { get; set; }
 
+        [JsonProperty("FormatoFecha")]
+        public string Formato { get; set; }
 
         public Esquema() { }
 
