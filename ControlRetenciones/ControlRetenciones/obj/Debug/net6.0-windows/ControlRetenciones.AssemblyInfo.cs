@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ControlRetenciones")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d3e9ebc73815f96d022eeb9a348804853a841462")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+67324a074c7425ef0a77ea8e27fae632591187d0")]
 [assembly: System.Reflection.AssemblyProductAttribute("ControlRetenciones")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ControlRetenciones")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
