@@ -782,7 +782,7 @@ namespace ControlRetenciones
                                     double importeArchivo2 = worksheetArchivo2.Cell(filaArchivo2, IndiceColumnaImporteAFIP).GetValue<double>();
 
                                     // Comparar por importe
-                                    if (Math.Abs(importeArchivo1 - importeArchivo2) <= 10)
+                                    if (Math.Abs(importeArchivo1 - importeArchivo2) <= 1)
                                     {
                                         // Obtén el siguiente color de la lista para marcar en verde
                                         XLColor colorVerde = coloresCoincide[indiceColor % coloresCoincide.Count];
@@ -900,8 +900,8 @@ namespace ControlRetenciones
                                         string valorCeldaImporterArchivo2SinComa = valorCeldaImporterArchivo2.Replace(",", ".");
                                         double importeArchivo2 = double.Parse(valorCeldaImporterArchivo2SinComa, CultureInfo.InvariantCulture);
 
-                                        // Comparar con una tolerancia de ±10
-                                        if (Math.Abs(importeArchivo1 - importeArchivo2) <= 10)
+                                        // Comparar con una tolerancia de ±1
+                                        if (Math.Abs(importeArchivo1 - importeArchivo2) <= 1)
                                         {
                                             // Obtén el siguiente color de la lista
                                             XLColor color = coloresCoincide[indiceColor % coloresCoincide.Count];
